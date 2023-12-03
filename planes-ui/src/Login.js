@@ -91,6 +91,12 @@ function Login() {
 
   };
 
+  const [userType, setUserType] = useState(''); // Add state for the selected user type
+
+  // Handle user type selection
+  const handleUserTypeChange = (event) => {
+    setUserType(event.target.value);
+  };
 
   return (
     <div className="container-fluid">
@@ -134,45 +140,45 @@ function Login() {
             </button>
           </div>
           {/* Google OAuth button */}
-          <div>
-            <div id="sign-in-container" className="mt-3">
-              <div
-                id="g_id_onload"
-                data-client_id="951325617358-20v7s22jr35ahu01qdoeg0onh7hagu37.apps.googleusercontent.com"
-                data-context="signin"
-                data-ux_mode="popup"
-                data-callback={CredentialHandling}
-                data-auto_prompt="false"
-              ></div>
 
-              <div className="d-flex justify-content-center align-items-center">
-                <div
-                  class="g_id_signin"
-                  data-type="standard"
-                  data-shape="pill"
-                  data-theme="filled_black"
-                  data-text="continue_with"
-                  data-size="large"
-                  data-width="200"
-                  data-logo_alignment="center"
-                ></div>
-              </div>
-            </div>
-            {/* Padding */}
-            <div className="border-top my-3 mt-4 mb-4"></div>
-            {/* Sign up button, clears login fields on click with clearLoginFields()
-                    found in Login_Signup.js */}
-            <div className="d-grid gap-2 col-6 mx-auto">
-              <button
-                onClick={() => { clearLoginFields(); toggleForm(); }}
-                id="createAccountBtn"
-                type="button"
-                className="btn btn-success fw-bolder"
-              >
-                Create New Account
-              </button>
+          <div id="sign-in-container" className="mt-3">
+            <div
+              id="g_id_onload"
+              data-client_id="951325617358-20v7s22jr35ahu01qdoeg0onh7hagu37.apps.googleusercontent.com"
+              data-context="signin"
+              data-ux_mode="popup"
+              data-callback={CredentialHandling}
+              data-auto_prompt="false"
+            ></div>
+
+            <div className="d-flex justify-content-center align-items-center">
+              <div
+                class="g_id_signin"
+                data-type="standard"
+                data-shape="pill"
+                data-theme="filled_black"
+                data-text="continue_with"
+                data-size="large"
+                data-width="200"
+                data-logo_alignment="center"
+              ></div>
             </div>
           </div>
+          {/* Padding */}
+          <div className="border-top my-3 mt-4 mb-4"></div>
+          {/* Sign up button, clears login fields on click with clearLoginFields()
+                    found in Login_Signup.js */}
+          <div className="d-grid gap-2 col-6 mx-auto">
+            <button
+              onClick={() => { clearLoginFields(); toggleForm(); }}
+              id="createAccountBtn"
+              type="button"
+              className="btn btn-success fw-bolder"
+            >
+              Create New Account
+            </button>
+          </div>
+
         </form>
 
         {/* Sign up form, default as hidden until toggeled */}
@@ -197,6 +203,21 @@ function Login() {
               value={signupEmail}
               onChange={(e) => setSignupEmail(e.target.value)}
             />
+          </div>
+          {/* Dropdown for user selection */}
+          <div className="mb-3">
+            <label className="visually-hidden">User Type</label>
+            <select
+              id="userType"
+              className="form-control"
+              value={userType}
+              onChange={handleUserTypeChange}
+            >
+              <option value="" disabled>Select Account Type</option>
+              <option value="Student">Student</option>
+              <option value="Member">Member</option>
+              <option value="Instructor">Instructor</option>
+            </select>
           </div>
           {/* Sign up button */}
           <div className="d-grid gap-2">
