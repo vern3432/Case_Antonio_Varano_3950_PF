@@ -1,4 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { GoogleLogin } from 'react-google-login';
+import { GoogleButton } from 'react-google-button';
+import { gapi } from 'gapi-script';
+import background from "./cessna.jpg";
 
 function Login() {
 
@@ -7,11 +11,19 @@ function Login() {
   const [emailAddress, setEmailAddress] = useState('');
   const [signupEmail, setSignupEmail] = useState('');
 
+  const client_id = "951325617358-20v7s22jr35ahu01qdoeg0onh7hagu37.apps.googleusercontent.com"
   const toggleForm = () => {
     setShowLoginForm(!showLoginForm);
     setShowSignupForm(!showSignupForm);
   };
 
+  const onSuccess = (res) => {
+    console.log("Login worked", res.profileObj);
+  }
+
+  const onFailure = (res) => {
+    console.log("Login failed");
+  }
 
   // Regex for email checking
   const validateEmail = (email) => {
@@ -40,46 +52,6 @@ function Login() {
     setEmailAddress('');
   };
 
-  // Handle Google's open auth jwt token -> Navigate to new page on successful google login
-  function decodeJwtResponse(data) {
-    var jwtData = parseJwt(data);
-    // Check if the JWT data is valid
-    if (jwtData && jwtData.email_verified === true) {
-      // Redirect to a different user profile home page
-      // fetch(`/initUser?email=${jwtData.email}`)
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     window.location.href = "/UserProfile/index.html";
-      //   })
-      //   .catch((error) => {
-      //     console.error("User initialization error", error);
-      //     alert("User initialization error");
-      //   });
-    } else {
-      alert("Invalid JWT");
-    }
-  }
-
-  const CredentialHandling = (response) => {
-    decodeJwtResponse(response.credential);
-  };
-
-  // Decode (parse) the received JWT
-  function parseJwt(token) {
-    var base64Url = token.split(".")[1];
-    var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-    var jsonPayload = decodeURIComponent(
-      window
-        .atob(base64)
-        .split("")
-        .map(function (c) {
-          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-        })
-        .join("")
-    );
-
-    return JSON.parse(jsonPayload);
-  }
 
   // Handle login form submission -> Navigate to new page on successfull login
   const decodeLoginFormResponse = () => {
@@ -98,8 +70,24 @@ function Login() {
     setUserType(event.target.value);
   };
 
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId: client_id,
+        scope: ""
+      })
+    };
+    gapi.load('client:auth2', start)
+  })
+
   return (
-    <div className="container-fluid">
+    <div className="container-fluid" style={{
+      backgroundImage: `url(${background})`, // Replace with the path to your image
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      minHeight: '100vh'
+    }}>
       <div
         className="container d-flex justify-content-center align-items-center"
         style={{ minHeight: '100vh' }}
@@ -107,7 +95,7 @@ function Login() {
         {/* Login Form, default display */}
         <form
           id="loginForm"
-          className={`rounded p-5 bg-light col-lg-6 col-md-9 col-sm-12  ${showLoginForm ? '' : 'd-none'}`}
+          className={`opacity-75 rounded p-5 bg-light col-lg-6 col-md-9 col-sm-12  ${showLoginForm ? '' : 'd-none'}`}
         >
           <div className="text-center mb-4 custom-font-size">
             <h1> Log In </h1>
@@ -140,29 +128,24 @@ function Login() {
             </button>
           </div>
           {/* Google OAuth button */}
+          <div className="mt-3 d-flex align-items-center justify-content-center">
+            <h6>
+              OR
+            </h6>
+          </div>
+          <div className="mt-3 d-flex align-items-center justify-content-center">
+            <GoogleLogin
+              icon={false}
+              clientId={client_id}
+              render={renderProps => (
+                <GoogleButton onClick={renderProps.onClick} style={{ color: 'black', backgroundColor: "white", width: '18rem', borderRadius: '3px' }} disabled={renderProps.disabled}>Sign in with Google</GoogleButton>
+              )}
+              onSuccess={onSuccess}
+              onFailure={onFailure}
+              cookiePolicy={'single_host_origin'}
+              isSignedIn={true}
 
-          <div id="sign-in-container" className="mt-3">
-            <div
-              id="g_id_onload"
-              data-client_id="951325617358-20v7s22jr35ahu01qdoeg0onh7hagu37.apps.googleusercontent.com"
-              data-context="signin"
-              data-ux_mode="popup"
-              data-callback={CredentialHandling}
-              data-auto_prompt="false"
-            ></div>
-
-            <div className="d-flex justify-content-center align-items-center">
-              <div
-                class="g_id_signin"
-                data-type="standard"
-                data-shape="pill"
-                data-theme="filled_black"
-                data-text="continue_with"
-                data-size="large"
-                data-width="200"
-                data-logo_alignment="center"
-              ></div>
-            </div>
+            />
           </div>
           {/* Padding */}
           <div className="border-top my-3 mt-4 mb-4"></div>
@@ -184,7 +167,7 @@ function Login() {
         {/* Sign up form, default as hidden until toggeled */}
         <form
           id="signupForm"
-          className={`rounded p-5 bg-light col-lg-6 col-md-9 col-sm-12 ${showSignupForm ? '' : 'd-none'}`}
+          className={`opacity-75 rounded p-5 bg-light col-lg-6 col-md-9 col-sm-12 ${showSignupForm ? '' : 'd-none'}`}
         >
           <div className="text-center mb-4 custom-font-size">
             <h1> Sign Up </h1>
