@@ -19,6 +19,16 @@ function Login() {
 
   const onSuccess = (res) => {
     console.log("Login worked", res.profileObj);
+    // Extract name from the response
+    const name = res.profileObj.name;
+    console.log("User's Name:", name);
+
+    const expirationTime = 3600; // 1 hour
+    const expirationDate = new Date(Date.now() + expirationTime * 1000).toUTCString();
+
+    document.cookie = `userName=${name}; expires=${expirationDate}; path=/`;
+
+    console.log("cookie saved");
   }
 
   const onFailure = (res) => {
@@ -199,7 +209,6 @@ function Login() {
               <option value="" disabled>Select Account Type</option>
               <option value="Student">Student</option>
               <option value="Member">Member</option>
-              <option value="Instructor">Instructor</option>
             </select>
           </div>
           {/* Sign up button */}
