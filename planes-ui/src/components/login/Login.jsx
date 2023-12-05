@@ -3,14 +3,14 @@ import { GoogleLogin } from 'react-google-login';
 import { GoogleButton } from 'react-google-button';
 import { gapi } from 'gapi-script';
 import background from "./cessna.jpg";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-
   const [showLoginForm, setShowLoginForm] = useState(true);
   const [showSignupForm, setShowSignupForm] = useState(false);
   const [emailAddress, setEmailAddress] = useState('');
   const [signupEmail, setSignupEmail] = useState('');
-
+  const navigate = useNavigate();
   const client_id = "951325617358-20v7s22jr35ahu01qdoeg0onh7hagu37.apps.googleusercontent.com"
   const toggleForm = () => {
     setShowLoginForm(!showLoginForm);
@@ -18,7 +18,8 @@ function Login() {
   };
 
   const onSuccess = (res) => {
-    console.log("Login worked", res.profileObj);
+     navigate("/reservations");
+    console.log(res);
   }
 
   const onFailure = (res) => {
