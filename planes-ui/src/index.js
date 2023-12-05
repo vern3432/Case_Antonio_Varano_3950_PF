@@ -1,10 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import Login from "./Login";
-import reportWebVitals from "./reportWebVitals";
-
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import reportWebVitals from "./reportWebVitals";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import Login from "./components/login/Login";
+import Reservations from "./components/reservations/Reservations";
+import Contact from "./components/contact/Contact";
+import Schedule from "./components/schedule/Schedule";
+import About from "./components/about/About";
+import Navigation from "./components/navigation/Navigation";
+import "./index.css";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -12,19 +19,39 @@ const router = createBrowserRouter([
   },
   {
     path: "/reservations",
-    element: <div>reservations</div>,
+    element: (
+      <>
+        <Navigation />
+        <Reservations />
+      </>
+    ),
   },
   {
     path: "/schedule",
-    element: <div>schedule</div>,
+    element: (
+      <>
+        <Navigation />
+        <Schedule />
+      </>
+    ),
   },
   {
     path: "/about",
-    element: <div>about</div>,
+    element: (
+      <>
+        <Navigation />
+        <About />
+      </>
+    ),
   },
   {
     path: "/contact",
-    element: <div>contact</div>,
+    element: (
+      <>
+        <Navigation />
+        <Contact />
+      </>
+    ),
   },
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
