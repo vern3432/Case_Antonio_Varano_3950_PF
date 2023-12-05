@@ -1,0 +1,82 @@
+Plane Info: 
+ 1.
+ - Year: 1988 
+ - Make: Piper
+ - Model: PA-28-161
+ - TailNumber: N8092H
+ - Img: warrior1.jpg
+
+ 2. 
+  - Year: 1990
+  - Make: Piper
+  - Model: PA-28-161
+  - TailNumber: N8137Q
+  - Img: warrior2.jpg
+ 3. 
+  - Year: 2020
+  - Make: Cirrus
+  - Model: SR22
+  - TailNumber: N66VG
+  - Img: sr22.jpg
+ 4. 
+  - Year: 2020
+  - Make: Cirrus
+  - Model: SR22
+  - TailNumber: N66VG
+  - Img: sr22.jpg
+
+ 5. 
+  - Year: 2005
+  - Make: Cessna
+  - Model: 182
+  - TailNumber: N62188
+  - Img: cessna182.jpg
+
+ 6. 
+  - Year: 2018
+  - Make: Piper
+  - Model: PA-44 Seminole
+  - TailNumber: N805AT
+  - Img: piper_seminole.jpg
+ 7. 
+  - Year: 2018
+  - Make: Piper
+  - Model: PA-44 Seminole
+  - TailNumber: N805AT
+  - Img: piper_seminole.jpg
+ 8. 
+  - Year: 2015
+  - Make: Diamond
+  - Model: DA40 XLS
+  - TailNumber: N6950S
+  - Img: piper_seminole.jpg
+ 9. 
+  - Year: 1982
+  - Make: Beechcraft
+  - Model: Bonanza
+  - TailNumber: N5921C
+  - Img: bonanza.jpg
+ 9. 
+  - Year: 1982
+  - Make: Beechcraft
+  - Model: Bonanza
+  - TailNumber: N5921C
+  - Img: bonanza.jpg
+ 10. 
+  - Year: 2010
+  - Make: Beechcraft
+  - Model: King Air
+  - TailNumber: N512ME
+  - Img: kingAir.jpg
+ 11. 
+  - Year: 2010
+  - Make: Beechcraft
+  - Model: King Air
+  - TailNumber: N512ME
+  - Img: kingAir.jpg
+ 12. 
+  - Year: 1974
+  - Make: Piper
+  - Model: Archer
+  - TailNumber: N72DM
+  - Img: archer.jpg
