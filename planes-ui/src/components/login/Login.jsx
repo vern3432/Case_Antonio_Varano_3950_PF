@@ -12,14 +12,26 @@ function Login() {
   const [signupEmail, setSignupEmail] = useState('');
   const navigate = useNavigate();
   const client_id = "951325617358-20v7s22jr35ahu01qdoeg0onh7hagu37.apps.googleusercontent.com"
+  
   const toggleForm = () => {
     setShowLoginForm(!showLoginForm);
     setShowSignupForm(!showSignupForm);
   };
 
   const onSuccess = (res) => {
-     navigate("/reservations");
-    console.log(res);
+     
+    // Extract name from the response
+    const name = res.profileObj.name;
+    console.log("User's Name:", name);
+
+    const expirationTime = 3600; // 1 hour
+    const expirationDate = new Date(Date.now() + expirationTime * 1000).toUTCString();
+
+    document.cookie = `userName=${name}; expires=${expirationDate}; path=/`;
+
+    console.log("cookie saved");
+
+    navigate("/reservations");
   }
 
   const onFailure = (res) => {
@@ -200,7 +212,6 @@ function Login() {
               <option value="" disabled>Select Account Type</option>
               <option value="Student">Student</option>
               <option value="Member">Member</option>
-              <option value="Instructor">Instructor</option>
             </select>
           </div>
           {/* Sign up button */}
