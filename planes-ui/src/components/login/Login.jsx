@@ -18,7 +18,7 @@ function Login() {
     setShowSignupForm(!showSignupForm);
   };
 
-  const onSuccess = (res) => {
+  const onSuccess = async (res) => {
 
     // Extract name from the response
     const name = res.profileObj.name;
@@ -26,22 +26,37 @@ function Login() {
     // Extract email from the response
     const email = res.profileObj.email;
 
-    // Set cookie for name
-    const expirationTime = 3600; // 1 hour
-    const expirationDate = new Date(Date.now() + expirationTime * 1000).toUTCString();
-    document.cookie = `userName=${name}; expires=${expirationDate}; path=/`;
-    console.log("google oauth cookie saved");
 
-    fetch(`/initUser?email=${email}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Response from initUser endpoint: ", data);
-        navigate("/reservations");
-      })
-      .catch((error) => {
-        console.error("User initialization error", error);
-        alert("Email not registered");
+    try {
+      const response = await fetch('http://localhost:3001/existingUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+        }),
       });
+
+      const data = await response.json();
+
+      console.log(data);
+
+      // Handle the response here, depending on the server's response
+      if (response.ok) {
+        console.log('User successfully created');
+        // Set cookie for name
+        const expirationTime = 3600; // 1 hour
+        const expirationDate = new Date(Date.now() + expirationTime * 1000).toUTCString();
+        document.cookie = `userName=${email}; expires=${expirationDate}; path=/`;
+        console.log("new user cookie saved");
+        navigate("/reservations");
+      } else {
+        console.error('Error creating user:', data.error);
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
   }
 
   const onFailure = (res) => {

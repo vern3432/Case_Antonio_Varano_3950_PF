@@ -15,22 +15,24 @@ app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
 
-// Handle user google login
+// Handle new signup
 app.post("/existingUser", (req, res) => {
-
     const email = req.body.email; // Get the user's email from the request query
     console.log(email);
+
+    const viewPlaneData = db.prepare("SELECT * FROM user");
+    console.log("\nPlane Table:");
+    console.log(viewPlaneData.all());
 
     // Check if the email exists in the user table
     const checkEmailQuery = db.prepare("SELECT COUNT(*) as count FROM user WHERE email = ?");
     const result = checkEmailQuery.get(email);
 
     if (result.count > 0) {
-        // If the email exists, return true
-        res.json({ exists: true });
+        res.json({ success: true });
     } else {
-        // If the email doesn't exist, return an error
-        res.status(404).json({ error: "Email not found" });
+        // If the email exists, return false
+        res.status(404).json({ error: "Email not registered" });
     }
 });
 
