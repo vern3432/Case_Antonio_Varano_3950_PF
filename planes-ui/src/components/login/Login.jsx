@@ -12,14 +12,14 @@ function Login() {
   const [signupEmail, setSignupEmail] = useState('');
   const navigate = useNavigate();
   const client_id = "951325617358-20v7s22jr35ahu01qdoeg0onh7hagu37.apps.googleusercontent.com"
-  
+
   const toggleForm = () => {
     setShowLoginForm(!showLoginForm);
     setShowSignupForm(!showSignupForm);
   };
 
   const onSuccess = (res) => {
-     
+
     // Extract name from the response
     const name = res.profileObj.name;
     console.log("User's Name:", name);
@@ -30,7 +30,7 @@ function Login() {
     const expirationTime = 3600; // 1 hour
     const expirationDate = new Date(Date.now() + expirationTime * 1000).toUTCString();
     document.cookie = `userName=${name}; expires=${expirationDate}; path=/`;
-    console.log("cookie saved");
+    console.log("google oauth cookie saved");
 
     fetch(`/initUser?email=${email}`)
       .then((response) => response.json())
@@ -40,7 +40,7 @@ function Login() {
       })
       .catch((error) => {
         console.error("User initialization error", error);
-        alert("Email already exists");
+        alert("Email not registered");
       });
   }
 
@@ -82,9 +82,45 @@ function Login() {
   };
 
   // Handle sign up form submission -> Navigate to new page on successful sign up
-  const decodeSignUpResponse = () => {
+  const decodeSignUpResponse = async () => {
+    console.log("INSIDE SIGNUP");
+    console.log(signupEmail);
+    console.log(userType);
 
+    try {
+      const response = await fetch('http://localhost:3001/newUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: signupEmail,
+          user_type: userType,
+        }),
+      });
+
+      const data = await response.json();
+
+      console.log(data);
+
+      // Handle the response here, depending on the server's response
+      if (response.ok) {
+        console.log('User successfully created');
+        // Set cookie for name
+        const expirationTime = 3600; // 1 hour
+        const expirationDate = new Date(Date.now() + expirationTime * 1000).toUTCString();
+        document.cookie = `userName=${signupEmail}; expires=${expirationDate}; path=/`;
+        console.log("new user cookie saved");
+        navigate("/reservations");
+      } else {
+        console.error('Error creating user:', data.error);
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
   };
+
+
 
   const [userType, setUserType] = useState(''); // Add state for the selected user type
 

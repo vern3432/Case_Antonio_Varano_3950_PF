@@ -47,3 +47,7 @@ db.exec(createTablesQuery);
 const viewPlaneData = db.prepare("SELECT * FROM plane");
 console.log("\nPlane Table:");
 console.log(viewPlaneData.all());
+
+const viewUserData = db.prepare("SELECT * FROM user");
+console.log("\nUser Table:");
+console.log(viewUserData.all());
