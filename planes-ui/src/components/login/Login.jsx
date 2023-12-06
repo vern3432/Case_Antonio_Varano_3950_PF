@@ -23,19 +23,29 @@ function Login() {
     // Extract name from the response
     const name = res.profileObj.name;
     console.log("User's Name:", name);
+    // Extract email from the response
+    const email = res.profileObj.email;
 
+    // Set cookie for name
     const expirationTime = 3600; // 1 hour
     const expirationDate = new Date(Date.now() + expirationTime * 1000).toUTCString();
-
     document.cookie = `userName=${name}; expires=${expirationDate}; path=/`;
-
     console.log("cookie saved");
 
-    navigate("/reservations");
+    fetch(`/initUser?email=${email}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Response from initUser endpoint: ", data);
+        navigate("/reservations");
+      })
+      .catch((error) => {
+        console.error("User initialization error", error);
+        alert("Email already exists");
+      });
   }
 
   const onFailure = (res) => {
-    console.log("Login failed");
+    console.log("Google authentication failed. If you believe this is an error, contact the development team.");
   }
 
   // Regex for email checking
