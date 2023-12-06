@@ -52,7 +52,7 @@ function Login() {
         console.log("new user cookie saved");
         navigate("/reservations");
       } else {
-        console.error('Error creating user:', data.error);
+        alert("Email not registered");
       }
     } catch (error) {
       console.error('Error:', error.message);
@@ -92,8 +92,36 @@ function Login() {
 
 
   // Handle login form submission -> Navigate to new page on successfull login
-  const decodeLoginFormResponse = () => {
+  const decodeLoginFormResponse = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/existingUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: emailAddress,
+        }),
+      });
 
+      const data = await response.json();
+
+      console.log(data);
+      // Handle the response here, depending on the server's response
+      if (response.ok) {
+        console.log('User successfully created');
+        // Set cookie for name
+        const expirationTime = 3600; // 1 hour
+        const expirationDate = new Date(Date.now() + expirationTime * 1000).toUTCString();
+        document.cookie = `userName=${emailAddress}; expires=${expirationDate}; path=/`;
+        console.log("new user cookie saved");
+        navigate("/reservations");
+      } else {
+        alert("Email not registered");
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
   };
 
   // Handle sign up form submission -> Navigate to new page on successful sign up

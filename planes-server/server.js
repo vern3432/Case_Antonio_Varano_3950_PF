@@ -15,7 +15,7 @@ app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
 
-// Handle new signup
+// Handle google oauth and login form
 app.post("/existingUser", (req, res) => {
     const email = req.body.email; // Get the user's email from the request query
     console.log(email);
