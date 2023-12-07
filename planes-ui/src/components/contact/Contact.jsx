@@ -8,7 +8,7 @@ function validateForm() {
     document.getElementById("txtEmail").value
   );
 
-  if (isValidEmail == false) {
+  if (isValidEmail === false) {
     document.getElementById("lblError").innerHTML = "Enter valid email Address";
     return false;
   } else {
@@ -17,77 +17,70 @@ function validateForm() {
   }
 }
 
-import React, { useState } from 'react';
+// Contact.jsx
 
-const EmailForm = () => {
-  const [formData, setFormData] = useState({
-    userName: '',
-    userEmail: '',
-    message: '',
-    subject: '',
-  });
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+const Contact = () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    // Get form values
+    const name = event.target.elements.name.value;
+    const email = event.target.elements.email.value;
+    const subject = event.target.elements.subject.value;
+    const content = event.target.elements.content.value;
+
+    // Prepare data in JSON format
+    const data = {
+      name,
+      email,
+      subject,
+      content,
+    };
 
     try {
-      const response = await fetch('http://localhost:3001/send-email', {
+      // Send POST request using fetch
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(data),
       });
 
-      const result = await response.json();
-
-      if (result.success) {
-        console.log('Email sent successfully');
-        // Handle success (e.g., show a success message to the user)
+      // Handle response as needed
+      if (response.ok) {
+        // Request was successful
+        console.log('Message sent successfully!');
       } else {
-        console.error('Failed to send email');
-        // Handle failure (e.g., show an error message to the user)
+        // Request failed
+        console.error('Failed to send message');
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error sending message:', error);
     }
   };
 
   return (
     <div>
-      <h2>Email Form</h2>
+      <h2>Contact Us</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input type="text" name="userName" value={formData.userName} onChange={handleChange} />
-        </label>
-        <br />
-        <label>
-          Email:
-          <input type="email" name="userEmail" value={formData.userEmail} onChange={handleChange} />
-        </label>
-        <br />
-        <label>
-          Subject:
-          <input type="text" name="subject" value={formData.subject} onChange={handleChange} />
-        </label>
-        <br />
-        <label>
-          Message:
-          <textarea name="message" value={formData.message} onChange={handleChange} />
-        </label>
-        <br />
-        <button type="submit">Send Email</button>
+        <label htmlFor="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+
+        <label htmlFor="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+
+        <label htmlFor="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required />
+
+        <label htmlFor="content">Content:</label>
+        <textarea id="content" name="content" required></textarea>
+
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
 };
 
-export default EmailForm;
+export default Contact;

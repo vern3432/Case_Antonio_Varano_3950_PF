@@ -58,9 +58,9 @@ app.post("/send-email", async (req, res) => {
 
 
 // Start the server
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Server is running on http://localhost:${port}`);
+// });
 
 // Handle google oauth and login form
 app.post("/existingUser", (req, res) => {
