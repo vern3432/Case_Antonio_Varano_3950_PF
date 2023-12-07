@@ -47,7 +47,6 @@ app.post("/send-email", async (req, res) => {
       subject: subject,
       text: `Name: ${userName}\nEmail: ${userEmail}\nMessage: ${content}`,
     };
-
     // Send email
     await transporter.sendMail(mailOptions);
 
