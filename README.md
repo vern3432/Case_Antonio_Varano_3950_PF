@@ -8,7 +8,11 @@ Group: Samara Ribeiro Antonio, Aidan Varano, Mark Case
 
 For the UI:
 `cd planes-ui` <br/>
-`npm install + any required modules` <br/>
+`npm install --force` - to install all packages<br/>
+
+For the server:
+`cd planes-server` <br/>
+`npm install` - to install all packages
 
 ## Starting
 
@@ -18,4 +22,4 @@ For the UI:
 
 For the server:
 `cd planes-server` <br/>
-`node server.js`
+`npm start`
