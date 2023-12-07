@@ -22,17 +22,18 @@ const bodyParser = require("body-parser");
 //123Planes!
 app.use(bodyParser.json());
 app.post("/send-email", async (req, res) => {
+    const userName=req.body.name
     const subject = req.body.subject;
     const userEmail = req.body.email;
     const content = req.body.content;
     const ownerEmail = "planeservice7@gmail.com"; 
-    const password = "123Planes!";
+    const password = "pzjq vnyk zygs ciqe";
   try {
-    const { userName, userEmail, message } = req.body;
 
     // Replace these with your actual email configuration
     const transporter = nodemailer.createTransport({
       service: "gmail",
+      secure: false,
       auth: {
         user: ownerEmail,
         pass: password,
@@ -42,8 +43,8 @@ app.post("/send-email", async (req, res) => {
       from: ownerEmail, 
       to: ownerEmail,
       cc: userEmail,
-      subject: Subject,
-      text: `Name: ${userName}\nEmail: ${userEmail}\nMessage: ${message}`,
+      subject: subject,
+      text: `Name: ${userName}\nEmail: ${userEmail}\nMessage: ${content}`,
     };
 
     // Send email

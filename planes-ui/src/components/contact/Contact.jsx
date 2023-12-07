@@ -16,12 +16,43 @@ function validateForm() {
     return true;
   }
 }
-function submitpost(){}
+function submitpost(){
+
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const subject = document.getElementById('subject').value;
+  const content = document.getElementById('content').value;
+
+  fetch('http://localhost:3001/send-email', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ 
+      name:name, 
+      userEmail:email,
+      subject:subject,
+      content:content,
+
+    }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    alert(data.message || data.error);
+
+
+  })
+  .catch(error => {
+    alert('Error:', error);
+    alert('A Local error occurred. Please try again.');
+  });
+}
 // Contact.jsx
 
 // import './contact_style.css';
 
 const Contact = () => {
+  console.log("cpntact function reading. ")
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -32,20 +63,27 @@ const Contact = () => {
     const content = event.target.elements.content.value;
 
     // Prepare data in JSON format
-    const data = {
-      name,
-      email,
-      subject,
-      content,
-    };
+    // const data = {
+    //   name,
+    //   email,
+    //   subject,
+    //   content,
+    // };
     try {
       // Send POST request using fetch
-      const response = await fetch('/api/contact', {
+      const response = await fetch('http://localhost:3001/send-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ 
+          name:name, 
+          userEmail:email,
+          subject:subject,
+          content:content,
+ 
+      }),     
+     
       });
 
       // Handle response as needed
@@ -61,38 +99,38 @@ const Contact = () => {
     }
   };
   return (
-    
+
     <div id="pagecontent" className="container">
       <form id="post" action="" method="post">
         <h3>Send us an Email</h3>
         <fieldset>
-          <label className="pagecontent" htmlFor="title">
+          <label className="pagecontent" htmlFor="name">
             Your Name
             {/* <img src="open-book-icon-transparent-2.jpg" height="10" width="10" alt="Book Icon" /> */}
           </label><br />
-          <input className="pagecontent" type="text" id="title" name="title" placeholder="Name Here" /><br />
+          <input className="pagecontent" type="text" id="name" name="name" placeholder="Name Here" /><br />
         </fieldset>
         <fieldset>
-          <label className="pagecontent" htmlFor="url">
+          <label className="pagecontent" htmlFor="email">
            Your Email-Add auto fill from logged in user 
             {/* <img src="internet_img.png" height="10" width="10" alt="Internet Icon" /> */}
           </label><br />
-          <input className="pagecontent" type="text" id="url" name="url" placeholder="Your Email Here" /><br />
+          <input className="pagecontent" type="text" id="email" name="email" placeholder="Your Email Here" /><br />
         </fieldset>
         <fieldset>
-          <label className="pagecontent" htmlFor="ISBN">
+          <label className="pagecontent" htmlFor="subject">
             Subject Line 
             {/* <img src="barcode_img.png" height="10" width="15" alt="Barcode Icon" /> */}
           </label><br />
-          <input className="pagecontent" type="text" id="ISBN" name="ISBN" placeholder="Subject Line Here" /><br />
+          <input className="pagecontent" type="text" id="subject" name="subject" placeholder="Subject Line Here" /><br />
         </fieldset>
         <fieldset>
           <fieldset>
-            <label className="pagecontent" htmlFor="Pub_Year">
+            <label className="pagecontent" htmlFor="content">
               Email Body
               {/* <img src="calendar_img.png" height="10" width="10" alt="Calendar Icon" /> */}
             </label><br />
-            <input className="pagecontent" type="text" id="Pub_Year" name="Pub_Year" placeholder="Body Here" /><br />
+            <input className="pagecontent" type="text" id="content" name="content" placeholder="Body Here" /><br />
           </fieldset>
         </fieldset>
 
