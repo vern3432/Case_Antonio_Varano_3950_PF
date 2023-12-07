@@ -39,8 +39,7 @@ function submitpost(){
   .then(response => response.json())
   .then(data => {
     alert(data.message || data.error);
-
-
+    document.getElementById('pagecontent').innerHTML="<h1 style='color:black;'>Thank You for Contact Us!</h1><br><p style='color:black;'>We will get Back to You as soon as We can!</p>"
   })
   .catch(error => {
     alert('Error:', error);
