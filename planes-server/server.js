@@ -20,11 +20,12 @@ const bodyParser = require("body-parser");
 //to check functionality, login in like this. There is no auth or anything on the account. its jsut gmail
 //planeservice7@gmail.com
 //123Planes!
+//that is for two fact, the weird password below uses preaporved app signins. You can see this under the account in the 2 factor section. 
 app.use(bodyParser.json());
 app.post("/send-email", async (req, res) => {
     const userName=req.body.name
     const subject = req.body.subject;
-    const userEmail = req.body.email;
+    const userEmail = req.body.userEmail;
     const content = req.body.content;
     const ownerEmail = "planeservice7@gmail.com"; 
     const password = "pzjq vnyk zygs ciqe";

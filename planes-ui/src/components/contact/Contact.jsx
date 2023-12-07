@@ -130,7 +130,7 @@ const Contact = () => {
               Email Body
               {/* <img src="calendar_img.png" height="10" width="10" alt="Calendar Icon" /> */}
             </label><br />
-            <input className="pagecontent" type="text" id="content" name="content" placeholder="Body Here" /><br />
+            <textarea className="pagecontent" type="text" id="content" name="content" placeholder="Body Here" /><br />
           </fieldset>
         </fieldset>
 
