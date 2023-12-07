@@ -76,6 +76,8 @@ input[name=css-tabs] {
 	filter: invert(40%);
 	margin: 10px auto;
 }
+
+
 #tab1::before {
 	background-image: url(./plane.png);
 }

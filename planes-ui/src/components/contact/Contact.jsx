@@ -1,4 +1,6 @@
 import './contact_style.css';
+import myimage from './kisspng-check-mark-icon-design-icon-black-checkmark-5a774ec74604e8.5772449315177683912868(3).png' // wherever is it.
+
 function validateForm() {
   console.log("actually running");
   const regemail =
@@ -136,7 +138,7 @@ const Contact = () => {
         <fieldset>
           <button name="submit" type="button" onClick={() => submitpost()} id="post-submit" data-submit="...Sending">
             Submit
-            <img src="./check_img.png" height="10" width="10" alt="Check Icon" />
+            <img src={myimage} id="submiticon" height="10" width="10" alt="Check Icon" />
           </button>
         </fieldset>
       </form>
