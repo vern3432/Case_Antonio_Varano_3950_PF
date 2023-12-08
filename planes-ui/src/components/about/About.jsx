@@ -1,6 +1,6 @@
 import './about_style.css';
 import GoogleMapReact from "google-map-react";
-
+//google api key -AIzaSyBLEA8OMFiYaSYGG514kuc7Kve6l58YD7I
 function About() {
 
   const latitude = 42.6685;
@@ -15,8 +15,6 @@ function About() {
               return marker;
             };
 
-
-  
     return (
       <main>
         <h1>About Us</h1>
@@ -53,18 +51,20 @@ function About() {
             <p>Text Here</p>
           </section>
           <section id="content3">
-            <h3>Locations With Offer with Links to Directions redirect</h3>
-
-            <div style={{ height: "50vh", width: "100%" }}>
+            <div style={{ float: "left" }}>
+              <h3>Locations With Offer with Links to Directions redirect</h3>
+              <p>We have Two Location</p>
+            </div>
+            <div style={{ float: "right", height: "50vh", width: "70%" }}>
               <GoogleMapReact
-                bootstrapURLKeys={{ key: "YOUR KEY" }}
+                bootstrapURLKeys={{
+                  key: "AIzaSyBLEA8OMFiYaSYGG514kuc7Kve6l58YD7I",
+                }}
                 defaultCenter={{ lat: latitude, lng: longitude }}
                 defaultZoom={16}
                 yesIWantToUseGoogleMapApiInternals
                 onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
               ></GoogleMapReact>
-           
-           
             </div>
           </section>
           <section id="content4">
