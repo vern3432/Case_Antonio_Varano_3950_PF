@@ -1,6 +1,7 @@
 import './about_style.css';
 import GoogleMapReact from "google-map-react";
-//google api key -AIzaSyBLEA8OMFiYaSYGG514kuc7Kve6l58YD7I
+import Johnathan from "./vaguelyethnicman.png";
+
 function About() {
 
   const latitude = 42.6685;
@@ -49,6 +50,8 @@ function About() {
             <p>Text Here</p>
             <h2>Lessons</h2>
             <p>Text Here</p>
+            <h2>Designated Trips</h2>
+            <p>Text Here</p>
           </section>
           <section id="content3">
             <div style={{ float: "left" }}>
@@ -69,6 +72,15 @@ function About() {
           </section>
           <section id="content4">
             <h3>List of Staff</h3>
+            <div id="staff Container">
+              <ul>
+                <img class="staffimage" src={Johnathan} alt="pfp not found" />
+                <p id="staffname">Johnathan: <b><i>Instructor</i></b></p>
+              </ul>
+            </div>
+
+
+            
           </section>
         </div>
       </main>

@@ -18,6 +18,11 @@ input[name=css-tabs] {
 /* a {
 	color: #F29A77;
 } */
+
+.staffimage{
+width: 250px; height: 337px; object-fit: cover
+
+}
 #tabs {
 	padding: 0 0 0 50px;
 	width: calc(100% + 50px);
