@@ -72,15 +72,81 @@ function About() {
           </section>
           <section id="content4">
             <h3>List of Staff</h3>
-            <div id="staff Container">
-              <ul>
-                <img class="staffimage" src={Johnathan} alt="pfp not found" />
-                <p id="staffname">Johnathan: <b><i>Instructor</i></b></p>
-              </ul>
+
+            <div class="Row">
+              <div class="Column">
+                <div id="staff-Container">
+                  <img class="staffimage" src={Johnathan} alt="pfp not found" />
+                  <p id="staffname">
+                    Johnathan:{" "}
+                    <b>
+                      <i>Instructor</i>
+                    </b>
+                  </p>
+                </div>
+              </div>
+              <div class="Column">
+                <div id="staff-Container">
+                  <img class="staffimage" src={Johnathan} alt="pfp not found" />
+                  <p id="staffname">
+                    Johnathan:{" "}
+                    <b>
+                      <i>Instructor</i>
+                    </b>
+                  </p>
+                </div>
+              </div>
+              <div class="Column">
+                <div id="staff-Container">
+                  <img class="staffimage" src={Johnathan} alt="pfp not found" />
+                  <p id="staffname">
+                    Johnathan:{" "}
+                    <b>
+                      <i>Instructor</i>
+                    </b>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="Row">
+              <div class="Column">
+                <div id="staff-Container">
+                  <img class="staffimage" src={Johnathan} alt="pfp not found" />
+                  <p id="staffname">
+                    Johnathan:{" "}
+                    <b>
+                      <i>Instructor</i>
+                    </b>
+                  </p>
+                </div>
+              </div>
+              <div class="Column">
+                <div id="staff-Container">
+                  <img class="staffimage" src={Johnathan} alt="pfp not found" />
+                  <p id="staffname">
+                    Johnathan:{" "}
+                    <b>
+                      <i>Instructor</i>
+                    </b>
+                  </p>
+                </div>
+              </div>
+              <div class="Column">
+                <div id="staff-Container">
+                  <img class="staffimage" src={Johnathan} alt="pfp not found" />
+                  <p id="staffname">
+                    Johnathan:{" "}
+                    <b>
+                      <i>Instructor</i>
+                    </b>
+                  </p>
+                </div>
+              </div>
             </div>
 
 
-            
+
+
           </section>
         </div>
       </main>

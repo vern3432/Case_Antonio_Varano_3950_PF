@@ -5,12 +5,20 @@ main {
 
     color: #FCF9F4;
 
-  max-width: 800px;
-  margin: 30px auto;
+ 	 max-width: 800px;
+ 	 margin: 30px auto;
 	background: #3F3F3D;
 	padding: 30px;
 	box-shadow: 0 3px 5px rgba(0,0,0,0.2);
     border-radius: 20px;
+
+	/* testing elements */
+	height: fit-content;
+	display: block;
+	overflow:initial;
+	block-size: fit-content;
+	background-size: cover;
+
 }
 input[name=css-tabs] {
   display: none;
@@ -20,8 +28,27 @@ input[name=css-tabs] {
 } */
 
 .staffimage{
-width: 250px; height: 337px; object-fit: cover
+	width: 235px; height: 337px; 
+	object-fit: cover;
+	border-radius: 20px;
 
+}
+
+.staff-Container{
+    border-radius: 20px;
+
+
+}
+
+.Row {
+    display: table;
+    width: 100%; /*Optional*/
+    table-layout: fixed; /*Optional*/
+    border-spacing: 10px; /*Optional*/
+}
+.Column {
+    display: table-cell;
+    background-color: gray; /*Optional*/
 }
 #tabs {
 	padding: 0 0 0 50px;
@@ -113,6 +140,7 @@ width: 250px; height: 337px; object-fit: cover
 #content {
 	position: relative;
 	height: 500px;
+	
 }
 #content::before {
     
@@ -138,6 +166,8 @@ width: 250px; height: 337px; object-fit: cover
 	border-left: 10px solid #000;
 	border-right: 10px solid transparent;
 	border-bottom: 8px solid transparent;
+	
+	
 }
 #content section {
     
