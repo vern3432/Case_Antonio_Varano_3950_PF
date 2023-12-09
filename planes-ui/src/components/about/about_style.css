@@ -34,7 +34,7 @@ input[name=css-tabs] {
 } */
 
 .staffimage{
-	width: 235px; height: 337px; 
+	width: 220px; height: 337px; 
 	object-fit: cover;
 	border-radius: 20px;
 
@@ -51,10 +51,13 @@ input[name=css-tabs] {
     width: 100%; /*Optional*/
     table-layout: fixed; /*Optional*/
     border-spacing: 10px; /*Optional*/
+	
 }
 .Column {
     display: table-cell;
     background-color: gray; /*Optional*/
+	border-radius: 20px;
+
 }
 #tabs {
 	padding: 0 0 0 50px;
@@ -174,6 +177,10 @@ input[name=css-tabs] {
 	border-bottom: 8px solid transparent;
 	
 	
+}
+.column11 {
+  float: left;
+  width: 50%;
 }
 #content section {
     

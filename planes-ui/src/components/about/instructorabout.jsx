@@ -41,12 +41,12 @@ function InstructorModal({ model,pfp }) {
           <h1>Job Desc</h1>
           <h1>Staff Bio</h1>
           <img src="" alt="" />
+          <img src={pfp} alt="" />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-
         </Modal.Footer>
       </Modal>
     </>
