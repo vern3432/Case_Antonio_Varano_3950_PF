@@ -1,10 +1,17 @@
 import './about_style.css';
 import GoogleMapReact from "google-map-react";
 import Johnathan from "./vaguelyethnicman.png";
+// import React, { useState } from "react";
 
+
+var [mainHeight, setMainHeight] = [10, 10]; 
+function onselection(input){
+      mainHeight=input; 
+      console.log("ran:"+input)
+}
 function About() {
 
-  const latitude = 42.6685;
+    const latitude = 42.6685;
     const longitude = 42.6685;
 
  const renderMarkers = (map, maps) => {
@@ -17,23 +24,44 @@ function About() {
             };
 
     return (
-      <main>
+      <main style={{ height: `${mainHeight}px` }}>
         <h1>About Us</h1>
-        <input id="radio1" type="radio" name="css-tabs"></input>
-        <input id="radio2" type="radio" name="css-tabs"></input>
-        <input id="radio3" type="radio" name="css-tabs"></input>
-        <input id="radio4" type="radio" name="css-tabs"></input>
+        <input
+          id="radio1"
+          type="radio"
+          name="css-tabs"
+          onClick={onselection(100)}
+        ></input>
+        <input
+          id="radio2"
+          type="radio"
+          name="css-tabs"
+          onClick={onselection(200)}
+        ></input>
+        <input
+          id="radio3"
+          type="radio"
+          name="css-tabs"
+          onClick={onselection(300)}
+        ></input>
+        <input
+          id="radio4"
+          type="radio"
+          name="css-tabs"
+          onClick={onselection(1000)}
+        ></input>
+
         <div id="tabs">
-          <label id="tab1" for="radio1">
+          <label id="tab1" htmlFor="radio1">
             Our Company{" "}
           </label>
-          <label id="tab2" for="radio2">
+          <label id="tab2" htmlFor="radio2">
             Services
           </label>
-          <label id="tab3" for="radio3">
+          <label id="tab3" htmlFor="radio3">
             Locations
           </label>
-          <label id="tab4" for="radio4">
+          <label id="tab4" htmlFor="radio4">
             Our Staff
           </label>
         </div>
@@ -73,10 +101,14 @@ function About() {
           <section id="content4">
             <h3>List of Staff</h3>
 
-            <div class="Row">
-              <div class="Column">
+            <div className="Row">
+              <div className="Column">
                 <div id="staff-Container">
-                  <img class="staffimage" src={Johnathan} alt="pfp not found" />
+                  <img
+                    className="staffimage"
+                    src={Johnathan}
+                    alt="pfp not found"
+                  />
                   <p id="staffname">
                     Johnathan:{" "}
                     <b>
@@ -85,9 +117,13 @@ function About() {
                   </p>
                 </div>
               </div>
-              <div class="Column">
+              <div className="Column">
                 <div id="staff-Container">
-                  <img class="staffimage" src={Johnathan} alt="pfp not found" />
+                  <img
+                    className="staffimage"
+                    src={Johnathan}
+                    alt="pfp not found"
+                  />
                   <p id="staffname">
                     Johnathan:{" "}
                     <b>
@@ -96,44 +132,13 @@ function About() {
                   </p>
                 </div>
               </div>
-              <div class="Column">
+              <div className="Column">
                 <div id="staff-Container">
-                  <img class="staffimage" src={Johnathan} alt="pfp not found" />
-                  <p id="staffname">
-                    Johnathan:{" "}
-                    <b>
-                      <i>Instructor</i>
-                    </b>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="Row">
-              <div class="Column">
-                <div id="staff-Container">
-                  <img class="staffimage" src={Johnathan} alt="pfp not found" />
-                  <p id="staffname">
-                    Johnathan:{" "}
-                    <b>
-                      <i>Instructor</i>
-                    </b>
-                  </p>
-                </div>
-              </div>
-              <div class="Column">
-                <div id="staff-Container">
-                  <img class="staffimage" src={Johnathan} alt="pfp not found" />
-                  <p id="staffname">
-                    Johnathan:{" "}
-                    <b>
-                      <i>Instructor</i>
-                    </b>
-                  </p>
-                </div>
-              </div>
-              <div class="Column">
-                <div id="staff-Container">
-                  <img class="staffimage" src={Johnathan} alt="pfp not found" />
+                  <img
+                    className="staffimage"
+                    src={Johnathan}
+                    alt="pfp not found"
+                  />
                   <p id="staffname">
                     Johnathan:{" "}
                     <b>
@@ -143,10 +148,53 @@ function About() {
                 </div>
               </div>
             </div>
-
-
-
-
+            <div className="Row">
+              <div className="Column">
+                <div id="staff-Container">
+                  <img
+                    className="staffimage"
+                    src={Johnathan}
+                    alt="pfp not found"
+                  />
+                  <p id="staffname">
+                    Johnathan:{" "}
+                    <b>
+                      <i>Instructor</i>
+                    </b>
+                  </p>
+                </div>
+              </div>
+              <div className="Column">
+                <div id="staff-Container">
+                  <img
+                    className="staffimage"
+                    src={Johnathan}
+                    alt="pfp not found"
+                  />
+                  <p id="staffname">
+                    Johnathan:{" "}
+                    <b>
+                      <i>Instructor</i>
+                    </b>
+                  </p>
+                </div>
+              </div>
+              <div className="Column">
+                <div id="staff-Container">
+                  <img
+                    className="staffimage"
+                    src={Johnathan}
+                    alt="pfp not found"
+                  />
+                  <p id="staffname">
+                    Johnathan:{" "}
+                    <b>
+                      <i>Instructor</i>
+                    </b>
+                  </p>
+                </div>
+              </div>
+            </div>
           </section>
         </div>
       </main>

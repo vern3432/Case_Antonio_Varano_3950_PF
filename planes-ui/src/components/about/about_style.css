@@ -2,7 +2,6 @@
 
 
 main {
-
     color: #FCF9F4;
  	max-width: 800px;
  	margin: 30px auto;
@@ -11,12 +10,22 @@ main {
 	box-shadow: 0 3px 5px rgba(0,0,0,0.2);
     border-radius: 20px;
 	/* testing elements */
-	height: fit-content;
 	display: block;
 	overflow: hidden;
-	block-size: fit-content;
+		height: auto; 
+
+	/* height: auto; */
+	
 	
 }
+/* main::after {
+
+	height: 1000px; 
+
+	
+} */
+	/* height: 1000px; */
+
 input[name=css-tabs] {
   display: none;
 }

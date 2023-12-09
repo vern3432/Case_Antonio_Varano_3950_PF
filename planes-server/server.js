@@ -111,6 +111,7 @@ app.post("/newUser", (req, res) => {
 app.get("/get-planes", (req, res) => {
   const getPlanesQuery = db.prepare("SELECT * FROM plane");
   res.send(getPlanesQuery.all());
+  console.log
 });
 
 app.get("/", (req, res) => {
