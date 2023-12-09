@@ -1,6 +1,12 @@
 import './about_style.css';
 import GoogleMapReact from "google-map-react";
 import Johnathan from "./vaguelyethnicman.png";
+import Samantha from './lightskinlady.jpg'
+import Ea from "./manthinking.jpg";
+import Angela from "./istockphoto-1394347360-612x612.jpg";
+import Clarence from "./balddude.jpg";
+import Thomas from "./oldwhitedude.jpg";
+
 // import React, { useState } from "react";
 
 import InstructorModal from "./instructorabout";
@@ -115,45 +121,41 @@ function About() {
                     alt="pfp not found"
                   />
                   <p id="staffname">
-                    Johnathan:{" "}
+                    Jonthan:{" "}
                     <b>
                       <i>Instructor</i>
                     </b>
                   </p>
-                  <InstructorModal model={"string"}></InstructorModal>
+                  <InstructorModal model={"Jonthan"}></InstructorModal>
                 </div>
               </div>
               <div className="Column">
                 <div id="staff-Container">
                   <img
                     className="staffimage"
-                    src={Johnathan}
+                    src={Samantha}
                     alt="pfp not found"
                   />
                   <p id="staffname">
-                    Johnathan:{" "}
+                    Samantha:{" "}
                     <b>
                       <i>Instructor</i>
                     </b>
                   </p>
-                  <InstructorModal model={"string"}></InstructorModal>
+                  <InstructorModal model={"Samantha"}></InstructorModal>
                 </div>
               </div>
               <div className="Column">
                 <div id="staff-Container">
-                  <img
-                    className="staffimage"
-                    src={Johnathan}
-                    alt="pfp not found"
-                  />
+                  <img className="staffimage" src={Ea} alt="pfp not found" />
                   <p id="staffname">
-                    Johnathan:{" "}
+                    Eamonn :{" "}
                     <b>
                       <i>Instructor</i>
                     </b>
                   </p>
                 </div>
-                <InstructorModal model={"string"}></InstructorModal>
+                <InstructorModal model={"Eamonn"}></InstructorModal>
               </div>
             </div>
             <div className="Row">
@@ -161,48 +163,48 @@ function About() {
                 <div id="staff-Container">
                   <img
                     className="staffimage"
-                    src={Johnathan}
+                    src={Angela}
                     alt="pfp not found"
                   />
                   <p id="staffname">
-                    Johnathan:{" "}
+                    Angela:{" "}
                     <b>
                       <i>Instructor</i>
                     </b>
                   </p>
                 </div>
-                <InstructorModal model={"string"}></InstructorModal>
+                <InstructorModal model={"Angela"}></InstructorModal>
               </div>
               <div className="Column">
                 <div id="staff-Container">
                   <img
                     className="staffimage"
-                    src={Johnathan}
+                    src={Clarence}
                     alt="pfp not found"
                   />
                   <p id="staffname">
-                    Johnathan:{" "}
+                    Clarence:{" "}
                     <b>
                       <i>Instructor</i>
                     </b>
                   </p>
                 </div>
-                <InstructorModal model={"string"}></InstructorModal>
+                <InstructorModal model={"Clarence"}></InstructorModal>
               </div>
               <div className="Column">
                 <div id="staff-Container">
                   <img
                     className="staffimage"
-                    src={Johnathan}
+                    src={Thomas}
                     alt="pfp not found"
                   />
                   <p id="staffname">
-                    Johnathan:{" "}
+                    Thomas:{" "}
                     <b>
                       <i>Instructor</i>
                     </b>
                   </p>
-                  <InstructorModal model={"string"}></InstructorModal>
+                  <InstructorModal model={"Thomas"}></InstructorModal>
                 </div>
               </div>
             </div>

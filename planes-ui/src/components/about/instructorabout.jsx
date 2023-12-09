@@ -5,7 +5,23 @@ import Form from "react-bootstrap/Form";
 
 // Creates the ReservationModal component with the option to choose the start and end date, the type of activity and if you want a instructor or not when doing the reservation of the plane
 function InstructorModal({ model,pfp }) {
+
+
+
+        async function getInfor(){
+        ///////add function to get indivudal instructor data and put into pop up 
+        }
+            
+
+
+
+
+
+
   const [show, setShow] = useState(false);
+
+
+
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
