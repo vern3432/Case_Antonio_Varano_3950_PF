@@ -26,8 +26,6 @@ function About() {
 
     return (
       <main style={{ height: `${mainHeight}px` }}>
-        <InstructorModal model={"string"}></InstructorModal>
-
         <h1>About Us</h1>
         <input
           id="radio1"
@@ -55,7 +53,7 @@ function About() {
           type="radio"
           name="css-tabs"
           value="3"
-          onchecked={onselection(1000)}
+          onchecked={onselection(1200)}
         ></input>
 
         <div id="tabs">
@@ -122,6 +120,23 @@ function About() {
                       <i>Instructor</i>
                     </b>
                   </p>
+                  <InstructorModal model={"string"}></InstructorModal>
+                </div>
+              </div>
+              <div className="Column">
+                <div id="staff-Container">
+                  <img
+                    className="staffimage"
+                    src={Johnathan}
+                    alt="pfp not found"
+                  />
+                  <p id="staffname">
+                    Johnathan:{" "}
+                    <b>
+                      <i>Instructor</i>
+                    </b>
+                  </p>
+                  <InstructorModal model={"string"}></InstructorModal>
                 </div>
               </div>
               <div className="Column">
@@ -138,21 +153,7 @@ function About() {
                     </b>
                   </p>
                 </div>
-              </div>
-              <div className="Column">
-                <div id="staff-Container">
-                  <img
-                    className="staffimage"
-                    src={Johnathan}
-                    alt="pfp not found"
-                  />
-                  <p id="staffname">
-                    Johnathan:{" "}
-                    <b>
-                      <i>Instructor</i>
-                    </b>
-                  </p>
-                </div>
+                <InstructorModal model={"string"}></InstructorModal>
               </div>
             </div>
             <div className="Row">
@@ -170,6 +171,7 @@ function About() {
                     </b>
                   </p>
                 </div>
+                <InstructorModal model={"string"}></InstructorModal>
               </div>
               <div className="Column">
                 <div id="staff-Container">
@@ -185,6 +187,7 @@ function About() {
                     </b>
                   </p>
                 </div>
+                <InstructorModal model={"string"}></InstructorModal>
               </div>
               <div className="Column">
                 <div id="staff-Container">
@@ -199,6 +202,7 @@ function About() {
                       <i>Instructor</i>
                     </b>
                   </p>
+                  <InstructorModal model={"string"}></InstructorModal>
                 </div>
               </div>
             </div>
