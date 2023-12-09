@@ -107,6 +107,12 @@ app.post("/newUser", (req, res) => {
   }
 });
 
+// Get all planes from the plane table from the database
+app.get("/get-planes", (req, res) => {
+  const getPlanesQuery = db.prepare("SELECT * FROM plane");
+  res.send(getPlanesQuery.all());
+});
+
 app.get("/", (req, res) => {
   res.send("Server is running");
 });

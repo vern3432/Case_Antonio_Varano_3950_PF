@@ -14,6 +14,10 @@ For the server:
 `cd planes-server` <br/>
 `npm install` - to install all packages
 
+For the database:
+`cd planes-server` <br/>
+`node script.js` - to create the database
+
 ## Starting
 
 For the UI:
