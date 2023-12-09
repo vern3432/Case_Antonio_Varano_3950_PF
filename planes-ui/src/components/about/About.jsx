@@ -3,6 +3,7 @@ import GoogleMapReact from "google-map-react";
 import Johnathan from "./vaguelyethnicman.png";
 // import React, { useState } from "react";
 
+import InstructorModal from "./instructorabout";
 
 var [mainHeight, setMainHeight] = [10, 10]; 
 function onselection(input){
@@ -25,30 +26,36 @@ function About() {
 
     return (
       <main style={{ height: `${mainHeight}px` }}>
+        <InstructorModal model={"string"}></InstructorModal>
+
         <h1>About Us</h1>
         <input
           id="radio1"
           type="radio"
           name="css-tabs"
-          onClick={onselection(100)}
+          value="1"
+          oncheck={onselection(100)}
         ></input>
         <input
           id="radio2"
           type="radio"
           name="css-tabs"
-          onClick={onselection(200)}
+          value="2"
+          onchecked={onselection(200)}
         ></input>
         <input
           id="radio3"
           type="radio"
           name="css-tabs"
-          onClick={onselection(300)}
+          value="3"
+          onchecked={onselection(300)}
         ></input>
         <input
           id="radio4"
           type="radio"
           name="css-tabs"
-          onClick={onselection(1000)}
+          value="3"
+          onchecked={onselection(1000)}
         ></input>
 
         <div id="tabs">
