@@ -1,13 +1,14 @@
 import "./reservations.css";
-import Button from "react-bootstrap/Button";
+import ReservationModal from "../modal/ReservationModal";
 
-// Creates a plane reservation component with the plane image, year and model and a button to reserve the plane
+// Creates a PlaneReservation component with the plane image, year and model
+// and a button that comes from the ReservationModal to reserve the plane
 function PlaneReservation({ plane, year, model }) {
   return (
     <div className="plane-container m-2">
-      <Button className="m-2" variant="primary">
-        Reserve
-      </Button>{" "}
+      <div>
+        <ReservationModal model={model}></ReservationModal>
+      </div>{" "}
       <img src={require(`./plane-images/${plane}`)}></img>
       <div>Year: {year} </div>
       <div>Model: {model}</div>
