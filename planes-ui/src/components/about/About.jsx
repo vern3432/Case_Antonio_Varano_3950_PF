@@ -11,6 +11,13 @@ import Thomas from "./oldwhitedude.jpg";
 
 import InstructorModal from "./instructorabout";
 
+
+
+
+
+
+
+
 var [mainHeight, setMainHeight] = [10, 10]; 
 function onselection(input){
       mainHeight=input; 
@@ -93,9 +100,7 @@ function About() {
             <p>Text Here</p>
           </section>
           <section id="content3">
-
-            
-            <div style={{ float: "left"}}>
+            <div style={{ float: "left" }}>
               <h3>Locations With Offer with Links to Directions redirect</h3>
               <p>We have Two Location</p>
             </div>
@@ -128,7 +133,11 @@ function About() {
                       <i>Instructor</i>
                     </b>
                   </p>
-                  <InstructorModal model={"Jonthan"} pfp={Johnathan}></InstructorModal>
+                  <InstructorModal
+                    model={"Jonthan"}
+                    pfp={Johnathan}
+                    ID={"00004"}
+                  ></InstructorModal>
                 </div>
               </div>
               <div className="Column">
@@ -144,7 +153,10 @@ function About() {
                       <i>Instructor</i>
                     </b>
                   </p>
-                  <InstructorModal model={"Samantha"}></InstructorModal>
+                  <InstructorModal
+                    model={"Samantha"}
+                    ID={"00005"}
+                  ></InstructorModal>
                 </div>
               </div>
               <div className="Column">
@@ -157,7 +169,10 @@ function About() {
                     </b>
                   </p>
                 </div>
-                <InstructorModal model={"Eamonn"}></InstructorModal>
+                <InstructorModal
+                  model={"Eamonn"}
+                  ID={"00006"}
+                ></InstructorModal>
               </div>
             </div>
             <div className="Row">
@@ -175,7 +190,10 @@ function About() {
                     </b>
                   </p>
                 </div>
-                <InstructorModal model={"Angela"}></InstructorModal>
+                <InstructorModal
+                  model={"Angela"}
+                  ID={"00001"}
+                ></InstructorModal>
               </div>
               <div className="Column">
                 <div id="staff-Container">
@@ -191,7 +209,10 @@ function About() {
                     </b>
                   </p>
                 </div>
-                <InstructorModal model={"Clarence"}></InstructorModal>
+                <InstructorModal
+                  model={"Clarence"}
+                  ID={"00002"}
+                ></InstructorModal>
               </div>
               <div className="Column">
                 <div id="staff-Container">
@@ -206,7 +227,10 @@ function About() {
                       <i>Instructor</i>
                     </b>
                   </p>
-                  <InstructorModal model={"Thomas"}></InstructorModal>
+                  <InstructorModal
+                    model={"Thomas"}
+                    ID={"00003"}
+                  ></InstructorModal>
                 </div>
               </div>
             </div>

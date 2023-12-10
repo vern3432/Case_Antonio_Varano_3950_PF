@@ -1,7 +1,11 @@
 const express = require("express");
 const cors = require("cors");
-const sql3 = require("better-sqlite3");
-const db = new sql3("memory.db");
+const sqlite3 = require("sqlite3").verbose();
+const path = require("path");
+
+const dbPath = path.resolve(__dirname, "memory.db");
+const db = new sqlite3.Database(dbPath);
+
 const nodemailer = require("nodemailer");
 
 const app = express();
@@ -51,6 +55,28 @@ app.post("/send-email", async (req, res) => {
     console.error("Error sending email:", error);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
+});
+
+app.post("/get-employee", async (req, res) => {
+  const ID = req.body.ID;
+  console.log(ID);
+  console.log("getting employees");
+  db.get("SELECT * FROM Employees WHERE ID = ?", [ID], (err, row) => {
+    if (err) {
+      res.status(500).send(err.message);
+      return;
+    }
+
+    if (row) {
+      // Username already exists
+      console.log(row)
+      res.json(row)
+    } else {
+      // Username is unique, proceed with signup
+
+    }
+  });
+  console.log("sign up successful");
 });
 
 // Handle google oauth and login form
