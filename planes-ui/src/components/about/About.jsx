@@ -6,15 +6,49 @@ import Ea from "./manthinking.jpg";
 import Angela from "./istockphoto-1394347360-612x612.jpg";
 import Clarence from "./balddude.jpg";
 import Thomas from "./oldwhitedude.jpg";
-
-// import React, { useState } from "react";
-
 import InstructorModal from "./instructorabout";
 
+const renderMarkers = (map, maps) => {
+  let marker = new maps.Marker({
+  position: { lat: 25.0391667, lng: 122.525 },
+  map,
+  title: 'Hello World!'
+  });
+  return marker;
+ };
+// import React, { useState } from "react";
 
 
+function getDirections1(string){
 
 
+ console.log("opening direction")
+     window.open(  string, "_blank");
+     
+        }
+let markers=[
+  {
+      id:1,
+      latitude: 27.0391667,
+      longitude: 122.525,
+      shelter:'marker 1'
+
+  },
+  {
+      id: 2,
+      latitude: 24.0391667,
+      longitude: 110.525,
+      shelter: 'marker 2'
+
+  },
+  {
+      id: 3,
+      latitude: 20.0391667,
+      longitude: 100.525,
+      shelter: 'marker 3'
+
+  }
+]
 
 
 
@@ -101,9 +135,27 @@ function About() {
           </section>
           <section id="content3">
             <div style={{ float: "left" }}>
-              <h3  id='locations_text' >Locations With Offer with Links to Directions redirect</h3>
-              <p  id='locations_text' >We have Two Location</p>
+              <h2 id='locations_text'>We have Two Location</h2>
+              <p  id='locations_text'> With dual locations strategically situated in [Location1] and [Location2], [Flight School Name] brings the joy of aviation education and services closer to enthusiasts, providing convenient access to top-notch flight training, aircraft rentals, and personalized experiences at two thriving hubs.</p>
+            <h2 id='locations_text'> Locations and Directions</h2>
+            <p id='locations_text'>
+
+            {/* <a href="#" onclick=>New Map(In new window)</a> */}
+
+            </p>
+
             </div>
+            <br />
+            <br />
+
+            <div id='dircontainer'>
+              <p id='textbutt'>315 Turnpike St, North Andover, MA 01845 <br /><button type='button' id='buttock' onClick={() => getDirections1(('https://www.google.com/maps/d/u/0/viewer?mid=1brlnn0LqP-XE4rFh4al4nhTonKY&hl=en&ll=42.751038324931415%2C-71.04867850000001&z=11'))}>Get Direction</button></p>
+              <p id='textbutt'>315 Turnpike St, North Andover, MA 01845<br /><button type='button' id='buttock' onClick={() => getDirections1(('https://www.google.com/maps/d/u/0/viewer?mid=1brlnn0LqP-XE4rFh4al4nhTonKY&hl=en&ll=42.751038324931415%2C-71.04867850000001&z=11'))}>Get Direction</button></p>
+              </div>
+              <br />
+              <br />
+
+
             <div style={{ float: "right", height: "50vh", width: "70%" }}>
               <GoogleMapReact
                 bootstrapURLKeys={{
@@ -113,7 +165,13 @@ function About() {
                 defaultZoom={16}
                 yesIWantToUseGoogleMapApiInternals
                 onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
-              ></GoogleMapReact>
+
+                
+              >
+
+
+                
+              </GoogleMapReact>
             </div>
           </section>
           <section id="content4">
