@@ -1,11 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const sqlite3 = require("sqlite3").verbose();
-const path = require("path");
+// const sqlite3 = require("sqlite3").verbose();
+// const path = require("path");
 
-const dbPath = path.resolve(__dirname, "memory.db");
-const db = new sqlite3.Database(dbPath);
-
+// const dbPath = path.resolve(__dirname, "memory.db");
+// const db = new sqlite3.Database(dbPath);
+const sql3=require("better-sqlite3")
+const db=new sql3("memory.db")
 const nodemailer = require("nodemailer");
 
 const app = express();
@@ -61,23 +62,19 @@ app.post("/get-employee", async (req, res) => {
   const ID = req.body.ID;
   console.log(ID);
   console.log("getting employees");
-  db.get("SELECT * FROM Employees WHERE ID = ?", [ID], (err, row) => {
-    if (err) {
-      res.status(500).send(err.message);
-      return;
-    }
+  const checkEmailQuery = db.prepare(
+    "SELECT * FROM Employees WHERE ID = ?"
+  );
+  const result = checkEmailQuery.get(ID);
 
-    if (row) {
-      // Username already exists
-      console.log(row)
-      res.json(row)
-    } else {
-      // Username is unique, proceed with signup
-
-    }
-  });
-  console.log("sign up successful");
+  if (result) {
+    console.log(result)
+    res.send(result);
+  } else {
+    res.status(500).send("error");
+  }
 });
+
 
 // Handle google oauth and login form
 app.post("/existingUser", (req, res) => {
