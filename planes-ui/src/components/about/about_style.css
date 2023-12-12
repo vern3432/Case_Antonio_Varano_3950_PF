@@ -2,22 +2,80 @@
 
 
 main {
-
     color: #FCF9F4;
-
-  max-width: 800px;
-  margin: 30px auto;
+ 	max-width: 800px;
+ 	margin: 30px auto;
 	background: #3F3F3D;
 	padding: 30px;
 	box-shadow: 0 3px 5px rgba(0,0,0,0.2);
     border-radius: 20px;
+	/* testing elements */
+	display: block;
+	overflow: hidden;
+		height: auto; 
+
+	/* height: auto; */
+	
+	
 }
+GoogleMapReact{
+
+	float: right;
+}
+
+#about_text{
+    color: #FCF9F4;
+
+
+}
+
+#locations_text{
+    color: #FCF9F4;
+	float: left;
+
+
+}
+/* main::after {
+
+	height: 1000px; 
+
+	
+} */
+	/* height: 1000px; */
+
 input[name=css-tabs] {
   display: none;
 }
 /* a {
 	color: #F29A77;
 } */
+
+.staffimage{
+	width: 220px; height: 337px; 
+	object-fit: cover;
+	border-radius: 20px;
+
+}
+
+.staff-Container{
+    border-radius: 20px;
+
+
+}
+
+.Row {
+    display: table;
+    width: 100%; /*Optional*/
+    table-layout: fixed; /*Optional*/
+    border-spacing: 10px; /*Optional*/
+	
+}
+.Column {
+    display: table-cell;
+    background-color: gray; /*Optional*/
+	border-radius: 20px;
+
+}
 #tabs {
 	padding: 0 0 0 50px;
 	width: calc(100% + 50px);
@@ -76,6 +134,8 @@ input[name=css-tabs] {
 	filter: invert(40%);
 	margin: 10px auto;
 }
+
+
 #tab1::before {
 	background-image: url(./plane.png);
 }
@@ -106,6 +166,7 @@ input[name=css-tabs] {
 #content {
 	position: relative;
 	height: 500px;
+	
 }
 #content::before {
     
@@ -131,6 +192,12 @@ input[name=css-tabs] {
 	border-left: 10px solid #000;
 	border-right: 10px solid transparent;
 	border-bottom: 8px solid transparent;
+	
+	
+}
+.column11 {
+  float: left;
+  width: 50%;
 }
 #content section {
     

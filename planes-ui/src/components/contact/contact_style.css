@@ -1,4 +1,4 @@
-    * {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -14,8 +14,12 @@ form {
   position: relative;
 }
 
-form *:focus-within{
+form *:focus-within {
   background: lightcyan;
+}
+#submiticon {
+  height: 60%;
+  width: 10%;
 }
 
 body {
@@ -24,11 +28,10 @@ body {
   font-size: 12px;
   line-height: 30px;
   color: #777;
-  background: #c6deff;;
+  background: #c6deff;
 }
 
 .container {
-  max-width: 400px;
   width: 100%;
   margin: 0 auto;
   position: relative;
@@ -45,7 +48,7 @@ body {
 
 #post {
   border-radius: 20px;
-  background: #F9F9F9;
+  background: #f9f9f9;
   padding: 25px;
   margin: 0px 0;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
@@ -82,7 +85,7 @@ fieldset {
   border-radius: 5px;
 
   border: 1px solid #ccc;
-  background: #FFF;
+  background: #fff;
   margin: 0 0 5px;
   padding: 10px;
 }
@@ -113,11 +116,10 @@ fieldset {
   color: #fff;
   background: #0971f1;
   cursor: pointer;
-  
 }
 
 #post button[type="button"]:hover {
-  background: #43A047;
+  background: #43a047;
   -webkit-transition: background 0.3s ease-in-out;
   -moz-transition: background 0.3s ease-in-out;
   transition: background-color 0.3s ease-in-out;

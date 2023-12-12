@@ -1,11 +1,8 @@
-//npm install nodemailer for emailing system 
-
 const express = require("express");
-const cors = require('cors');
+const cors = require("cors");
 const sql3 = require("better-sqlite3");
 const db = new sql3("memory.db");
-const path = require("path");
-var nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
 const app = express();
 const port = 3001;
@@ -14,23 +11,22 @@ app.use(cors());
 app.use(express.json());
 
 app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
+  console.log(`Server running on http://localhost:${port}`);
 });
 const bodyParser = require("body-parser");
-//to check functionality, login in like this. There is no auth or anything on the account. its jsut gmail
-//planeservice7@gmail.com
-//123Planes!
-//that is for two fact, the weird password below uses preaporved app signins. You can see this under the account in the 2 factor section. 
+// To check functionality, login in like this. There is no auth or anything on the account. Its just gmail
+// planeservice7@gmail.com
+// 123Planes!
+// That is for two fact, the weird password below uses prepared app sign-ins. You can see this under the account in the 2 factor section.
 app.use(bodyParser.json());
 app.post("/send-email", async (req, res) => {
-    const userName=req.body.name
-    const subject = req.body.subject;
-    const userEmail = req.body.userEmail;
-    const content = req.body.content;
-    const ownerEmail = "planeservice7@gmail.com"; 
-    const password = "pzjq vnyk zygs ciqe";
+  const userName = req.body.name;
+  const subject = req.body.subject;
+  const userEmail = req.body.userEmail;
+  const content = req.body.content;
+  const ownerEmail = "planeservice7@gmail.com";
+  const password = "pzjq vnyk zygs ciqe";
   try {
-
     // Replace these with your actual email configuration
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -41,7 +37,7 @@ app.post("/send-email", async (req, res) => {
       },
     });
     const mailOptions = {
-      from: ownerEmail, 
+      from: ownerEmail,
       to: ownerEmail,
       cc: userEmail,
       subject: subject,
@@ -57,58 +53,88 @@ app.post("/send-email", async (req, res) => {
   }
 });
 
+app.get("/get-employee", async (req, res) => {
+  const ID = req.query.ID;
+  console.log(ID);
+  console.log("getting employees");
+  let result;
+  let checkEmailQuery;
+  if (ID !== undefined) {
+    checkEmailQuery = db.prepare("SELECT * FROM Employees WHERE ID = ?");
+    result = checkEmailQuery.get(ID);
+  } else {
+    checkEmailQuery = db.prepare("SELECT * FROM Employees");
+    result = checkEmailQuery.all();
+  }
 
-// Start the server
-// app.listen(port, () => {
-//   console.log(`Server is running on http://localhost:${port}`);
-// });
+  if (result) {
+    console.log(result);
+    res.send(result);
+  } else {
+    res.status(500).send("error");
+  }
+});
 
 // Handle google oauth and login form
 app.post("/existingUser", (req, res) => {
-    const email = req.body.email; // Get the user's email from the request query
-    console.log(email);
+  const email = req.body.email; // Get the user's email from the request query
+  console.log(email);
 
-    const viewPlaneData = db.prepare("SELECT * FROM user");
-    console.log("\nPlane Table:");
-    console.log(viewPlaneData.all());
+  const viewPlaneData = db.prepare("SELECT * FROM user");
+  console.log("\nPlane Table:");
+  console.log(viewPlaneData.all());
 
-    // Check if the email exists in the user table
-    const checkEmailQuery = db.prepare("SELECT COUNT(*) as count FROM user WHERE email = ?");
-    const result = checkEmailQuery.get(email);
+  // Check if the email exists in the user table
+  const checkEmailQuery = db.prepare(
+    "SELECT COUNT(*) as count FROM user WHERE email = ?"
+  );
+  const result = checkEmailQuery.get(email);
 
-    if (result.count > 0) {
-        res.json({ success: true });
-    } else {
-        // If the email exists, return false
-        res.status(404).json({ error: "Email not registered" });
-    }
+  if (result.count > 0) {
+    res.json({ success: true });
+  } else {
+    // If the email exists, return false
+    res.status(404).json({ error: "Email not registered" });
+  }
 });
 
 // Handle new signup
 app.post("/newUser", (req, res) => {
-    const email = req.body.email; // Get the user's email from the request query
-    console.log(email);
-    const user_type = req.body.user_type; // Get the user's user_type from the request query
-    console.log(user_type);
+  const email = req.body.email; // Get the user's email from the request query
+  console.log(email);
+  const user_type = req.body.user_type; // Get the user's user_type from the request query
+  console.log(user_type);
 
-    const viewPlaneData = db.prepare("SELECT * FROM user");
-    console.log("\nPlane Table:");
-    console.log(viewPlaneData.all());
+  const viewPlaneData = db.prepare("SELECT * FROM user");
+  console.log("\nPlane Table:");
+  console.log(viewPlaneData.all());
 
-    // Check if the email exists in the user table
-    const checkEmailQuery = db.prepare("SELECT COUNT(*) as count FROM user WHERE email = ?");
-    const result = checkEmailQuery.get(email);
+  // Check if the email exists in the user table
+  const checkEmailQuery = db.prepare(
+    "SELECT COUNT(*) as count FROM user WHERE email = ?"
+  );
+  const result = checkEmailQuery.get(email);
 
-    if (result.count > 0) {
-        // If the email exists, return false
-        res.status(404).json({ error: "Email already registered" });
-    } else {
-        // Insert the email and user_type into user table
-        const insertUserQuery = db.prepare("INSERT INTO user (email, user_type) VALUES (?, ?)");
-        insertUserQuery.run(email, user_type);
+  if (result.count > 0) {
+    // If the email exists, return false
+    res.status(404).json({ error: "Email already registered" });
+  } else {
+    // Insert the email and user_type into user table
+    const insertUserQuery = db.prepare(
+      "INSERT INTO user (email, user_type) VALUES (?, ?)"
+    );
+    insertUserQuery.run(email, user_type);
 
-        res.json({ success: true });
-    }
+    res.json({ success: true });
+  }
 });
 
+// Get all planes from the plane table from the database
+app.get("/get-planes", (req, res) => {
+  const getPlanesQuery = db.prepare("SELECT * FROM plane");
+  res.send(getPlanesQuery.all());
+});
 
+app.get("/", (req, res) => {
+  res.send("Server is running");
+});
