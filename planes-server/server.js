@@ -156,27 +156,70 @@ app.get("/get-planes", (req, res) => {
   res.send(getPlanesQuery.all());
 });
 
-app.post("/saveReservation", (req, res) => {
-  const data = req.body; // Get the user's email from the request query
-  console.log(data);
+app.post('/saveReservation', async (req, res) => {
+  try {
+    const {
+      activity,
+      comment,
+      fromDate,
+      fromTime,
+      optionalUser,
+      plane_id,
+      toDate,
+      toTime,
+      userId,
+    } = req.body;
 
-  // const viewPlaneData = db.prepare("SELECT * FROM user");
-  // console.log("\nPlane Table:");
-  // console.log(viewPlaneData.all());
+    // Print the extracted values
+    console.log('Activity:', activity);
+    console.log('Comment:', comment);
+    console.log('From Date:', fromDate);
+    console.log('From Time:', fromTime);
 
-  // // Check if the email exists in the user table
-  // const checkEmailQuery = db.prepare(
-  //   "SELECT COUNT(*) as count FROM user WHERE email = ?"
-  // );
-  // const result = checkEmailQuery.get(email);
+    console.log('Optional User:', optionalUser);
+    console.log('Plane ID:', plane_id);
+    console.log('To Date:', toDate);
+    console.log('To Time:', toTime);
+    console.log('User ID:', userId);
 
-  // if () {
-  //   res.json({ success: true });
-  // } else {
-  //   // If the email exists, return false
-  //   res.status(404).json({ error: "Save reservation failed to save" });
-  // }
+    // TODO Check if the comment exists in the comments table, if it does grab its pk id else add the new comment and returns its pk id
+
+
+    // Save reservation data into the reservations table
+    const sql = `
+      INSERT INTO reservations (
+        fromDate,
+        toDate,
+        fromTime,
+        toTime,
+        flighttype,
+        user_id_1,
+        user_id_2,
+        plane_id
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+    `;
+
+    const statement = db.prepare(sql);
+    statement.run(
+      fromDate,
+      toDate,
+      fromTime,
+      toTime,
+      activity,
+      userId,
+      optionalUser,
+      plane_id
+    );
+
+    console.log(`Reservation saved with ID: ${statement.lastInsertRowid}`);
+    res.status(200).json({ message: 'Reservation saved successfully.' });
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: 'Internal server error.' });
+  }
 });
+
 
 app.get("/", (req, res) => {
   res.send("Server is running");
