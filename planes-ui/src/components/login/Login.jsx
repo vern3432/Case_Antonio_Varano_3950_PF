@@ -21,14 +21,15 @@ function Login() {
 
   }
 
-  const saveCookie = (name) => {
+  const saveCookie = (name, userType, userId) => {
     console.log("inside save cookie");
     console.log("the name is: ", name);
     const expirationTime = 3600; // 1 hour
     const expirationDate = new Date(
       Date.now() + expirationTime * 1000
     ).toUTCString();
-    document.cookie = `userName=${name}; expires=${expirationDate}; path=/`;
+    const userInfoString = `userName=${name}&userType=${userType}&userId=${userId}`;
+    document.cookie = `userName=${userInfoString}; expires=${expirationDate}; path=/`;
     console.log("new user cookie saved");
   }
 
@@ -59,12 +60,12 @@ function Login() {
 
       const data = await response.json();
 
-      console.log(data);
+      console.log("the data! ", data);
 
       // Handle the response here, depending on the server's response
       if (response.ok) {
 
-        saveCookie(email);
+        saveCookie(email, data.user.user_type, data.user.user_id);
 
         console.log("new user cookie saved");
         navigate("/reservations");
@@ -127,7 +128,7 @@ function Login() {
       console.log(data);
       // Handle the response here, depending on the server's response
       if (response.ok) {
-        saveCookie(emailAddress);
+        saveCookie(emailAddress, data.user.user_type, data.user.user_id);
         navigate("/reservations");
       } else {
         alert("Email not registered");
@@ -157,11 +158,11 @@ function Login() {
 
       const data = await response.json();
 
-      console.log(data);
+      console.log("THE NEW data", data);
 
       // Handle the response here, depending on the server's response
       if (response.ok) {
-        saveCookie(signupEmail);
+        saveCookie(signupEmail, data.user.user_type, data.user.user_id);
         navigate("/reservations");
       } else {
         console.error("Error creating user:", data.error);

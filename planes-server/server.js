@@ -108,8 +108,11 @@ app.post("/existingUser", (req, res) => {
   );
   const result = checkEmailQuery.get(email);
 
+  const viewUserData = db.prepare("SELECT * FROM user WHERE email = ?");
+  const userData = viewUserData.get(email);
+
   if (result.count > 0) {
-    res.json({ success: true });
+    res.json({ success: true, user: userData });
   } else {
     // If the email exists, return false
     res.status(404).json({ error: "Email not registered" });
@@ -133,6 +136,7 @@ app.post("/newUser", (req, res) => {
   );
   const result = checkEmailQuery.get(email);
 
+
   if (result.count > 0) {
     // If the email exists, return false
     res.status(404).json({ error: "Email already registered" });
@@ -143,7 +147,10 @@ app.post("/newUser", (req, res) => {
     );
     insertUserQuery.run(email, user_type);
 
-    res.json({ success: true });
+    const viewUserData = db.prepare("SELECT * FROM user WHERE email = ?");
+    const userData = viewUserData.get(email);
+
+    res.json({ success: true, user: userData });
   }
 });
 
