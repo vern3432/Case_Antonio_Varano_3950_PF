@@ -116,7 +116,7 @@ const Contact = () => {
            Your Email-Add auto fill from logged in user 
             {/* <img src="internet_img.png" height="10" width="10" alt="Internet Icon" /> */}
           </label><br />
-          <input className="pagecontent" type="text" id="email" name="email" placeholder="Your Email Here" /><br />
+          <input className="pagecontent" type="text" id="email" name="email" placeholder="Your Email Here" value={localStorage.getItem('curremail')} /><br />
         </fieldset>
         <fieldset>
           <label className="pagecontent" htmlFor="subject">

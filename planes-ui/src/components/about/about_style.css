@@ -18,6 +18,23 @@ main {
 	
 	
 }
+GoogleMapReact{
+
+	float: right;
+}
+
+#about_text{
+    color: #FCF9F4;
+
+
+}
+
+#locations_text{
+    color: #FCF9F4;
+	float: left;
+
+
+}
 /* main::after {
 
 	height: 1000px; 
