@@ -29,8 +29,13 @@ function ReservationModal({ model }) {
 
   return (
     <>
-      <Button className="m-2" variant="primary" onClick={handleShow}>
-        Reserve
+      <Button
+        className="mb-2 btn-sm"
+        style={{ width: "100%" }}
+        variant="primary"
+        onClick={handleShow}
+      >
+        Reserve {model}
       </Button>
 
       <Modal show={show} onHide={handleClose} animation={false}>
@@ -41,19 +46,11 @@ function ReservationModal({ model }) {
           <Form>
             <Form.Group className="mb-3">
               <Form.Label>From: </Form.Label>
-              <Form.Control
-                type="date"
-                id="inputPassword5"
-                aria-describedby="passwordHelpBlock"
-              />
+              <Form.Control type="date" />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>To: </Form.Label>
-              <Form.Control
-                type="date"
-                id="inputPassword5"
-                aria-describedby="passwordHelpBlock"
-              />
+              <Form.Control type="date" />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Instructor:</Form.Label>
@@ -75,11 +72,11 @@ function ReservationModal({ model }) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
+          <Button variant="danger" onClick={handleClose}>
+            Cancel
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save
+          <Button variant="success" onClick={handleClose}>
+            Make Reservation
           </Button>
         </Modal.Footer>
       </Modal>
