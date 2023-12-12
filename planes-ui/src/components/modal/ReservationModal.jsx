@@ -88,12 +88,40 @@ function ReservationModal({ model, id }) {
       } else {
         // Save request to the database
         console.log("Data to be saved ", request);
+        saveReservation(request);
       }
     } else {
       console.log('Failed to find a user cookie');
     }
 
 
+  };
+
+  const saveReservation = async (res) => {
+
+    console.log("recieved res: ", res)
+    try {
+      const response = await fetch("http://localhost:3001/saveReservation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(res),
+      })
+
+      const data = await response.json();
+
+      // Handle the response here, depending on the server's response
+      if (response.ok) {
+
+        console.log("Good response from saveReservation endpoint");
+
+      } else {
+        console.log("Failed to fetch endpoint 'saveReservation'");
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
   };
 
   async function fetchEmployees() {

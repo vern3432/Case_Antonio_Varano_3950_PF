@@ -29,14 +29,19 @@ const createTablesQuery = `
     -- Create Reservations Table
     CREATE TABLE IF NOT EXISTS reservations (
         reservation_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        datetime DATETIME NOT NULL,
+        fromDate DATE NOT NULL,
+        toDate DATE NOT NULL,
+        fromTime DATETIME NOT NULL,
+        toTime DATETIME NOT NULL,
         flighttype VARCHAR NOT NULL,
         user_id_1 INTEGER NOT NULL,
         user_id_2 INTEGER,
+        instructor_id INTEGER,
         plane_id INTEGER NOT NULL,
         comment_id INTEGER,
         FOREIGN KEY (user_id_1) REFERENCES user(user_id),
         FOREIGN KEY (user_id_2) REFERENCES user(user_id),
+        FOREIGN KEY (instructor_id) REFERENCES Employees(ID),
         FOREIGN KEY (plane_id) REFERENCES plane(plane_id),
         FOREIGN KEY (comment_id) REFERENCES comments(comment_id)
     );
@@ -51,4 +56,8 @@ console.log(viewPlaneData.all());
 const viewUserData = db.prepare("SELECT * FROM user");
 console.log("\nUser Table:");
 console.log(viewUserData.all());
+
+const viewResData = db.prepare("SELECT * FROM reservations");
+console.log("\nRes Table:");
+console.log(viewResData.all());
 
