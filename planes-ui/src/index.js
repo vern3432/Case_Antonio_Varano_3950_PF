@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import Login from "./components/login/Login";
 import Reservations from "./components/reservations/Reservations";
 import Contact from "./components/contact/Contact";
