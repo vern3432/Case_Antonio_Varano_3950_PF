@@ -168,6 +168,7 @@ app.post('/saveReservation', async (req, res) => {
       toDate,
       toTime,
       userId,
+      instructor,
     } = req.body;
 
     // Print the extracted values
@@ -175,15 +176,57 @@ app.post('/saveReservation', async (req, res) => {
     console.log('Comment:', comment);
     console.log('From Date:', fromDate);
     console.log('From Time:', fromTime);
-
+    console.log('Instructor:', instructor);
     console.log('Optional User:', optionalUser);
     console.log('Plane ID:', plane_id);
     console.log('To Date:', toDate);
     console.log('To Time:', toTime);
     console.log('User ID:', userId);
 
-    // TODO Check if the comment exists in the comments table, if it does grab its pk id else add the new comment and returns its pk id
+    // Check if the date and time values already exist for a given reservation
+    // Check if there's any overlapping reservation for the given time range
+    const checkOverlapQuery = db.prepare(`
+    SELECT reservation_id FROM reservations
+    WHERE plane_id = ? AND fromDate = ? AND toDate = ?
+    AND (
+      (fromTime >= ? AND fromTime < ?)
+      OR (toTime > ? AND toTime <= ?)
+      OR (fromTime <= ? AND toTime >= ?)
+    )
+  `);
 
+
+    const existingReservation = checkOverlapQuery.get(
+      plane_id,
+      fromDate,
+      toDate,
+      fromTime,
+      toTime,
+      fromTime,
+      toTime,
+      fromTime,
+      toTime
+    );
+
+
+
+
+    if (existingReservation) {
+      return res.status(400).json({ error: 'Reservation for the given plane with the same date and time already exists.' });
+    }
+
+    // TODO Check if the comment exists in the comments table, if it does grab its pk id else add the new comment and returns its pk id
+    let commentId;
+    const checkCommentQuery = db.prepare("SELECT comment_id FROM comments WHERE comment = ?");
+    const existingComment = checkCommentQuery.get(comment);
+
+    if (existingComment) {
+      commentId = existingComment.comment_id;
+    } else {
+      const insertCommentQuery = db.prepare("INSERT INTO comments (comment) VALUES (?)");
+      const result = insertCommentQuery.run(comment);
+      commentId = result.lastInsertRowid;
+    }
 
     // Save reservation data into the reservations table
     const sql = `
@@ -195,8 +238,10 @@ app.post('/saveReservation', async (req, res) => {
         flighttype,
         user_id_1,
         user_id_2,
-        plane_id
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+        plane_id,
+        instructor_id,
+        comment_id
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
     `;
 
     const statement = db.prepare(sql);
@@ -208,7 +253,9 @@ app.post('/saveReservation', async (req, res) => {
       activity,
       userId,
       optionalUser,
-      plane_id
+      plane_id,
+      instructor,
+      commentId
     );
 
     console.log(`Reservation saved with ID: ${statement.lastInsertRowid}`);
