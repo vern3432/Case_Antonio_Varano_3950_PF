@@ -3,36 +3,57 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
+// Get the cookie given the name. In our example, just look for the start 'userName='
 const getCookie = (name) => {
-  const cookieString = document.cookie;
-  console.log("cookie string", cookieString);
-  const cookies = cookieString.split('; ');
-  console.log("cookies", cookies);
-  for (const cookie of cookies) {
-    const [cookieName, cookieValue] = cookie.split('=');
-    console.log("cookiedName", cookieName);
-    if (cookieName === name) {
-      return cookieValue;
+  const cookies = document.cookie.split(';');
+
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    if (cookie.startsWith(name)) {
+      const value = cookie.substring(name.length);
+      return value;
     }
   }
 
   return null; // Cookie not found
 };
 
+// Get the cookie using getCookie, 'userName=' is always the start of the cookie
+const userCookie = getCookie('userName=');
+
+// Extract the information from the userCookie into their own constants
+const extractUserInfo = (userCookie) => {
+  const userInfo = {};
+
+  // Extract email address
+  const emailMatch = userCookie.match(/([^&]+)/);
+  userInfo.email = emailMatch ? emailMatch[1] : null;
+
+  // Extract userType
+  const userTypeMatch = userCookie.match(/&userType=([^&]+)/);
+  userInfo.userType = userTypeMatch ? userTypeMatch[1] : null;
+
+  // Extract userId
+  const userIdMatch = userCookie.match(/&userId=([^&]+)/);
+  userInfo.userId = userIdMatch ? userIdMatch[1] : null;
+
+  return userInfo;
+};
+
 // Creates the ReservationModal component with the option to choose the start and end date, the type of activity and if you want a instructor or not when doing the reservation of the plane
 function ReservationModal({ model, id }) {
+  const plane_id = id;
   const [show, setShow] = useState(false);
-  const [employees, setEmployees] = useState();
+  const [employees, setEmployees] = useState(); // Value of employee dropdown selection
   const [fromDate, setFromDate] = useState()
   const [toDate, setToDate] = useState();
   const [fromTime, setFromTime] = useState();
   const [toTime, setToTime] = useState();
-  const [instructor, setInstructor] = useState(null);
-  const [member, setMembers] = useState(null);
-  const [user, setUsers] = useState(null);
+  const [instructor, setInstructor] = useState(null); // Same as employee, strictly for use of dropdown disabling
+  const [member, setMembers] = useState(null); // Value of member dropdown selection
+  const [optionalUser, setUsers] = useState(null); // Same as member, strictly for use of dropdown disabling
   const [activity, setActivity] = useState();
-
-
+  const [comment, setComment] = useState(null);
   const handleClose = () => setShow(false);
 
   // Call the get-employee endpoint when the reservation modal is opened
@@ -44,30 +65,32 @@ function ReservationModal({ model, id }) {
 
   const handleReserve = () => {
     setShow(false);
-    //TODO send post request to create reservation
+    //Send post request to create reservation
+    // If the userCookie exists
+    if (userCookie) {
 
-    const userName = getCookie('userName');
+      // Extract the cookie info
+      const userInfo = extractUserInfo(userCookie);
 
-    if (userName) {
-      console.log('User name retrieved:', userName);
+      // Save the id from the extracted cookie
+      const userId = userInfo.userId;
 
+      // Data to be sent to save reservation
+      const request = { userId, fromDate, toDate, fromTime, toTime, instructor, activity, plane_id, optionalUser, comment };
 
-      const request = { userName, fromDate, toDate, fromTime, toTime, instructor, activity, id, user };
-
+      // Calculate total time
       const fromDateTime = new Date(`${fromDate}T${fromTime}`);
       const toDateTime = new Date(`${toDate}T${toTime}`);
-      const totalTime = (toDateTime - fromDateTime) / (1000 * 60 * 60); // Convert milliseconds to hours
-
-      console.log("Total time: ", totalTime);
+      const totalTime = (toDateTime - fromDateTime) / (1000 * 60 * 60);
 
       if (totalTime < 2) {
-        console.log("Must reserve for at least 2 hours");
+        alert("Must reserve for at least 2 hours");
       } else {
-        // TODO: Save request to the database
-        console.log(request);
+        // Save request to the database
+        console.log("Data to be saved ", request);
       }
     } else {
-      console.log('User name cookie not found');
+      console.log('Failed to find a user cookie');
     }
 
 
@@ -145,7 +168,7 @@ function ReservationModal({ model, id }) {
               <Form.Select onChange={(e) => {
                 setInstructor(e.target.value);
 
-              }} disabled={user !== null && user !== "None"}>
+              }} disabled={optionalUser !== null && optionalUser !== "None"}>
                 <option hidden>Please Select</option>
                 {employees &&
                   employees.map((employee) => (
@@ -180,6 +203,15 @@ function ReservationModal({ model, id }) {
                 <option>Class</option>
               </Form.Select>
             </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Additional Comments:</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              />
+            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -189,7 +221,7 @@ function ReservationModal({ model, id }) {
           <Button
             variant="success"
             onClick={handleReserve}
-            disabled={!fromDate || !toDate || !instructor || !activity} // Make Reservation button is disabled until all fields are filled
+            disabled={!fromDate || !toDate || !toTime || !fromTime || !activity} // Make Reservation button is disabled until all fields are filled
           >
             Make Reservation
           </Button>

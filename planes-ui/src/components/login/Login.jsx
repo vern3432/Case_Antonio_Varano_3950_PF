@@ -22,17 +22,15 @@ function Login() {
   }
 
   const saveCookie = (name, userType, userId) => {
-    console.log("inside save cookie");
-    console.log("the name is: ", name);
     const expirationTime = 3600; // 1 hour
     const expirationDate = new Date(
       Date.now() + expirationTime * 1000
     ).toUTCString();
     const userInfoString = `userName=${name}&userType=${userType}&userId=${userId}`;
-    document.cookie = `userName=${userInfoString}; expires=${expirationDate}; path=/`;
-    console.log("new user cookie saved");
+    document.cookie = `${userInfoString}; expires=${expirationDate}; path=/`;
   }
 
+  // google oauth id
   const client_id =
     "951325617358-20v7s22jr35ahu01qdoeg0onh7hagu37.apps.googleusercontent.com";
 
@@ -42,9 +40,6 @@ function Login() {
   };
 
   const onSuccess = async (res) => {
-    // Extract name from the response
-    const name = res.profileObj.name;
-    console.log("User's Name:", name);
     // Extract email from the response
     const email = res.profileObj.email;
     try {

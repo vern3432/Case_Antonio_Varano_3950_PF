@@ -14,6 +14,7 @@ app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 const bodyParser = require("body-parser");
+
 // To check functionality, login in like this. There is no auth or anything on the account. Its just gmail
 // planeservice7@gmail.com
 // 123Planes!
@@ -108,6 +109,7 @@ app.post("/existingUser", (req, res) => {
   );
   const result = checkEmailQuery.get(email);
 
+  // Get all the values given the email and append to response
   const viewUserData = db.prepare("SELECT * FROM user WHERE email = ?");
   const userData = viewUserData.get(email);
 
@@ -122,20 +124,13 @@ app.post("/existingUser", (req, res) => {
 // Handle new signup
 app.post("/newUser", (req, res) => {
   const email = req.body.email; // Get the user's email from the request query
-  console.log(email);
   const user_type = req.body.user_type; // Get the user's user_type from the request query
-  console.log(user_type);
-
-  const viewPlaneData = db.prepare("SELECT * FROM user");
-  console.log("\nPlane Table:");
-  console.log(viewPlaneData.all());
 
   // Check if the email exists in the user table
   const checkEmailQuery = db.prepare(
     "SELECT COUNT(*) as count FROM user WHERE email = ?"
   );
   const result = checkEmailQuery.get(email);
-
 
   if (result.count > 0) {
     // If the email exists, return false
@@ -147,6 +142,7 @@ app.post("/newUser", (req, res) => {
     );
     insertUserQuery.run(email, user_type);
 
+    // Get all the values given the email and append to response
     const viewUserData = db.prepare("SELECT * FROM user WHERE email = ?");
     const userData = viewUserData.get(email);
 
