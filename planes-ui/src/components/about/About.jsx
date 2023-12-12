@@ -86,23 +86,23 @@ function About() {
         <div id="content">
           <section id="content1">
             {/* <h3>Information Comapny and Origin</h3> */}
-            <h1>Who we are</h1>
-            <p>Text Here</p>
-            <h1>Our Mission</h1>
-            <p>Text Here</p>
+            <h1 id='about_text'>Who we are</h1>
+            <p  id='about_text'>"Welcome to [Flight School Name], where dreams take flight and passion soars high. Nestled in the heart of [Location], we are a local flight school committed to cultivating a new generation of skilled aviators. With experienced instructors, state-of-the-art facilities, and a dedication to safety, we provide a nurturing environment for aspiring pilots to spread their wings and achieve their aviation goals."</p>
+            <h1 id='about_text'>Our Mission</h1>
+            <p id='about_text'>"At [Flight School Name], our mission is to inspire and empower individuals to embrace the skies. We strive to deliver exceptional flight training that not only instills technical expertise but also fosters a profound love for aviation. Through unwavering commitment to safety, innovation, and personalized guidance, we aim to propel our students toward successful careers in aviation while nurturing a lifelong passion for the boundless freedom of the skies."</p>
           </section>
           <section id="content2">
-            <h2>Rentals</h2>
-            <p>Text Here</p>
-            <h2>Lessons</h2>
-            <p>Text Here</p>
-            <h2>Designated Trips</h2>
-            <p>Text Here</p>
+            <h2 id='about_text' >Rentals</h2>
+            <p id='about_text'>Explore the joy of flying with our premier aircraft rental service at [Flight School Name]. Whether you're a seasoned pilot or embarking on your first solo adventure, our diverse fleet of well-maintained aircraft is at your fingertips. Experience the thrill of the open skies with our reliable rentals, backed by our commitment to safety and quality, ensuring every flight is a seamless and exhilarating journey</p>
+            <h2 id='about_text'>Lessons</h2>
+            <p id='about_text'>At [Flight School Name], our lessons are tailored to transform aspirations into aviator achievements. Led by seasoned instructors, our comprehensive flight lessons blend theory with hands-on experience, providing a dynamic and personalized learning environment. From the basics of takeoff to mastering intricate maneuvers, we guide aspiring pilots through every stage of their aviation journey, fostering confidence and competence in the exhilarating realm of flight.</p>
+            <h2 id='about_text'>Designated Pre-Chartered Flights</h2>
+            <p id='about_text'>Elevate your travel experience with our Designated Pre-Chartered Flights service at [Flight School Name]. Tailored for those seeking convenience and flexibility, our service allows you to customize your aerial itinerary, choosing destinations and schedules that align with your preferences. With a commitment to luxury, safety, and punctuality, we redefine private air travel, ensuring each journey is a seamless, comfortable, and memorable adventure above the clouds.</p>
           </section>
           <section id="content3">
             <div style={{ float: "left" }}>
-              <h3>Locations With Offer with Links to Directions redirect</h3>
-              <p>We have Two Location</p>
+              <h3  id='locations_text' >Locations With Offer with Links to Directions redirect</h3>
+              <p  id='locations_text' >We have Two Location</p>
             </div>
             <div style={{ float: "right", height: "50vh", width: "70%" }}>
               <GoogleMapReact
@@ -155,6 +155,7 @@ function About() {
                   </p>
                   <InstructorModal
                     model={"Samantha"}
+                    pfp={Samantha}
                     ID={"00005"}
                   ></InstructorModal>
                 </div>
@@ -171,6 +172,7 @@ function About() {
                 </div>
                 <InstructorModal
                   model={"Eamonn"}
+                  pfp={Ea}
                   ID={"00006"}
                 ></InstructorModal>
               </div>
@@ -192,6 +194,7 @@ function About() {
                 </div>
                 <InstructorModal
                   model={"Angela"}
+                  pfp={Angela}
                   ID={"00001"}
                 ></InstructorModal>
               </div>
@@ -229,6 +232,8 @@ function About() {
                   </p>
                   <InstructorModal
                     model={"Thomas"}
+                    pfp={Thomas}
+
                     ID={"00003"}
                   ></InstructorModal>
                 </div>
