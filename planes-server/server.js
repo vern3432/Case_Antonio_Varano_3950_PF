@@ -75,6 +75,24 @@ app.get("/get-employee", async (req, res) => {
   }
 });
 
+app.get("/get-users", async (req, res) => {
+  const ID = req.query.ID;
+  console.log(ID);
+  console.log("getting users");
+  let result;
+  let checkEmailQuery;
+
+  checkEmailQuery = db.prepare("SELECT * FROM User");
+  result = checkEmailQuery.all();
+
+  if (result) {
+    console.log(result);
+    res.send(result);
+  } else {
+    res.status(500).send("error");
+  }
+});
+
 // Handle google oauth and login form
 app.post("/existingUser", (req, res) => {
   const email = req.body.email; // Get the user's email from the request query

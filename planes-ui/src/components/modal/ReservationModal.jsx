@@ -27,8 +27,11 @@ function ReservationModal({ model, id }) {
   const [toDate, setToDate] = useState();
   const [fromTime, setFromTime] = useState();
   const [toTime, setToTime] = useState();
-  const [instructor, setInstructor] = useState();
+  const [instructor, setInstructor] = useState(null);
+  const [member, setMembers] = useState(null);
+  const [user, setUsers] = useState(null);
   const [activity, setActivity] = useState();
+
 
   const handleClose = () => setShow(false);
 
@@ -36,6 +39,7 @@ function ReservationModal({ model, id }) {
   const handleShow = async () => {
     setShow(true);
     await fetchEmployees();
+    await fetchMembers();
   };
 
   const handleReserve = () => {
@@ -48,7 +52,7 @@ function ReservationModal({ model, id }) {
       console.log('User name retrieved:', userName);
 
 
-      const request = { userName, fromDate, toDate, fromTime, toTime, instructor, activity, id };
+      const request = { userName, fromDate, toDate, fromTime, toTime, instructor, activity, id, user };
 
       const fromDateTime = new Date(`${fromDate}T${fromTime}`);
       const toDateTime = new Date(`${toDate}T${toTime}`);
@@ -77,6 +81,17 @@ function ReservationModal({ model, id }) {
     })
       .then((response) => response.json())
       .then((data) => setEmployees(data))
+      .catch((error) => console.log("Error fetching data: ", error));
+  }
+
+  async function fetchMembers() {
+    await fetch(`http://localhost:3001/get-users`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setMembers(data))
       .catch((error) => console.log("Error fetching data: ", error));
   }
 
@@ -127,12 +142,31 @@ function ReservationModal({ model, id }) {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Instructor:</Form.Label>
-              <Form.Select onChange={(e) => setInstructor(e.target.value)}>
+              <Form.Select onChange={(e) => {
+                setInstructor(e.target.value);
+
+              }} disabled={user !== null && user !== "None"}>
                 <option hidden>Please Select</option>
                 {employees &&
                   employees.map((employee) => (
                     <option key={employee.ID} value={employee.ID}>
                       {employee.Name}
+                    </option>
+                  ))}
+                <option>None</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Co-pilot:</Form.Label>
+              <Form.Select onChange={(e) => {
+                setUsers(e.target.value);
+
+              }} disabled={instructor !== null && instructor !== "None"}>
+                <option hidden>Please Select</option>
+                {member &&
+                  member.map((member) => (
+                    <option key={member.user_id} value={member.user_id}>
+                      {member.email}
                     </option>
                   ))}
                 <option>None</option>

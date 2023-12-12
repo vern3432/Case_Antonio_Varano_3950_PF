@@ -3,6 +3,7 @@ const sql3 = require("better-sqlite3");
 const db = new sql3("memory.db");
 
 
+
 db.exec("DROP TABLE IF EXISTS Employees");
 console.log("table dropped");
 db.exec(

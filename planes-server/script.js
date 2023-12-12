@@ -51,3 +51,4 @@ console.log(viewPlaneData.all());
 const viewUserData = db.prepare("SELECT * FROM user");
 console.log("\nUser Table:");
 console.log(viewUserData.all());
+
