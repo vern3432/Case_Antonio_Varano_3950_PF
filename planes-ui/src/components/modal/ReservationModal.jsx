@@ -3,6 +3,22 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
+const getCookie = (name) => {
+  const cookieString = document.cookie;
+  console.log("cookie string", cookieString);
+  const cookies = cookieString.split('; ');
+  console.log("cookies", cookies);
+  for (const cookie of cookies) {
+    const [cookieName, cookieValue] = cookie.split('=');
+    console.log("cookiedName", cookieName);
+    if (cookieName === name) {
+      return cookieValue;
+    }
+  }
+
+  return null; // Cookie not found
+};
+
 // Creates the ReservationModal component with the option to choose the start and end date, the type of activity and if you want a instructor or not when doing the reservation of the plane
 function ReservationModal({ model, id }) {
   const [show, setShow] = useState(false);
@@ -25,21 +41,30 @@ function ReservationModal({ model, id }) {
   const handleReserve = () => {
     setShow(false);
     //TODO send post request to create reservation
-    const request = { fromDate, toDate, fromTime, toTime, instructor, activity, id };
 
-    const fromDateTime = new Date(`${fromDate}T${fromTime}`);
-    const toDateTime = new Date(`${toDate}T${toTime}`);
-    const totalTime = (toDateTime - fromDateTime) / (1000 * 60 * 60); // Convert milliseconds to hours
+    const userName = getCookie('userName');
 
-    console.log("Total time: ", totalTime);
+    if (userName) {
+      console.log('User name retrieved:', userName);
 
-    if (totalTime < 2) {
-      console.log("Must reserve for at least 2 hours");
+
+      const request = { userName, fromDate, toDate, fromTime, toTime, instructor, activity, id };
+
+      const fromDateTime = new Date(`${fromDate}T${fromTime}`);
+      const toDateTime = new Date(`${toDate}T${toTime}`);
+      const totalTime = (toDateTime - fromDateTime) / (1000 * 60 * 60); // Convert milliseconds to hours
+
+      console.log("Total time: ", totalTime);
+
+      if (totalTime < 2) {
+        console.log("Must reserve for at least 2 hours");
+      } else {
+        // TODO: Save request to the database
+        console.log(request);
+      }
     } else {
-      // TODO: Save request to the database
-      console.log(request);
+      console.log('User name cookie not found');
     }
-
 
 
   };
