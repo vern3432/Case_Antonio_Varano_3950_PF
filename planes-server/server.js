@@ -60,7 +60,7 @@ app.get("/get-employee", async (req, res) => {
   let result;
   let checkEmailQuery;
   if (ID !== undefined) {
-    checkEmailQuery = db.prepare("SELECT * FROM Employees WHERE ID = ?");
+    checkEmailQuery = db.prepare("SELECT * FROM User WHERE ID = ?");
     result = checkEmailQuery.get(ID);
   } else {
     checkEmailQuery = db.prepare("SELECT * FROM Employees");

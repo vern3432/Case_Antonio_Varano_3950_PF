@@ -131,7 +131,9 @@ function ReservationModal({ model, id }) {
                 <option hidden>Please Select</option>
                 {employees &&
                   employees.map((employee) => (
-                    <option key={employee.ID}>{employee.Name}</option>
+                    <option key={employee.ID} value={employee.ID}>
+                      {employee.Name}
+                    </option>
                   ))}
                 <option>None</option>
               </Form.Select>
