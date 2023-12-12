@@ -7,6 +7,10 @@ import Form from "react-bootstrap/Form";
 function ReservationModal({ model }) {
   const [show, setShow] = useState(false);
   const [employees, setEmployees] = useState();
+  const [fromDate, setFromDate] = useState();
+  const [toDate, setToDate] = useState();
+  const [instructor, setInstructor] = useState();
+  const [activity, setActivity] = useState();
 
   const handleClose = () => setShow(false);
 
@@ -14,6 +18,13 @@ function ReservationModal({ model }) {
   const handleShow = async () => {
     setShow(true);
     await fetchEmployees();
+  };
+
+  const handleReserve = () => {
+    setShow(false);
+    //TODO send post request to create reservation
+    const request = { fromDate, toDate, instructor, activity };
+    console.log(request);
   };
 
   async function fetchEmployees() {
@@ -46,15 +57,22 @@ function ReservationModal({ model }) {
           <Form>
             <Form.Group className="mb-3">
               <Form.Label>From: </Form.Label>
-              <Form.Control type="date" />
+              <Form.Control
+                type="date"
+                onChange={(e) => setFromDate(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>To: </Form.Label>
-              <Form.Control type="date" />
+              <Form.Control
+                type="date"
+                onChange={(e) => setToDate(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Instructor:</Form.Label>
-              <Form.Select>
+              <Form.Select onChange={(e) => setInstructor(e.target.value)}>
+                <option hidden>Please Select</option>
                 {employees &&
                   employees.map((employee) => (
                     <option key={employee.ID}>{employee.Name}</option>
@@ -64,7 +82,8 @@ function ReservationModal({ model }) {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Activity:</Form.Label>
-              <Form.Select>
+              <Form.Select onChange={(e) => setActivity(e.target.value)}>
+                <option hidden>Please Select</option>
                 <option>Recreation</option>
                 <option>Class</option>
               </Form.Select>
@@ -75,7 +94,11 @@ function ReservationModal({ model }) {
           <Button variant="danger" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="success" onClick={handleClose}>
+          <Button
+            variant="success"
+            onClick={handleReserve}
+            disabled={!fromDate || !toDate || !instructor || !activity} // Make Reservation button is disabled until all fields are filled
+          >
             Make Reservation
           </Button>
         </Modal.Footer>
