@@ -76,6 +76,31 @@ input[name=css-tabs] {
 	border-radius: 20px;
 
 }
+#buttock{
+	cursor: pointer;
+	border-radius: 10px;
+	width: 100%;
+	font-size: 1rem;
+	color: #fff;
+	background: #0971f1;
+
+	
+}
+#dircontainer{
+float: left;
+
+}
+#buttock:hover {
+	background: #43a047;
+	-webkit-transition: background 0.3s ease-in-out;
+	-moz-transition: background 0.3s ease-in-out;
+	transition: background-color 0.3s ease-in-out;
+  }
+  #textbutt{
+	color: white;
+	inline-size: 150px;
+
+  }
 #tabs {
 	padding: 0 0 0 50px;
 	width: calc(100% + 50px);
