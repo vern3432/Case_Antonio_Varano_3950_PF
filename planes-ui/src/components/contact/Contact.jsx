@@ -54,6 +54,11 @@ function submitpost(){
 
 const Contact = () => {
   console.log("cpntact function reading. ")
+
+  function autoFill(){
+    localStorage.getItem('curremail')
+
+  }
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -113,10 +118,10 @@ const Contact = () => {
         </fieldset>
         <fieldset>
           <label className="pagecontent" htmlFor="email">
-           Your Email-Add auto fill from logged in user 
+           Your Email
             {/* <img src="internet_img.png" height="10" width="10" alt="Internet Icon" /> */}
           </label><br />
-          <input className="pagecontent" type="text" id="email" name="email" placeholder="Your Email Here" value={localStorage.getItem('curremail')} /><br />
+          <input className="pagecontent" type="text" id="email" name="email" placeholder="Your Email Here"  /><br />
         </fieldset>
         <fieldset>
           <label className="pagecontent" htmlFor="subject">
