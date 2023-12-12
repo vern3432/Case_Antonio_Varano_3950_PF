@@ -11,7 +11,9 @@ function Reservations() {
       await fetch("http://localhost:3001/get-planes")
         .then((response) => response.json())
         .then((data) => setPlaneData(data));
+
     }
+
     fetchPlaneData();
   }, []);
 
@@ -20,9 +22,11 @@ function Reservations() {
       {planeData.map((plane) => (
         <PlaneReservation
           key={plane.plane_id}
+          id={plane.plane_id}
           plane={plane.img_src}
           year={plane.Year}
           model={plane.model}
+          tail_number={plane.tail_number}
         ></PlaneReservation>
       ))}
     </div>

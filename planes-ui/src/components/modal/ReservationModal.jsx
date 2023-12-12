@@ -4,11 +4,13 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
 // Creates the ReservationModal component with the option to choose the start and end date, the type of activity and if you want a instructor or not when doing the reservation of the plane
-function ReservationModal({ model }) {
+function ReservationModal({ model, id }) {
   const [show, setShow] = useState(false);
   const [employees, setEmployees] = useState();
-  const [fromDate, setFromDate] = useState();
+  const [fromDate, setFromDate] = useState()
   const [toDate, setToDate] = useState();
+  const [fromTime, setFromTime] = useState();
+  const [toTime, setToTime] = useState();
   const [instructor, setInstructor] = useState();
   const [activity, setActivity] = useState();
 
@@ -23,8 +25,23 @@ function ReservationModal({ model }) {
   const handleReserve = () => {
     setShow(false);
     //TODO send post request to create reservation
-    const request = { fromDate, toDate, instructor, activity };
-    console.log(request);
+    const request = { fromDate, toDate, fromTime, toTime, instructor, activity, id };
+
+    const fromDateTime = new Date(`${fromDate}T${fromTime}`);
+    const toDateTime = new Date(`${toDate}T${toTime}`);
+    const totalTime = (toDateTime - fromDateTime) / (1000 * 60 * 60); // Convert milliseconds to hours
+
+    console.log("Total time: ", totalTime);
+
+    if (totalTime < 2) {
+      console.log("Must reserve for at least 2 hours");
+    } else {
+      // TODO: Save request to the database
+      console.log(request);
+    }
+
+
+
   };
 
   async function fetchEmployees() {
@@ -67,6 +84,20 @@ function ReservationModal({ model }) {
               <Form.Control
                 type="date"
                 onChange={(e) => setToDate(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>From: </Form.Label>
+              <Form.Control
+                type="time"
+                onChange={(e) => setFromTime(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>To: </Form.Label>
+              <Form.Control
+                type="time"
+                onChange={(e) => setToTime(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3">
