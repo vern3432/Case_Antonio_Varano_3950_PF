@@ -7,7 +7,7 @@ import Angela from "./istockphoto-1394347360-612x612.jpg";
 import Clarence from "./balddude.jpg";
 import Thomas from "./oldwhitedude.jpg";
 import InstructorModal from "./instructorabout";
-
+//Lot
 const renderMarkers = (map, maps) => {
   let marker = new maps.Marker({
   position: { lat: 25.0391667, lng: 122.525 },
@@ -143,11 +143,9 @@ function About() {
             {/* <a href="#" onclick=>New Map(In new window)</a> */}
 
             </p>
-
             </div>
             <br />
             <br />
-
             <div id='dircontainer'>
               <p id='textbutt'>315 Turnpike St, North Andover, MA 01845 <br /><button type='button' id='buttock' onClick={() => getDirections1(('https://www.google.com/maps/d/u/0/viewer?mid=1brlnn0LqP-XE4rFh4al4nhTonKY&hl=en&ll=42.751038324931415%2C-71.04867850000001&z=11'))}>Get Direction</button></p>
               <p id='textbutt'>315 Turnpike St, North Andover, MA 01845<br /><button type='button' id='buttock' onClick={() => getDirections1(('https://www.google.com/maps/d/u/0/viewer?mid=1brlnn0LqP-XE4rFh4al4nhTonKY&hl=en&ll=42.751038324931415%2C-71.04867850000001&z=11'))}>Get Direction</button></p>
@@ -175,7 +173,7 @@ function About() {
             </div>
           </section>
           <section id="content4">
-            <h3>List of Staff</h3>
+            <h3 id='about_text'>List of Staff</h3>
 
             <div className="Row">
               <div className="Column">
