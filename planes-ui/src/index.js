@@ -52,6 +52,11 @@ const router = createBrowserRouter([
       </>
     ),
   },
+  {
+    // If path is not found goes to the login page
+    path: "*",
+    element: <Login />,
+  },
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

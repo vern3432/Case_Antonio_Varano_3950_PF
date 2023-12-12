@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { GoogleLogin } from 'react-google-login';
-import { GoogleButton } from 'react-google-button';
-import { gapi } from 'gapi-script';
+import React, { useEffect, useState } from "react";
+import { GoogleLogin } from "react-google-login";
+import { GoogleButton } from "react-google-button";
+import { gapi } from "gapi-script";
 import background from "./cessna.jpg";
 import { useNavigate } from "react-router-dom";
+import "../login/loginStyle.css";
 
 function Login() {
   const [showLoginForm, setShowLoginForm] = useState(true);
   const [showSignupForm, setShowSignupForm] = useState(false);
-  const [emailAddress, setEmailAddress] = useState('');
-  const [signupEmail, setSignupEmail] = useState('');
+  const [emailAddress, setEmailAddress] = useState("");
+  const [signupEmail, setSignupEmail] = useState("");
   const navigate = useNavigate();
-  const client_id = "951325617358-20v7s22jr35ahu01qdoeg0onh7hagu37.apps.googleusercontent.com"
+  const client_id =
+    "951325617358-20v7s22jr35ahu01qdoeg0onh7hagu37.apps.googleusercontent.com";
 
   const toggleForm = () => {
     setShowLoginForm(!showLoginForm);
@@ -19,24 +21,22 @@ function Login() {
   };
 
   const onSuccess = async (res) => {
-
     // Extract name from the response
     const name = res.profileObj.name;
     console.log("User's Name:", name);
     // Extract email from the response
     const email = res.profileObj.email;
 
-
     try {
-      const response = await fetch('http://localhost:3001/existingUser', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3001/existingUser", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email: email,
         }),
-      });
+      }).then(() => navigate("/reservations"));
 
       const data = await response.json();
 
@@ -44,10 +44,12 @@ function Login() {
 
       // Handle the response here, depending on the server's response
       if (response.ok) {
-        console.log('User successfully created');
+        console.log("User successfully created");
         // Set cookie for name
         const expirationTime = 3600; // 1 hour
-        const expirationDate = new Date(Date.now() + expirationTime * 1000).toUTCString();
+        const expirationDate = new Date(
+          Date.now() + expirationTime * 1000
+        ).toUTCString();
         document.cookie = `userName=${email}; expires=${expirationDate}; path=/`;
         console.log("new user cookie saved");
         navigate("/reservations");
@@ -55,13 +57,15 @@ function Login() {
         alert("Email not registered");
       }
     } catch (error) {
-      console.error('Error:', error.message);
+      console.error("Error:", error.message);
     }
-  }
+  };
 
   const onFailure = (res) => {
-    console.log("Google authentication failed. If you believe this is an error, contact the development team.");
-  }
+    console.log(
+      "Google authentication failed. If you believe this is an error, contact the development team."
+    );
+  };
 
   // Regex for email checking
   const validateEmail = (email) => {
@@ -70,34 +74,33 @@ function Login() {
   };
 
   /*
-  * Given email from html, check validity and alter boxes
-  * and buttons depending on response
-  */
+   * Given email from html, check validity and alter boxes
+   * and buttons depending on response
+   */
   const checkEmail = (inputId) => {
-    const emailInput = (inputId === 'emailAddress') ? emailAddress : signupEmail;
-    if (emailInput !== '' && !validateEmail(emailInput)) {
+    const emailInput = inputId === "emailAddress" ? emailAddress : signupEmail;
+    if (emailInput !== "" && !validateEmail(emailInput)) {
       alert("Invalid email");
     }
   };
 
   // Clear sign up fields and remove color from border on back btn click
   const clearSignUpFields = () => {
-    setSignupEmail('');
+    setSignupEmail("");
   };
 
   // Clear log in fields and remove color from border on sign up btn click
   const clearLoginFields = () => {
-    setEmailAddress('');
+    setEmailAddress("");
   };
-
 
   // Handle login form submission -> Navigate to new page on successfull login
   const decodeLoginFormResponse = async () => {
     try {
-      const response = await fetch('http://localhost:3001/existingUser', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3001/existingUser", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email: emailAddress,
@@ -109,10 +112,12 @@ function Login() {
       console.log(data);
       // Handle the response here, depending on the server's response
       if (response.ok) {
-        console.log('User successfully created');
+        console.log("User successfully created");
         // Set cookie for name
         const expirationTime = 3600; // 1 hour
-        const expirationDate = new Date(Date.now() + expirationTime * 1000).toUTCString();
+        const expirationDate = new Date(
+          Date.now() + expirationTime * 1000
+        ).toUTCString();
         document.cookie = `userName=${emailAddress}; expires=${expirationDate}; path=/`;
         console.log("new user cookie saved");
         navigate("/reservations");
@@ -120,7 +125,7 @@ function Login() {
         alert("Email not registered");
       }
     } catch (error) {
-      console.error('Error:', error.message);
+      console.error("Error:", error.message);
     }
   };
 
@@ -131,10 +136,10 @@ function Login() {
     console.log(userType);
 
     try {
-      const response = await fetch('http://localhost:3001/newUser', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3001/newUser", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email: signupEmail,
@@ -148,24 +153,24 @@ function Login() {
 
       // Handle the response here, depending on the server's response
       if (response.ok) {
-        console.log('User successfully created');
+        console.log("User successfully created");
         // Set cookie for name
         const expirationTime = 3600; // 1 hour
-        const expirationDate = new Date(Date.now() + expirationTime * 1000).toUTCString();
+        const expirationDate = new Date(
+          Date.now() + expirationTime * 1000
+        ).toUTCString();
         document.cookie = `userName=${signupEmail}; expires=${expirationDate}; path=/`;
         console.log("new user cookie saved");
         navigate("/reservations");
       } else {
-        console.error('Error creating user:', data.error);
+        console.error("Error creating user:", data.error);
       }
     } catch (error) {
-      console.error('Error:', error.message);
+      console.error("Error:", error.message);
     }
   };
 
-
-
-  const [userType, setUserType] = useState(''); // Add state for the selected user type
+  const [userType, setUserType] = useState(""); // Add state for the selected user type
 
   // Handle user type selection
   const handleUserTypeChange = (event) => {
@@ -176,28 +181,33 @@ function Login() {
     function start() {
       gapi.client.init({
         clientId: client_id,
-        scope: ""
-      })
-    };
-    gapi.load('client:auth2', start)
-  })
+        scope: "",
+      });
+    }
+    gapi.load("client:auth2", start);
+  });
 
   return (
-    <div className="container-fluid" style={{
-      backgroundImage: `url(${background})`, // Replace with the path to your image
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
-      minHeight: '100vh'
-    }}>
+    <div
+      className="container-fluid"
+      style={{
+        backgroundImage: `url(${background})`, // Replace with the path to your image
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        minHeight: "100vh",
+      }}
+    >
       <div
         className="container d-flex justify-content-center align-items-center"
-        style={{ minHeight: '100vh' }}
+        style={{ minHeight: "100vh" }}
       >
         {/* Login Form, default display */}
         <form
           id="loginForm"
-          className={`opacity-75 rounded p-5 bg-light col-lg-6 col-md-9 col-sm-12  ${showLoginForm ? '' : 'd-none'}`}
+          className={`opacity-75 rounded p-5 bg-light col-lg-6 col-md-9 col-sm-12  ${
+            showLoginForm ? "" : "d-none"
+          }`}
         >
           <div className="text-center mb-4 custom-font-size">
             <h1> Log In </h1>
@@ -213,7 +223,7 @@ function Login() {
               placeholder="Email Address"
               required
               autoFocus
-              onBlur={() => checkEmail('emailAddress')}
+              onBlur={() => checkEmail("emailAddress")}
               value={emailAddress}
               onChange={(e) => setEmailAddress(e.target.value)}
             />
@@ -231,22 +241,30 @@ function Login() {
           </div>
           {/* Google OAuth button */}
           <div className="mt-3 d-flex align-items-center justify-content-center">
-            <h6>
-              OR
-            </h6>
+            <h6>OR</h6>
           </div>
           <div className="mt-3 d-flex align-items-center justify-content-center">
             <GoogleLogin
               icon={false}
               clientId={client_id}
-              render={renderProps => (
-                <GoogleButton onClick={renderProps.onClick} style={{ color: 'black', backgroundColor: "white", width: '18rem', borderRadius: '3px' }} disabled={renderProps.disabled}>Sign in with Google</GoogleButton>
+              render={(renderProps) => (
+                <GoogleButton
+                  onClick={renderProps.onClick}
+                  style={{
+                    color: "black",
+                    backgroundColor: "white",
+                    width: "18rem",
+                    borderRadius: "3px",
+                  }}
+                  disabled={renderProps.disabled}
+                >
+                  Sign in with Google
+                </GoogleButton>
               )}
               onSuccess={onSuccess}
               onFailure={onFailure}
-              cookiePolicy={'single_host_origin'}
+              cookiePolicy={"single_host_origin"}
               isSignedIn={true}
-
             />
           </div>
           {/* Padding */}
@@ -255,7 +273,10 @@ function Login() {
                     found in Login_Signup.js */}
           <div className="d-grid gap-2 col-6 mx-auto">
             <button
-              onClick={() => { clearLoginFields(); toggleForm(); }}
+              onClick={() => {
+                clearLoginFields();
+                toggleForm();
+              }}
               id="createAccountBtn"
               type="button"
               className="btn btn-success fw-bolder"
@@ -263,13 +284,14 @@ function Login() {
               Create New Account
             </button>
           </div>
-
         </form>
 
         {/* Sign up form, default as hidden until toggeled */}
         <form
           id="signupForm"
-          className={`opacity-75 rounded p-5 bg-light col-lg-6 col-md-9 col-sm-12 ${showSignupForm ? '' : 'd-none'}`}
+          className={`opacity-75 rounded p-5 bg-light col-lg-6 col-md-9 col-sm-12 ${
+            showSignupForm ? "" : "d-none"
+          }`}
         >
           <div className="text-center mb-4 custom-font-size">
             <h1> Sign Up </h1>
@@ -284,7 +306,7 @@ function Login() {
               placeholder="Email Address"
               required
               autoFocus
-              onBlur={() => checkEmail('signupEmail')}
+              onBlur={() => checkEmail("signupEmail")}
               value={signupEmail}
               onChange={(e) => setSignupEmail(e.target.value)}
             />
@@ -298,7 +320,9 @@ function Login() {
               value={userType}
               onChange={handleUserTypeChange}
             >
-              <option value="" disabled>Select Account Type</option>
+              <option value="" disabled>
+                Select Account Type
+              </option>
               <option value="Student">Student</option>
               <option value="Member">Member</option>
             </select>
@@ -317,7 +341,10 @@ function Login() {
           {/* Back button, clear email input field */}
           <div className="d-grid gap-2 col-6 mx-auto mt-3">
             <button
-              onClick={() => { clearSignUpFields(); toggleForm(); }}
+              onClick={() => {
+                clearSignUpFields();
+                toggleForm();
+              }}
               id="backBtn"
               type="button"
               className="btn btn-danger fw-bolder"

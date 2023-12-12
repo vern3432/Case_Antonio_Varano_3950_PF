@@ -6,9 +6,26 @@ import Form from "react-bootstrap/Form";
 // Creates the ReservationModal component with the option to choose the start and end date, the type of activity and if you want a instructor or not when doing the reservation of the plane
 function ReservationModal({ model }) {
   const [show, setShow] = useState(false);
+  const [employees, setEmployees] = useState();
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+
+  // Call the get-employee endpoint when the reservation modal is opened
+  const handleShow = async () => {
+    setShow(true);
+    await fetchEmployees();
+  };
+
+  async function fetchEmployees() {
+    await fetch(`http://localhost:3001/get-employee`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setEmployees(data))
+      .catch((error) => console.log("Error fetching data: ", error));
+  }
 
   return (
     <>
@@ -22,7 +39,7 @@ function ReservationModal({ model }) {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3">
               <Form.Label>From: </Form.Label>
               <Form.Control
                 type="date"
@@ -30,7 +47,7 @@ function ReservationModal({ model }) {
                 aria-describedby="passwordHelpBlock"
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3">
               <Form.Label>To: </Form.Label>
               <Form.Control
                 type="date"
@@ -38,16 +55,17 @@ function ReservationModal({ model }) {
                 aria-describedby="passwordHelpBlock"
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3">
               <Form.Label>Instructor:</Form.Label>
               <Form.Select>
-                <option>Instructor Name</option>
-                <option>Instructor Name 2</option>
-                <option>Instructor Name 3</option>
+                {employees &&
+                  employees.map((employee) => (
+                    <option key={employee.ID}>{employee.Name}</option>
+                  ))}
                 <option>None</option>
               </Form.Select>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3">
               <Form.Label>Activity:</Form.Label>
               <Form.Select>
                 <option>Recreation</option>

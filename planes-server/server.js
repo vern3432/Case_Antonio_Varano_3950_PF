@@ -1,12 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-// const sqlite3 = require("sqlite3").verbose();
-// const path = require("path");
-
-// const dbPath = path.resolve(__dirname, "memory.db");
-// const db = new sqlite3.Database(dbPath);
-const sql3=require("better-sqlite3")
-const db=new sql3("memory.db")
+const sql3 = require("better-sqlite3");
+const db = new sql3("memory.db");
 const nodemailer = require("nodemailer");
 
 const app = express();
@@ -58,23 +53,27 @@ app.post("/send-email", async (req, res) => {
   }
 });
 
-app.post("/get-employee", async (req, res) => {
-  const ID = req.body.ID;
+app.get("/get-employee", async (req, res) => {
+  const ID = req.query.ID;
   console.log(ID);
   console.log("getting employees");
-  const checkEmailQuery = db.prepare(
-    "SELECT * FROM Employees WHERE ID = ?"
-  );
-  const result = checkEmailQuery.get(ID);
+  let result;
+  let checkEmailQuery;
+  if (ID !== undefined) {
+    checkEmailQuery = db.prepare("SELECT * FROM Employees WHERE ID = ?");
+    result = checkEmailQuery.get(ID);
+  } else {
+    checkEmailQuery = db.prepare("SELECT * FROM Employees");
+    result = checkEmailQuery.all();
+  }
 
   if (result) {
-    console.log(result)
+    console.log(result);
     res.send(result);
   } else {
     res.status(500).send("error");
   }
 });
-
 
 // Handle google oauth and login form
 app.post("/existingUser", (req, res) => {
@@ -134,7 +133,6 @@ app.post("/newUser", (req, res) => {
 app.get("/get-planes", (req, res) => {
   const getPlanesQuery = db.prepare("SELECT * FROM plane");
   res.send(getPlanesQuery.all());
-  console.log
 });
 
 app.get("/", (req, res) => {
