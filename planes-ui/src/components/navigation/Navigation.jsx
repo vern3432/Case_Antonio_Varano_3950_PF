@@ -2,7 +2,36 @@
 import { Nav, Navbar, NavbarBrand } from "react-bootstrap";
 import navigationStyle from "./navigation.module.css";
 
+const getCookie = (name) => {
+  const cookieString = document.cookie;
+  console.log("cookie string", cookieString);
+  const cookies = cookieString.split('; ');
+  console.log("cookies", cookies);
+  for (const cookie of cookies) {
+    const [cookieName, cookieValue] = cookie.split('=');
+    console.log("cookiedName", cookieName);
+    if (cookieName === name) {
+      return cookieValue;
+    }
+  }
+
+  return null; // Cookie not found
+};
+
+// Example usage:
+const userName = getCookie('userName');
+
+if (userName) {
+  console.log('User name retrieved:', userName);
+} else {
+  console.log('User name cookie not found');
+}
+
+
+
 function Navigation() {
+  const userNameCookie = getCookie('userName');
+
   return (
     <Navbar
       collapseOnSelect
@@ -10,7 +39,7 @@ function Navigation() {
       expand="sm"
       id={navigationStyle.navColor}
     >
-      <NavbarBrand>Username</NavbarBrand>
+      <NavbarBrand>{userNameCookie || 'Default Username'}</NavbarBrand>
       <Navbar.Toggle
         aria-controls="navbarScroll"
         data-bs-target="#navbarScroll"

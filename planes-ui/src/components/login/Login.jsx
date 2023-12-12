@@ -21,6 +21,17 @@ function Login() {
 
   }
 
+  const saveCookie = (name) => {
+    console.log("inside save cookie");
+    console.log("the name is: ", name);
+    const expirationTime = 3600; // 1 hour
+    const expirationDate = new Date(
+      Date.now() + expirationTime * 1000
+    ).toUTCString();
+    document.cookie = `userName=${name}; expires=${expirationDate}; path=/`;
+    console.log("new user cookie saved");
+  }
+
   const client_id =
     "951325617358-20v7s22jr35ahu01qdoeg0onh7hagu37.apps.googleusercontent.com";
 
@@ -44,7 +55,7 @@ function Login() {
         body: JSON.stringify({
           email: email,
         }),
-      }).then(() => navigate("/reservations"));
+      })
 
       const data = await response.json();
 
@@ -52,13 +63,9 @@ function Login() {
 
       // Handle the response here, depending on the server's response
       if (response.ok) {
-        console.log("User successfully created");
-        // Set cookie for name
-        const expirationTime = 3600; // 1 hour
-        const expirationDate = new Date(
-          Date.now() + expirationTime * 1000
-        ).toUTCString();
-        document.cookie = `userName=${email}; expires=${expirationDate}; path=/`;
+
+        saveCookie(email);
+
         console.log("new user cookie saved");
         navigate("/reservations");
       } else {
@@ -120,14 +127,7 @@ function Login() {
       console.log(data);
       // Handle the response here, depending on the server's response
       if (response.ok) {
-        console.log("User successfully created");
-        // Set cookie for name
-        const expirationTime = 3600; // 1 hour
-        const expirationDate = new Date(
-          Date.now() + expirationTime * 1000
-        ).toUTCString();
-        document.cookie = `userName=${emailAddress}; expires=${expirationDate}; path=/`;
-        console.log("new user cookie saved");
+        saveCookie(emailAddress);
         navigate("/reservations");
       } else {
         alert("Email not registered");
@@ -161,14 +161,7 @@ function Login() {
 
       // Handle the response here, depending on the server's response
       if (response.ok) {
-        console.log("User successfully created");
-        // Set cookie for name
-        const expirationTime = 3600; // 1 hour
-        const expirationDate = new Date(
-          Date.now() + expirationTime * 1000
-        ).toUTCString();
-        document.cookie = `userName=${signupEmail}; expires=${expirationDate}; path=/`;
-        console.log("new user cookie saved");
+        saveCookie(signupEmail);
         navigate("/reservations");
       } else {
         console.error("Error creating user:", data.error);
