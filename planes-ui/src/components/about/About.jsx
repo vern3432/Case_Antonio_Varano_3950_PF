@@ -165,7 +165,7 @@ function About() {
                   <p id="staffname">
                     Eamonn :{" "}
                     <b>
-                      <i>Instructor</i>
+                      <i>Instructor Supervisor</i>
                     </b>
                   </p>
                 </div>
@@ -186,7 +186,7 @@ function About() {
                   <p id="staffname">
                     Angela:{" "}
                     <b>
-                      <i>Instructor</i>
+                      <i>Human Resources</i>
                     </b>
                   </p>
                 </div>
@@ -205,7 +205,7 @@ function About() {
                   <p id="staffname">
                     Clarence:{" "}
                     <b>
-                      <i>Instructor</i>
+                      <i>Avation Mechanic</i>
                     </b>
                   </p>
                 </div>
@@ -224,7 +224,7 @@ function About() {
                   <p id="staffname">
                     Thomas:{" "}
                     <b>
-                      <i>Instructor</i>
+                      <i>Hiring Manager</i>
                     </b>
                   </p>
                   <InstructorModal
