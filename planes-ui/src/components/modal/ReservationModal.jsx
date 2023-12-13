@@ -75,8 +75,12 @@ function ReservationModal({ model, id }) {
       // Extract the cookie info
       const userInfo = extractUserInfo(userCookie);
       setUser(userInfo.userId);
+      setUserType(userInfo.userType);
       console.log("the id: ", userId);
+      console.log("the type: ", userType);
     }
+
+
   });
 
 
@@ -284,7 +288,7 @@ function ReservationModal({ model, id }) {
           <Button
             variant="success"
             onClick={handleReserve}
-            disabled={!fromDate || !toDate || !toTime || !fromTime || !activity || !instructor || instructor === "None"} // Make Reservation button is disabled until all fields are filled
+            disabled={!fromDate || !toDate || !toTime || !fromTime || !activity} // Make Reservation button is disabled until all fields are filled
           >
             Make Reservation
           </Button>
