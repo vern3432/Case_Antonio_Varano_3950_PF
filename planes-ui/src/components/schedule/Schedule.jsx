@@ -9,20 +9,19 @@ function Schedule() {
 
   // Turn reservations into calendar events
   function createEvent(reservation) {
-    const start = new Date(reservation.fromDate);
-    start.setHours(reservation.fromTime.split(":")[0]);
-    start.setMinutes(reservation.fromTime.split(":")[1]);
+    // Assuming fromDate, toDate, fromTime, and toTime are provided in UTC format
+    const start = new Date(`${reservation.fromDate}T${reservation.fromTime}Z`);
+    const end = new Date(`${reservation.toDate}T${reservation.toTime}Z`);
 
-    const end = new Date(reservation.toDate);
-    start.setHours(reservation.toTime.split(":")[0]);
-    start.setMinutes(reservation.toTime.split(":")[1]);
+    // Adjust dates to EST
+    start.setUTCHours(start.getUTCHours() - 5); // UTC to EST offset is -5 hours
+    end.setUTCHours(end.getUTCHours() - 5);
 
     return {
       id: reservation.reservation_id,
       title: `${reservation.plane_model} reservation`,
       start,
       end,
-      // Green for recreation events, blue for classes
       backgroundColor:
         reservation.flighttype === "Recreation" ? "#4BA432" : "#2597DD",
     };
@@ -51,6 +50,7 @@ function Schedule() {
         initialView="dayGridMonth"
         weekends={true}
         events={reservationData}
+        timeZone="America/New_York"
       />
     </div>
   );
