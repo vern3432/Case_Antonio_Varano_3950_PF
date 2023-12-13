@@ -71,6 +71,27 @@ function About() {
     return marker;
   };
 
+  let selectedTab = 1;
+
+  const handleTabChange = (tabNumber) => {
+    selectedTab = tabNumber;
+    onselection(tabNumber * 100);
+    updateTabVisibility();
+  };
+
+  const updateTabVisibility = () => {
+    for (let i = 1; i <= 4; i++) {
+      const contentSection = document.getElementById(`content${i}`);
+      if (contentSection) {
+        contentSection.style.display = selectedTab === i ? 'block' : 'none';
+      }
+    }
+  };
+
+
+
+
+
   return (
     <main style={{ height: `${mainHeight}px` }}>
       <h1>About Us</h1>
@@ -82,27 +103,39 @@ function About() {
         value="1"
         defaultChecked  // Set the first option as default
         oncheck={onselection(100)}
+        onChange={() => handleTabChange(1)}
+
+
       ></input>
       <input
         id="radio2"
         type="radio"
         name="css-tabs"
         value="2"
+        onChange={() => handleTabChange(2)}
+
         onchecked={onselection(200)}
+
+        
       ></input>
       <input
         id="radio3"
         type="radio"
         name="css-tabs"
         value="3"
+        onChange={() => handleTabChange(3)}
+
         onchecked={onselection(300)}
+        
       ></input>
       <input
         id="radio4"
         type="radio"
         name="css-tabs"
-        value="3"
+        value="4"
         onchecked={onselection(1200)}
+        onChange={() => handleTabChange(4)}
+
       ></input>
 
       <div id="tabs">
@@ -135,7 +168,7 @@ function About() {
           <h2 id='about_text'>Designated Pre-Chartered Flights</h2>
           <p id='about_text'>Elevate your travel experience with our Designated Pre-Chartered Flights service at [Flight School Name]. Tailored for those seeking convenience and flexibility, our service allows you to customize your aerial itinerary, choosing destinations and schedules that align with your preferences. With a commitment to luxury, safety, and punctuality, we redefine private air travel, ensuring each journey is a seamless, comfortable, and memorable adventure above the clouds.</p>
         </section>
-        <section id="content3">
+        <section id="content3" >
           <div style={{ float: "left" }}>
             <h2 id='locations_text'>We have Two Location</h2>
             <p id='locations_text'> With dual locations strategically situated in [Location1] and [Location2], [Flight School Name] brings the joy of aviation education and services closer to enthusiasts, providing convenient access to top-notch flight training, aircraft rentals, and personalized experiences at two thriving hubs.</p>

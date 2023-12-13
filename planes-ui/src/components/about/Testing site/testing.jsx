@@ -4,7 +4,7 @@ function About() {
     return (
       <main style={{ height: `${mainHeight}px` }}>
         <h1>About Us</h1>
-        
+
         <input
           id="radio1"
           type="radio"

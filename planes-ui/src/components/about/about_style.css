@@ -84,6 +84,8 @@ input[name="css-tabs"] {
 #textbutt {
   color: black;
   inline-size: 150px;
+  display: 'flex';
+
 }
 #tabs {
   /* padding: 0 0 0 50px;
