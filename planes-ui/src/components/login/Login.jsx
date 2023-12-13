@@ -7,18 +7,16 @@ import { useNavigate } from "react-router-dom";
 import "../login/loginStyle.css";
 
 function Login() {
-
   const [showLoginForm, setShowLoginForm] = useState(true);
   const [showSignupForm, setShowSignupForm] = useState(false);
   const [emailAddress, setEmailAddress] = useState("");
   const [signupEmail, setSignupEmail] = useState("");
   const navigate = useNavigate();
   if (emailAddress) {
-    localStorage.setItem('curremail', emailAddress)
+    localStorage.setItem("curremail", emailAddress);
   }
   if (signupEmail) {
-    localStorage.setItem('curremail', signupEmail)
-
+    localStorage.setItem("curremail", signupEmail);
   }
 
   const saveCookie = (name, userType, userId) => {
@@ -28,8 +26,7 @@ function Login() {
     ).toUTCString();
     const userInfoString = `userName=${name}&userType=${userType}&userId=${userId}`;
     document.cookie = `${userInfoString}; expires=${expirationDate}; path=/`;
-
-  }
+  };
 
   // google oauth id
   const client_id =
@@ -42,6 +39,7 @@ function Login() {
 
   const onSuccess = async (res) => {
     // Extract email from the response
+    console.log(res, "DATA");
     const email = res.profileObj.email;
     try {
       const response = await fetch("http://localhost:3001/existingUser", {
@@ -52,7 +50,7 @@ function Login() {
         body: JSON.stringify({
           email: email,
         }),
-      })
+      });
 
       const data = await response.json();
 
@@ -60,9 +58,8 @@ function Login() {
 
       // Handle the response here, depending on the server's response
       if (response.ok) {
-
         saveCookie(email, data.user.user_type, data.user.user_id);
-        
+
         console.log("new user cookie saved");
         navigate("/reservations");
       } else {
@@ -125,7 +122,7 @@ function Login() {
       // Handle the response here, depending on the server's response
       if (response.ok) {
         saveCookie(emailAddress, data.user.user_type, data.user.user_id);
-        
+
         navigate("/reservations");
       } else {
         alert("Email not registered");
@@ -160,7 +157,7 @@ function Login() {
       // Handle the response here, depending on the server's response
       if (response.ok) {
         saveCookie(signupEmail, data.user.user_type, data.user.user_id);
-        
+
         navigate("/reservations");
       } else {
         console.error("Error creating user:", data.error);
@@ -205,8 +202,9 @@ function Login() {
         {/* Login Form, default display */}
         <form
           id="loginForm"
-          className={`opacity-75 rounded p-5 bg-light col-lg-6 col-md-9 col-sm-12  ${showLoginForm ? "" : "d-none"
-            }`}
+          className={`opacity-75 rounded p-5 bg-light col-lg-6 col-md-9 col-sm-12  ${
+            showLoginForm ? "" : "d-none"
+          }`}
         >
           <div className="text-center mb-4 custom-font-size">
             <h1> Log In </h1>
@@ -288,8 +286,9 @@ function Login() {
         {/* Sign up form, default as hidden until toggeled */}
         <form
           id="signupForm"
-          className={`opacity-75 rounded p-5 bg-light col-lg-6 col-md-9 col-sm-12 ${showSignupForm ? "" : "d-none"
-            }`}
+          className={`opacity-75 rounded p-5 bg-light col-lg-6 col-md-9 col-sm-12 ${
+            showSignupForm ? "" : "d-none"
+          }`}
         >
           <div className="text-center mb-4 custom-font-size">
             <h1> Sign Up </h1>
