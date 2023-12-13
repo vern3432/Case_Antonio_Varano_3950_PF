@@ -10,7 +10,8 @@ var Job_Description = "NA";
 var Position = "NA";
 
 function get_profile(ID) {
-  fetch("http://localhost:3001/get-employee", {
+  console.log(ID)
+  fetch("http://localhost:3001/get-employee2", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

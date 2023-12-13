@@ -76,7 +76,29 @@ app.get("/get-employee", async (req, res) => {
   }
 });
 
-app.get("/get-users", async (req, res) => {
+
+app.post("/get-employee2", async (req, res) => {
+  const ID = req.body.ID;
+  console.log(ID);
+  console.log("getting employees");
+  let result;
+  let checkEmailQuery;
+  if (ID !== undefined) {
+    checkEmailQuery = db.prepare("SELECT * FROM Employees WHERE ID = ?");
+    result = checkEmailQuery.get(ID);
+  } else {
+
+  }
+
+  if (result) {
+    console.log(result);
+    res.send(result);
+  } else {
+    res.status(500).send("error");
+  }
+});
+
+app.post("/get-users", async (req, res) => {
   const ID = req.query.ID;
   console.log(ID);
   console.log("getting users");
