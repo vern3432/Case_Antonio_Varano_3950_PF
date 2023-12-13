@@ -9,7 +9,6 @@ console.log("table dropped");
 db.exec(
   "CREATE TABLE IF NOT EXISTS Employees (ID TEXT,Name TEXT, Position TEXT,Job_Description TEXT,Bio TEXT );"
 );
-console.log("executed");
 
 const insrow = db.prepare(
   "insert into Employees (ID,Name , Position ,Job_Description ,Bio) VALUES (?,?, ?,?,?)"
@@ -66,3 +65,4 @@ insrow.run(
 
 
 
+console.log("executed");

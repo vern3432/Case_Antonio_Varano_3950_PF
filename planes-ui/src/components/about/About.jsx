@@ -263,7 +263,7 @@ function About() {
                 <InstructorModal
                   model={"Jonthan"}
                   pfp={Johnathan}
-                  ID={4}
+                  ID={'4'}
                 ></InstructorModal>
               </div>
             </div>
@@ -283,7 +283,7 @@ function About() {
                 <InstructorModal
                   model={"Samantha"}
                   pfp={Samantha}
-                  ID={5}
+                  ID={'5'}
                 ></InstructorModal>
               </div>
             </div>
@@ -300,7 +300,7 @@ function About() {
               <InstructorModal
                 model={"Eamonn"}
                 pfp={Ea}
-                ID={6}
+                ID={'6'}
               ></InstructorModal>
             </div>
           </div>
@@ -322,7 +322,7 @@ function About() {
               <InstructorModal
                 model={"Angela"}
                 pfp={Angela}
-                ID={1}
+                ID={'1'}
               ></InstructorModal>
             </div>
             <div className="Column">
@@ -361,7 +361,7 @@ function About() {
                   model={"Thomas"}
                   pfp={Thomas}
 
-                  ID={3}
+                  ID={'3'}
                 ></InstructorModal>
               </div>
             </div>

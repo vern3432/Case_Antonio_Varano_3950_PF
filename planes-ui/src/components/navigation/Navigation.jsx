@@ -64,6 +64,7 @@ function Navigation() {
           <Nav.Link href="/schedule">Schedule</Nav.Link>
           <Nav.Link href="/about">About</Nav.Link>
           <Nav.Link href="/contact">Contact</Nav.Link>
+          <Nav.Link href="/user_profile">Profile</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
