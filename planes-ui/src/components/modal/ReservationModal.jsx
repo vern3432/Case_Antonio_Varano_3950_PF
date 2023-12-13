@@ -278,7 +278,7 @@ function ReservationModal({ model, id }) {
               <Form.Select onChange={(e) => setActivity(e.target.value)}>
                 <option hidden>Please Select</option>
                 <option>Recreation</option>
-                <option>Class</option>
+                <option>Training</option>
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
