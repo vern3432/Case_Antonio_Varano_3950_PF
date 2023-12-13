@@ -91,33 +91,44 @@ function ReservationModal({ model, id }) {
     // If the userCookie exists
     if (userId) {
 
-
-      // Data to be sent to save reservation
-      const request = {
-        userId,
-        fromDate,
-        toDate,
-        fromTime,
-        toTime,
-        instructor,
-        activity,
-        plane_id,
-        optionalUser,
-        comment,
-      };
-
-      // Calculate total time
-      const fromDateTime = new Date(`${fromDate}T${fromTime}`);
-      const toDateTime = new Date(`${toDate}T${toTime}`);
-      const totalTime = (toDateTime - fromDateTime) / (1000 * 60 * 60);
-
-      console.log(totalTime);
-      if (totalTime < 2 | totalTime > 336) {
-        alert("Must reserve for at least 2 hours or less than 2 weeks");
+      if (userType.toLowerCase() === "student" && instructor === null) {
+        alert("Students must fly with an instructor");
       } else {
-        // Save request to the database
-        console.log("Data to be saved ", request);
-        saveReservation(request);
+
+
+        // Data to be sent to save reservation
+        const request = {
+          userId,
+          fromDate,
+          toDate,
+          fromTime,
+          toTime,
+          instructor,
+          activity,
+          plane_id,
+          optionalUser,
+          comment,
+        };
+
+        // Calculate total time
+        const fromDateTime = new Date(`${fromDate}T${fromTime}`);
+        const toDateTime = new Date(`${toDate}T${toTime}`);
+        const totalTime = (toDateTime - fromDateTime) / (1000 * 60 * 60);
+
+
+        console.log(totalTime);
+        if (totalTime < 2 | totalTime > 336) {
+          alert("Must reserve for at least 2 hours or less than 2 weeks");
+        } else {
+          // Save request to the database
+          console.log("Data to be saved ", request);
+          saveReservation(request);
+        }
+
+        const currentDate = new Date();
+        if (fromDateTime < currentDate || toDateTime < currentDate) {
+          alert("Selected date or time is past");
+        }
       }
     } else {
       console.log("Failed to find a user cookie");
@@ -267,7 +278,7 @@ function ReservationModal({ model, id }) {
               <Form.Select onChange={(e) => setActivity(e.target.value)}>
                 <option hidden>Please Select</option>
                 <option>Recreation</option>
-                <option>Class</option>
+                <option>Training</option>
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
