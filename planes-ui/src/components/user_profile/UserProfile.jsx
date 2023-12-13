@@ -100,6 +100,32 @@ function UserProfile1() {
     zoom: 11,
   };
 
+  let id
+  let emailpost
+  let Accountype
+function get_USERprofile(email) {
+  console.log(email);
+  fetch("http://localhost:3001/get-user", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      id=data.user_id;
+      emailpost = JSON.stringify(data.email);
+      Accountype=data.user_type;
+      console.log(id)
+    })
+    .catch((error) => console.log("Error fetching data: ", error));
+}
+  get_USERprofile(localStorage.getItem("curremail"));
+
   return (
     <main style={{ height: `${getMainHeight()}px`, transition: "height 0.5s" }}>
       {" "}
@@ -121,7 +147,6 @@ function UserProfile1() {
         onChange={() => handleTabChange(2)}
         onchecked={onselection(200)}
       ></input>
-  
       <div id="tabs">
         <label id="tab5" htmlFor="radio1">
           Profile Info{" "}
@@ -129,30 +154,17 @@ function UserProfile1() {
         <label id="tab6" htmlFor="radio2">
           Reservations
         </label>
-
       </div>
       <div id="content">
         <section id="content1">
           {/* <h3>Information Comapny and Origin</h3> */}
-          <h1 id="about_text">Who we are</h1>
+          <h1 id="about_text">Account Info</h1>
           <p id="about_text">
-            "Welcome to [Flight School Name], where dreams take flight and
-            passion soars high. Nestled in the heart of [Location], we are a
-            local flight school committed to cultivating a new generation of
-            skilled aviators. With experienced instructors, state-of-the-art
-            facilities, and a dedication to safety, we provide a nurturing
-            environment for aspiring pilots to spread their wings and achieve
-            their aviation goals."
-          </p>
-          <h1 id="about_text">Our Mission</h1>
-          <p id="about_text">
-            "At [Flight School Name], our mission is to inspire and empower
-            individuals to embrace the skies. We strive to deliver exceptional
-            flight training that not only instills technical expertise but also
-            fosters a profound love for aviation. Through unwavering commitment
-            to safety, innovation, and personalized guidance, we aim to propel
-            our students toward successful careers in aviation while nurturing a
-            lifelong passion for the boundless freedom of the skies."
+            <b>Account ID:{id}</b>
+            <br />
+            <b>Account Email ID:{(emailpost)}</b>
+            <br />
+            <b>Account Email ID:{Accountype}</b>
           </p>
         </section>
         <section id="content2">
@@ -189,7 +201,6 @@ function UserProfile1() {
             the clouds.
           </p>
         </section>
-
       </div>
     </main>
   );

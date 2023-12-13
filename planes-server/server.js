@@ -98,15 +98,19 @@ app.post("/get-employee2", async (req, res) => {
   }
 });
 
+
 app.get("/get-users", async (req, res) => {
   const ID = req.query.ID;
   console.log(ID);
   console.log("getting users");
+
   let result;
   let checkEmailQuery;
-
-  checkEmailQuery = db.prepare("SELECT * FROM User");
-  result = checkEmailQuery.all();
+  if (email !== undefined) {
+    checkEmailQuery = db.prepare("SELECT * FROM user WHERE email = ?");
+    result = checkEmailQuery.get(email);
+  } else {
+  }
 
   if (result) {
     console.log(result);
