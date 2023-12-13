@@ -1,5 +1,5 @@
 import './about_style.css';
-import GoogleMapReact from "google-map-react";
+import GoogleMapReact, { Marker }  from "google-map-react";
 import Johnathan from "./vaguelyethnicman.png";
 import Samantha from './lightskinlady.jpg'
 import Ea from "./manthinking.jpg";
@@ -8,6 +8,7 @@ import Clarence from "./balddude.jpg";
 import Thomas from "./oldwhitedude.jpg";
 import InstructorModal from "./instructorabout";
 import React, { useState, useRef } from 'react';
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 //Lot
 const renderMarkers = (map, maps) => {
@@ -70,7 +71,7 @@ function About() {
   const selectedTabRef = useRef(1);
 
   const latitude = 42.6685;
-  const longitude = 42.6685;
+  const longitude = 71.1227;
 
   const renderMarkers = (map, maps) => {
     let marker = new maps.Marker({
@@ -109,6 +110,13 @@ function About() {
     }
   };
 
+  const defaultProps = {
+    center: {
+      lat: 42.680416,
+      lng: -71.127548
+    },
+    zoom: 11
+  };
 
 
 
@@ -213,7 +221,9 @@ function About() {
               bootstrapURLKeys={{
                 key: "AIzaSyBLEA8OMFiYaSYGG514kuc7Kve6l58YD7I",
               }}
-              defaultCenter={{ lat: latitude, lng: longitude }}
+              // defaultCenter={{ lat: latitude, lng: longitude }}
+                      defaultCenter={defaultProps.center}
+
               defaultZoom={16}
               yesIWantToUseGoogleMapApiInternals
               onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
