@@ -53,7 +53,14 @@ function Navigation() {
       expand="sm"
       id={navigationStyle.navColor}
     >
-      <NavbarBrand>{userName || "Default Username"}</NavbarBrand>
+
+      <Navbar.Brand>
+        <img
+          src="favicon.ico"  // Replace with the actual path to the image
+          alt="User Profile"
+          className={navigationStyle.profileImage}
+        />
+      </Navbar.Brand>
       <Navbar.Toggle
         aria-controls="navbarScroll"
         data-bs-target="#navbarScroll"

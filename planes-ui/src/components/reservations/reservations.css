@@ -20,9 +20,7 @@ img {
 
 }
 
-* {
-  color: black;
-}
+
 
 .reservation-container {
   padding-top: 1.5rem;
@@ -40,6 +38,7 @@ img {
   font-size: 2rem;
   font-family: "Raleway";
   position: relative;
+  color: white
 }
 
 .title::after {
@@ -48,6 +47,6 @@ img {
   left: 6rem;
   right: 6rem;
   bottom: 0;
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid white;
 
 }

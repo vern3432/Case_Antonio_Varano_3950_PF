@@ -331,6 +331,33 @@ app.post('/saveReservation', async (req, res) => {
   }
 });
 
+app.delete('/deleteReservation/:id', async (req, res) => {
+  try {
+    const reservationId = req.params.id;
+    const userName = req.params.userName;
+
+    console.log(userName);
+
+    // Check if the reservation with the given ID exists
+    const checkReservationQuery = db.prepare('SELECT * FROM reservations WHERE reservation_id = ?');
+    const existingReservation = checkReservationQuery.get(reservationId);
+
+    if (!existingReservation) {
+      return res.status(404).json({ error: 'Reservation not found.' });
+    }
+
+    // Delete the reservation with the given ID
+    const deleteReservationQuery = db.prepare('DELETE FROM reservations WHERE reservation_id = ?');
+    deleteReservationQuery.run(reservationId);
+
+    console.log(`Reservation with ID ${reservationId} deleted successfully.`);
+    res.status(200).json({ message: 'Reservation deleted successfully.' });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: 'Internal server error.' });
+  }
+});
+
 
 app.get("/", (req, res) => {
   res.send("Server is running");
