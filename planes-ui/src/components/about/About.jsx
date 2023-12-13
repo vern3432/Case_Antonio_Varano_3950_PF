@@ -7,6 +7,8 @@ import Angela from "./istockphoto-1394347360-612x612.jpg";
 import Clarence from "./balddude.jpg";
 import Thomas from "./oldwhitedude.jpg";
 import InstructorModal from "./instructorabout";
+import React, { useState, useRef } from 'react';
+
 //Lot
 const renderMarkers = (map, maps) => {
   let marker = new maps.Marker({
@@ -51,13 +53,21 @@ let markers = [
 ]
 
 
-
+const tabHeights = {
+  1: 600,
+  2: 800,
+  3:900,
+  4: 1050,
+};
 var [mainHeight, setMainHeight] = [10, 10];
 function onselection(input) {
   mainHeight = input;
   console.log("ran:" + input)
 }
+
 function About() {
+  const [rerender, setRerender] = useState(false);
+  const selectedTabRef = useRef(1);
 
   const latitude = 42.6685;
   const longitude = 42.6685;
@@ -74,16 +84,27 @@ function About() {
   let selectedTab = 1;
 
   const handleTabChange = (tabNumber) => {
+    selectedTabRef.current = tabNumber;
     selectedTab = tabNumber;
     onselection(tabNumber * 100);
     updateTabVisibility();
+    triggerRerender();
+
   };
+  const triggerRerender = () => {
+    setRerender((prev) => !prev);
+  };
+  const getMainHeight = () => {
+    return tabHeights[selectedTabRef.current];
+  };
+
+
 
   const updateTabVisibility = () => {
     for (let i = 1; i <= 4; i++) {
       const contentSection = document.getElementById(`content${i}`);
       if (contentSection) {
-        contentSection.style.display = selectedTab === i ? 'block' : 'none';
+        contentSection.style.display = selectedTabRef.current === i ? 'block' : 'none';
       }
     }
   };
@@ -91,10 +112,8 @@ function About() {
 
 
 
-
   return (
-    <main style={{ height: `${mainHeight}px` }}>
-      <h1>About Us</h1>
+    <main style={{ height: `${getMainHeight()}px`, transition: 'height 0.5s' }}>      <h1>About Us</h1>
       
       <input
         id="radio1"
