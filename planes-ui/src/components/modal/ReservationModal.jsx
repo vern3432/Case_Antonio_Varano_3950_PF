@@ -2,6 +2,8 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 // Get the cookie given the name. In our example, just look for the start 'userName='
 const getCookie = (name) => {
@@ -19,7 +21,7 @@ const getCookie = (name) => {
 };
 
 // Get the cookie using getCookie, 'userName=' is always the start of the cookie
-const userCookie = getCookie("userName=");
+const userCookie = getCookie('userName=');
 
 // Extract the information from the userCookie into their own constants
 const extractUserInfo = (userCookie) => {
@@ -40,6 +42,7 @@ const extractUserInfo = (userCookie) => {
   return userInfo;
 };
 
+
 // Creates the ReservationModal component with the option to choose the start and end date, the type of activity and if you want a instructor or not when doing the reservation of the plane
 function ReservationModal({ model, id }) {
   const plane_id = id;
@@ -55,13 +58,23 @@ function ReservationModal({ model, id }) {
   const [activity, setActivity] = useState();
   const [comment, setComment] = useState(null);
   const handleClose = () => setShow(false);
+  const [userType, setUserType] = useState(null);
 
   // Call the get-employee endpoint when the reservation modal is opened
   const handleShow = async () => {
     setShow(true);
     await fetchEmployees();
     await fetchMembers();
+
+    if (userCookie) {
+      // Extract the cookie info
+      const userInfo = extractUserInfo(userCookie);
+      console.log("setting the usertype: ", userInfo.userType);
+      setUserType(userInfo.userType);
+    }
   };
+
+
 
   const handleReserve = () => {
     setShow(false);
@@ -74,6 +87,7 @@ function ReservationModal({ model, id }) {
 
       // Save the id from the extracted cookie
       const userId = userInfo.userId;
+      const userType = userInfo.userType;
 
       // Data to be sent to save reservation
       const request = {
@@ -94,8 +108,9 @@ function ReservationModal({ model, id }) {
       const toDateTime = new Date(`${toDate}T${toTime}`);
       const totalTime = (toDateTime - fromDateTime) / (1000 * 60 * 60);
 
-      if (totalTime < 2) {
-        alert("Must reserve for at least 2 hours");
+      console.log(totalTime);
+      if (totalTime < 2 | totalTime > 336) {
+        alert("Must reserve for at least 2 hours or less than 2 weeks");
       } else {
         // Save request to the database
         console.log("Data to be saved ", request);
@@ -217,21 +232,32 @@ function ReservationModal({ model, id }) {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Co-pilot:</Form.Label>
-              <Form.Select
-                onChange={(e) => {
-                  setUsers(e.target.value);
-                }}
-                disabled={instructor !== null && instructor !== "None"}
+              <OverlayTrigger
+                placement="top"
+                overlay={
+                  <Tooltip id="tooltip-copilot">
+                    {userType && userType.toLowerCase() === "student"
+                      ? "Co-pilot selection is disabled for students."
+                      : "Select a co-pilot to fly with"}
+                  </Tooltip>
+                }
               >
-                <option hidden>Please Select</option>
-                {member &&
-                  member.map((member) => (
-                    <option key={member.user_id} value={member.user_id}>
-                      {member.email}
-                    </option>
-                  ))}
-                <option>None</option>
-              </Form.Select>
+                <Form.Select
+                  onChange={(e) => {
+                    setUsers(e.target.value);
+                  }}
+                  disabled={(userType === "Student" | instructor !== null && instructor !== "None")}
+                >
+                  <option hidden>Please Select</option>
+                  {member &&
+                    member.map((member) => (
+                      <option key={member.user_id} value={member.user_id}>
+                        {member.email}
+                      </option>
+                    ))}
+                  <option>None</option>
+                </Form.Select>
+              </OverlayTrigger>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Activity:</Form.Label>
@@ -259,7 +285,7 @@ function ReservationModal({ model, id }) {
           <Button
             variant="success"
             onClick={handleReserve}
-            disabled={!fromDate || !toDate || !toTime || !fromTime || !activity} // Make Reservation button is disabled until all fields are filled
+            disabled={!fromDate || !toDate || !toTime || !fromTime || !activity || !instructor || instructor === "None"} // Make Reservation button is disabled until all fields are filled
           >
             Make Reservation
           </Button>
