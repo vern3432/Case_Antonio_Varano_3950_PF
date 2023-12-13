@@ -11,7 +11,7 @@ import marker from "./marker1.png";
 import Thomas from "./oldwhitedude.jpg";
 import InstructorModal from "./instructorabout";
 import React, { useState, useRef } from 'react';
-const AnyReactComponent = ({ text }) => <div style={{position:'absolute'}}><img src={marker} alt="" /></div>;
+const AnyReactComponent = ({ text }) => <div> <img src={marker} alt="" style={ {position: 'absolute;'}} /></div>;
 
 //Lot
 const renderMarkers = (map, maps) => {
@@ -61,7 +61,7 @@ const tabHeights = {
   1: 600,
   2: 800,
   3:1100,
-  4: 1050,
+  4: 1200,
 };
 var [mainHeight, setMainHeight] = [10, 10];
 function onselection(input) {

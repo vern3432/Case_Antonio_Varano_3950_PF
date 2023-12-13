@@ -11,7 +11,7 @@ function PlaneReservation({ plane, year, model, tail_number, id }) {
       <div>
         <ReservationModal model={model} id={id}></ReservationModal>
       </div>{" "}
-      <img src={require(`./plane-images/${plane}`)}></img>
+      <img alt="text" id="reserverationsimages" src={require(`./plane-images/${plane}`)}></img>
       <p>Year: {year}</p>
       <p><strong>Model: </strong> {model}</p>
       <p><strong>Tail Number: </strong> {tail_number}</p>
