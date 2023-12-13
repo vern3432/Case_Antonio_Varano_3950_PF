@@ -155,6 +155,14 @@ input[name="css-tabs"] {
 #tab4::before {
   background-image: url(./staff.png);
 }
+
+
+#tab6::before {
+  background-image: url(./reserve.png);
+}
+#tab5::before {
+  background-image: url(./profile.png);
+}
 #radio1:checked ~ #tabs #tab1::before,
 #radio2:checked ~ #tabs #tab2::before,
 #radio3:checked ~ #tabs #tab3::before,

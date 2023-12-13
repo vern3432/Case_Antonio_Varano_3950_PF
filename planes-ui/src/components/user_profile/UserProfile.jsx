@@ -1,15 +1,8 @@
 //test
-import "./about/about_style.css";
+import "../about/about_style.css";
 import GoogleMapReact, { Marker } from "google-map-react";
 
 import React, { useState, useRef } from "react";
-const AnyReactComponent = ({ text }) => (
-  <div style={{ position: "absolute" }}>
-    <img src={marker} alt="" />
-  </div>
-);
-
-//Lot
 const renderMarkers = (map, maps) => {
   let marker = new maps.Marker({
     position: { lat: 25.0391667, lng: 122.525 },
@@ -58,10 +51,59 @@ function onselection(input) {
 }
 
 function UserProfile1() {
+  const [rerender, setRerender] = useState(false);
+  const selectedTabRef = useRef(1);
+
+  const latitude = 42.6685;
+  const longitude = 71.1227;
+
+  const renderMarkers = (map, maps) => {
+    let marker = new maps.Marker({
+      position: { lat: latitude, lng: longitude },
+      map,
+      title: "Hello World!",
+    });
+    return marker;
+  };
+
+  let selectedTab = 1;
+
+  const handleTabChange = (tabNumber) => {
+    selectedTabRef.current = tabNumber;
+    selectedTab = tabNumber;
+    onselection(tabNumber * 100);
+    updateTabVisibility();
+    triggerRerender();
+  };
+  const triggerRerender = () => {
+    setRerender((prev) => !prev);
+  };
+  const getMainHeight = () => {
+    return tabHeights[selectedTabRef.current];
+  };
+
+  const updateTabVisibility = () => {
+    for (let i = 1; i <= 4; i++) {
+      const contentSection = document.getElementById(`content${i}`);
+      if (contentSection) {
+        contentSection.style.display =
+          selectedTabRef.current === i ? "block" : "none";
+      }
+    }
+  };
+
+  const defaultProps = {
+    center: {
+      lat: 42.680416,
+      lng: -71.127548,
+    },
+    zoom: 11,
+  };
+
   return (
     <main style={{ height: `${getMainHeight()}px`, transition: "height 0.5s" }}>
       {" "}
-      <h1>About Us</h1>
+      <h1>My Profile</h1>
       <input
         id="radio1"
         type="radio"
@@ -79,35 +121,15 @@ function UserProfile1() {
         onChange={() => handleTabChange(2)}
         onchecked={onselection(200)}
       ></input>
-      <input
-        id="radio3"
-        type="radio"
-        name="css-tabs"
-        value="3"
-        onChange={() => handleTabChange(3)}
-        onchecked={onselection(300)}
-      ></input>
-      <input
-        id="radio4"
-        type="radio"
-        name="css-tabs"
-        value="4"
-        onchecked={onselection(1200)}
-        onChange={() => handleTabChange(4)}
-      ></input>
+  
       <div id="tabs">
-        <label id="tab1" htmlFor="radio1">
-          Our Company{" "}
+        <label id="tab5" htmlFor="radio1">
+          Profile Info{" "}
         </label>
-        <label id="tab2" htmlFor="radio2">
-          Services
+        <label id="tab6" htmlFor="radio2">
+          Reservations
         </label>
-        <label id="tab3" htmlFor="radio3">
-          Locations
-        </label>
-        <label id="tab4" htmlFor="radio4">
-          Our Staff
-        </label>
+
       </div>
       <div id="content">
         <section id="content1">
@@ -167,189 +189,7 @@ function UserProfile1() {
             the clouds.
           </p>
         </section>
-        <section id="content3">
-          <div style={{ float: "left" }}>
-            <h2 id="locations_text">We have Two Location</h2>
-            <p id="locations_text">
-              {" "}
-              With dual locations strategically situated in [Location1] and
-              [Location2], [Flight School Name] brings the joy of aviation
-              education and services closer to enthusiasts, providing convenient
-              access to top-notch flight training, aircraft rentals, and
-              personalized experiences at two thriving hubs.
-            </p>
-            <h2 id="locations_text"> Locations and Directions</h2>
-            <p id="locations_text">
-              {/* <a href="#" onclick=>New Map(In new window)</a> */}
-            </p>
-          </div>
-          <br />
-          <br />
-          <div id="dircontainer">
-            <p id="textbutt">
-              315 Turnpike St, North Andover, MA 01845 <br />
-              <button
-                type="button"
-                id="buttock"
-                onClick={() =>
-                  getDirections1(
-                    "https://www.google.com/maps/d/u/0/viewer?mid=1brlnn0LqP-XE4rFh4al4nhTonKY&hl=en&ll=42.751038324931415%2C-71.04867850000001&z=11"
-                  )
-                }
-              >
-                Get Direction
-              </button>
-            </p>
-            <p id="textbutt">
-              315 Turnpike St, North Andover, MA 01845
-              <br />
-              <button
-                type="button"
-                id="buttock"
-                onClick={() =>
-                  getDirections1(
-                    "https://www.google.com/maps/d/u/0/viewer?mid=1brlnn0LqP-XE4rFh4al4nhTonKY&hl=en&ll=42.751038324931415%2C-71.04867850000001&z=11"
-                  )
-                }
-              >
-                Get Direction
-              </button>
-            </p>
-          </div>
-          <br />
-          <br />
 
-          <div style={{ float: "right", height: "50vh", width: "70%" }}>
-            <GoogleMapReact
-              bootstrapURLKeys={{
-                key: "AIzaSyBLEA8OMFiYaSYGG514kuc7Kve6l58YD7I",
-              }}
-              // defaultCenter={{ lat: latitude, lng: longitude }}
-              defaultCenter={defaultProps.center}
-              defaultZoom={16}
-              yesIWantToUseGoogleMapApiInternals
-              onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
-            >
-              <AnyReactComponent
-                lat={defaultProps.center.lat}
-                lng={defaultProps.center.lng}
-                text="My Marker"
-              />
-            </GoogleMapReact>
-          </div>
-        </section>
-        <section id="content4">
-          <h3 id="about_text">List of Staff</h3>
-
-          <div className="Row">
-            <div className="Column">
-              <div id="staff-Container">
-                <img
-                  className="staffimage"
-                  src={Johnathan}
-                  alt="pfp not found"
-                />
-                <p id="staffname">
-                  Jonthan:{" "}
-                  <b>
-                    <i>Instructor</i>
-                  </b>
-                </p>
-                <InstructorModal
-                  model={"Jonthan"}
-                  pfp={Johnathan}
-                  ID={4}
-                ></InstructorModal>
-              </div>
-            </div>
-            <div className="Column">
-              <div id="staff-Container">
-                <img
-                  className="staffimage"
-                  src={Samantha}
-                  alt="pfp not found"
-                />
-                <p id="staffname">
-                  Samantha:{" "}
-                  <b>
-                    <i>Instructor</i>
-                  </b>
-                </p>
-                <InstructorModal
-                  model={"Samantha"}
-                  pfp={Samantha}
-                  ID={5}
-                ></InstructorModal>
-              </div>
-            </div>
-            <div className="Column">
-              <div id="staff-Container">
-                <img className="staffimage" src={Ea} alt="pfp not found" />
-                <p id="staffname">
-                  Eamonn :{" "}
-                  <b>
-                    <i>Instructor Supervisor</i>
-                  </b>
-                </p>
-              </div>
-              <InstructorModal
-                model={"Eamonn"}
-                pfp={Ea}
-                ID={6}
-              ></InstructorModal>
-            </div>
-          </div>
-          <div className="Row">
-            <div className="Column">
-              <div id="staff-Container">
-                <img className="staffimage" src={Angela} alt="pfp not found" />
-                <p id="staffname">
-                  Angela:{" "}
-                  <b>
-                    <i>Human Resources</i>
-                  </b>
-                </p>
-              </div>
-              <InstructorModal
-                model={"Angela"}
-                pfp={Angela}
-                ID={1}
-              ></InstructorModal>
-            </div>
-            <div className="Column">
-              <div id="staff-Container">
-                <img
-                  className="staffimage"
-                  src={Clarence}
-                  alt="pfp not found"
-                />
-                <p id="staffname">
-                  Clarence:{" "}
-                  <b>
-                    <i>Avation Mechanic</i>
-                  </b>
-                </p>
-              </div>
-              <InstructorModal model={"Clarence"} ID={2}></InstructorModal>
-            </div>
-            <div className="Column">
-              <div id="staff-Container">
-                <img className="staffimage" src={Thomas} alt="pfp not found" />
-                <p id="staffname">
-                  Thomas:{" "}
-                  <b>
-                    <i>Hiring Manager</i>
-                  </b>
-                </p>
-                <InstructorModal
-                  model={"Thomas"}
-                  pfp={Thomas}
-                  ID={3}
-                ></InstructorModal>
-              </div>
-            </div>
-          </div>
-        </section>
       </div>
     </main>
   );
