@@ -8,7 +8,7 @@ import Reservations from "./components/reservations/Reservations";
 import Contact from "./components/contact/Contact";
 import Schedule from "./components/schedule/Schedule";
 import About from "./components/about/About";
-import User_Profile from "./components/user_profile/User_Profile";
+import UserProfile from "./components/user_profile/UserProfile";
 import Navigation from "./components/navigation/Navigation";
 
 const router = createBrowserRouter([
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <Navigation />
-        <User_Profile/>
+        <UserProfile/>
       </>
     ),
   },
