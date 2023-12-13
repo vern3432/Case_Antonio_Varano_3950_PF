@@ -8,8 +8,8 @@ import Reservations from "./components/reservations/Reservations";
 import Contact from "./components/contact/Contact";
 import Schedule from "./components/schedule/Schedule";
 import About from "./components/about/About";
+import User_Profile from "./components/user_profile/User_Profile";
 import Navigation from "./components/navigation/Navigation";
-import "./index.css";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +52,16 @@ const router = createBrowserRouter([
       </>
     ),
   },
+  {
+    path: "/user_profile",
+    element: (
+      <>
+        <Navigation />
+        <User_Profile/>
+      </>
+    ),
+  },
+
   {
     // If path is not found goes to the login page
     path: "*",
