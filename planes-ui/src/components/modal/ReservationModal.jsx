@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 function ReservationModal({ model, id }) {
   const [show, setShow] = useState(false);
   const [employees, setEmployees] = useState();
-  const [fromDate, setFromDate] = useState()
+  const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
   const [fromTime, setFromTime] = useState();
   const [toTime, setToTime] = useState();
@@ -25,7 +25,15 @@ function ReservationModal({ model, id }) {
   const handleReserve = () => {
     setShow(false);
     //TODO send post request to create reservation
-    const request = { fromDate, toDate, fromTime, toTime, instructor, activity, id };
+    const request = {
+      fromDate,
+      toDate,
+      fromTime,
+      toTime,
+      instructor,
+      activity,
+      id,
+    };
 
     const fromDateTime = new Date(`${fromDate}T${fromTime}`);
     const toDateTime = new Date(`${toDate}T${toTime}`);
@@ -39,9 +47,6 @@ function ReservationModal({ model, id }) {
       // TODO: Save request to the database
       console.log(request);
     }
-
-
-
   };
 
   async function fetchEmployees() {
@@ -87,14 +92,14 @@ function ReservationModal({ model, id }) {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>From: </Form.Label>
+              <Form.Label>At: </Form.Label>
               <Form.Control
                 type="time"
                 onChange={(e) => setFromTime(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>To: </Form.Label>
+              <Form.Label>Until: </Form.Label>
               <Form.Control
                 type="time"
                 onChange={(e) => setToTime(e.target.value)}
@@ -128,7 +133,14 @@ function ReservationModal({ model, id }) {
           <Button
             variant="success"
             onClick={handleReserve}
-            disabled={!fromDate || !toDate || !instructor || !activity} // Make Reservation button is disabled until all fields are filled
+            disabled={
+              !fromDate ||
+              !toDate ||
+              !fromTime ||
+              !toTime ||
+              !instructor ||
+              !activity
+            } // Make Reservation button is disabled until all fields are filled
           >
             Make Reservation
           </Button>
