@@ -35,6 +35,9 @@ body {
   width: 100%;
   margin: 0 auto;
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 #post input[type="text"],
@@ -50,8 +53,9 @@ body {
   border-radius: 20px;
   background: #f9f9f9;
   padding: 25px;
-  margin: 0px 0;
+  margin: 20px 0;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  width: 500px;
 }
 
 #post h3 {
@@ -74,6 +78,11 @@ fieldset {
   min-width: 100%;
   padding: 0;
   width: 100%;
+}
+
+#submit-btn {
+  display: flex;
+  justify-content: right;
 }
 
 #post input[type="text"],
@@ -110,7 +119,7 @@ fieldset {
 #post button[type="button"] {
   cursor: pointer;
   border-radius: 10px;
-  width: 100%;
+  width: 30%;
   height: 2.5rem;
   font-size: 1rem;
   color: #fff;

@@ -65,6 +65,7 @@ function ReservationModal({ model, id }) {
 
   const handleReserve = () => {
     setShow(false);
+
     //Send post request to create reservation
     // If the userCookie exists
     if (userCookie) {
@@ -74,6 +75,7 @@ function ReservationModal({ model, id }) {
 
       // Save the id from the extracted cookie
       const userId = userInfo.userId;
+
 
       // Data to be sent to save reservation
       const request = { userId, fromDate, toDate, fromTime, toTime, instructor, activity, plane_id, optionalUser, comment };
@@ -93,6 +95,7 @@ function ReservationModal({ model, id }) {
     } else {
       console.log('Failed to find a user cookie');
     }
+
 
 
   };
@@ -122,6 +125,7 @@ function ReservationModal({ model, id }) {
     } catch (error) {
       console.error("Error:", error.message);
     }
+
   };
 
   async function fetchEmployees() {
@@ -178,14 +182,14 @@ function ReservationModal({ model, id }) {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>From: </Form.Label>
+              <Form.Label>At: </Form.Label>
               <Form.Control
                 type="time"
                 onChange={(e) => setFromTime(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>To: </Form.Label>
+              <Form.Label>Until: </Form.Label>
               <Form.Control
                 type="time"
                 onChange={(e) => setToTime(e.target.value)}
@@ -249,7 +253,9 @@ function ReservationModal({ model, id }) {
           <Button
             variant="success"
             onClick={handleReserve}
+
             disabled={!fromDate || !toDate || !toTime || !fromTime || !activity} // Make Reservation button is disabled until all fields are filled
+
           >
             Make Reservation
           </Button>
