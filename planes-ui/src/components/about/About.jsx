@@ -56,7 +56,7 @@ let markers = [
 const tabHeights = {
   1: 600,
   2: 800,
-  3:900,
+  3:1100,
   4: 1050,
 };
 var [mainHeight, setMainHeight] = [10, 10];
