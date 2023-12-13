@@ -4,8 +4,7 @@ import navigationStyle from "./navigation.module.css";
 
 // Get the cookie given the name. In our example, just look for the start 'userName='
 const getCookie = (name) => {
-
-  const cookies = document.cookie.split(';');
+  const cookies = document.cookie.split(";");
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
@@ -18,40 +17,34 @@ const getCookie = (name) => {
   return null; // Cookie not found
 };
 
-
 // Extract the information from the userCookie into their own constants
 const extractUserInfo = () => {
-  const userCookie = getCookie('userName=');
+  const userCookie = getCookie("userName=");
 
   console.log("the cookie", userCookie);
   const userInfo = {};
 
   // Extract email address
-  const emailMatch = userCookie.match(/([^&]+)/);
+  const emailMatch = userCookie?.match(/([^&]+)/);
   userInfo.email = emailMatch ? emailMatch[1] : null;
 
   // Extract userType
-  const userTypeMatch = userCookie.match(/&userType=([^&]+)/);
+  const userTypeMatch = userCookie?.match(/&userType=([^&]+)/);
   userInfo.userType = userTypeMatch ? userTypeMatch[1] : null;
 
   // Extract userId
-  const userIdMatch = userCookie.match(/&userId=([^&]+)/);
+  const userIdMatch = userCookie?.match(/&userId=([^&]+)/);
   userInfo.userId = userIdMatch ? userIdMatch[1] : null;
 
   return userInfo;
 };
 
-
-
 function Navigation() {
-
-
   // Extract the cookie info
   const userInfo = extractUserInfo();
 
   // Save the id from the extracted cookie
   const userName = userInfo.email;
-
 
   return (
     <Navbar
@@ -60,7 +53,7 @@ function Navigation() {
       expand="sm"
       id={navigationStyle.navColor}
     >
-      <NavbarBrand>{userName || 'Default Username'}</NavbarBrand>
+      <NavbarBrand>{userName || "Default Username"}</NavbarBrand>
       <Navbar.Toggle
         aria-controls="navbarScroll"
         data-bs-target="#navbarScroll"
