@@ -98,7 +98,7 @@ app.post("/get-employee2", async (req, res) => {
   }
 });
 
-app.post("/get-users", async (req, res) => {
+app.get("/get-users", async (req, res) => {
   const ID = req.query.ID;
   console.log(ID);
   console.log("getting users");
