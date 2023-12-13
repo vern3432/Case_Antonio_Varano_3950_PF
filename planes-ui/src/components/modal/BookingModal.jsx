@@ -1,10 +1,22 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Creates the modal for the event in the schedule page
 function BookingModal({ show, handleClose, reservation }) {
   const [user, setUser] = useState(null);
+
+
+  useEffect(() => {
+    const userCookie = getCookie('userName=');
+    console.log(userCookie);
+    if (userCookie) {
+      // Extract the cookie info
+      const userInfo = extractUserInfo(userCookie);
+      setUser(userInfo.email);
+    }
+    
+  });
 
   // Get the cookie given the name. In our example, just look for the start 'userName='
   const getCookie = (name) => {
@@ -40,17 +52,12 @@ function BookingModal({ show, handleClose, reservation }) {
     return userInfo;
   };
 
+
   // Handle login form submission -> Navigate to new page on successful login
   const deleteReservation = async () => {
     try {
-      const userCookie = getCookie('userName=');
-      console.log(userCookie);
 
-      if (userCookie) {
-        // Extract the cookie info
-        const userInfo = extractUserInfo(userCookie);
-        setUser(userInfo.email);
-      }
+
 
       console.log(user);
       console.log(reservation.user_id_1_email);

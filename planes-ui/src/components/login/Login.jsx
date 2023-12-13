@@ -202,9 +202,8 @@ function Login() {
         {/* Login Form, default display */}
         <form
           id="loginForm"
-          className={`opacity-75 rounded p-5 bg-light col-lg-6 col-md-9 col-sm-12  ${
-            showLoginForm ? "" : "d-none"
-          }`}
+          className={`opacity-75 rounded p-5 bg-light col-lg-6 col-md-9 col-sm-12  ${showLoginForm ? "" : "d-none"
+            }`}
         >
           <div className="text-center mb-4 custom-font-size">
             <h1> Log In </h1>
@@ -286,9 +285,8 @@ function Login() {
         {/* Sign up form, default as hidden until toggeled */}
         <form
           id="signupForm"
-          className={`opacity-75 rounded p-5 bg-light col-lg-6 col-md-9 col-sm-12 ${
-            showSignupForm ? "" : "d-none"
-          }`}
+          className={`opacity-75 rounded p-5 bg-light col-lg-6 col-md-9 col-sm-12 ${showSignupForm ? "" : "d-none"
+            }`}
         >
           <div className="text-center mb-4 custom-font-size">
             <h1> Sign Up </h1>

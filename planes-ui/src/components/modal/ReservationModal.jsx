@@ -1,46 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-
-// Get the cookie given the name. In our example, just look for the start 'userName='
-const getCookie = (name) => {
-  const cookies = document.cookie.split(";");
-
-  for (let i = 0; i < cookies.length; i++) {
-    const cookie = cookies[i].trim();
-    if (cookie.startsWith(name)) {
-      const value = cookie.substring(name.length);
-      return value;
-    }
-  }
-
-  return null; // Cookie not found
-};
-
-// Get the cookie using getCookie, 'userName=' is always the start of the cookie
-const userCookie = getCookie('userName=');
-
-// Extract the information from the userCookie into their own constants
-const extractUserInfo = (userCookie) => {
-  const userInfo = {};
-
-  // Extract email address
-  const emailMatch = userCookie.match(/([^&]+)/);
-  userInfo.email = emailMatch ? emailMatch[1] : null;
-
-  // Extract userType
-  const userTypeMatch = userCookie.match(/&userType=([^&]+)/);
-  userInfo.userType = userTypeMatch ? userTypeMatch[1] : null;
-
-  // Extract userId
-  const userIdMatch = userCookie.match(/&userId=([^&]+)/);
-  userInfo.userId = userIdMatch ? userIdMatch[1] : null;
-
-  return userInfo;
-};
 
 
 // Creates the ReservationModal component with the option to choose the start and end date, the type of activity and if you want a instructor or not when doing the reservation of the plane
@@ -59,6 +22,42 @@ function ReservationModal({ model, id }) {
   const [comment, setComment] = useState(null);
   const handleClose = () => setShow(false);
   const [userType, setUserType] = useState(null);
+  const [userId, setUser] = useState(null);
+
+  // Get the cookie given the name. In our example, just look for the start 'userName='
+  const getCookie = (name) => {
+    const cookies = document.cookie.split(";");
+
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name)) {
+        const value = cookie.substring(name.length);
+        return value;
+      }
+    }
+
+    return null; // Cookie not found
+  };
+
+
+  // Extract the information from the userCookie into their own constants
+  const extractUserInfo = (userCookie) => {
+    const userInfo = {};
+
+    // Extract email address
+    const emailMatch = userCookie.match(/([^&]+)/);
+    userInfo.email = emailMatch ? emailMatch[1] : null;
+
+    // Extract userType
+    const userTypeMatch = userCookie.match(/&userType=([^&]+)/);
+    userInfo.userType = userTypeMatch ? userTypeMatch[1] : null;
+
+    // Extract userId
+    const userIdMatch = userCookie.match(/&userId=([^&]+)/);
+    userInfo.userId = userIdMatch ? parseInt(userIdMatch[1], 10) : null;
+
+    return userInfo;
+  };
 
   // Call the get-employee endpoint when the reservation modal is opened
   const handleShow = async () => {
@@ -66,14 +65,19 @@ function ReservationModal({ model, id }) {
     await fetchEmployees();
     await fetchMembers();
 
+  };
+
+
+  useEffect(() => {
+    const userCookie = getCookie('userName=');
+
     if (userCookie) {
       // Extract the cookie info
       const userInfo = extractUserInfo(userCookie);
-      console.log("setting the usertype: ", userInfo.userType);
-      setUserType(userInfo.userType);
+      setUser(userInfo.userId);
+      console.log("the id: ", userId);
     }
-  };
-
+  });
 
 
   const handleReserve = () => {
@@ -81,13 +85,8 @@ function ReservationModal({ model, id }) {
 
     //Send post request to create reservation
     // If the userCookie exists
-    if (userCookie) {
-      // Extract the cookie info
-      const userInfo = extractUserInfo(userCookie);
+    if (userId) {
 
-      // Save the id from the extracted cookie
-      const userId = userInfo.userId;
-      const userType = userInfo.userType;
 
       // Data to be sent to save reservation
       const request = {
