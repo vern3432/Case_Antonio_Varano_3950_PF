@@ -115,6 +115,7 @@ function ReservationModal({ model, id }) {
         const toDateTime = new Date(`${toDate}T${toTime}`);
         const totalTime = (toDateTime - fromDateTime) / (1000 * 60 * 60);
 
+
         console.log(totalTime);
         if (totalTime < 2 | totalTime > 336) {
           alert("Must reserve for at least 2 hours or less than 2 weeks");
@@ -122,6 +123,11 @@ function ReservationModal({ model, id }) {
           // Save request to the database
           console.log("Data to be saved ", request);
           saveReservation(request);
+        }
+
+        const currentDate = new Date();
+        if (fromDateTime < currentDate || toDateTime < currentDate) {
+          alert("Selected date or time is past");
         }
       }
     } else {
