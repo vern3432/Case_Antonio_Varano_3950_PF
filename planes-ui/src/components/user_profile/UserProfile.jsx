@@ -100,33 +100,33 @@ function UserProfile1() {
     zoom: 11,
   };
 
-  let id
-  let emailpost
-  let Accountype
+  let id=useState("");
+  let emailpost=useState("");
+  let Accountype=useState("");
   // Not the correct endpoint to use...to retrieve email, please grab from the stored cookie 
 
-  // function get_USERprofile(email) {
-  //   console.log(email);
-  //   fetch("http://localhost:3001/get-user", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       email: email,
-  //     }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       id=data.user_id;
-  //       emailpost = JSON.stringify(data.email);
-  //       Accountype=data.user_type;
-  //       console.log(id)
-  //     })
-  //     .catch((error) => console.log("Error fetching data: ", error));
-  // }
-  //   get_USERprofile(localStorage.getItem("curremail"));
+  function get_USERprofile(email) {
+  console.log(email);
+   fetch("http://localhost:3001/get-user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+    },
+       body: JSON.stringify({
+         email: email,
+       }),
+     })
+       .then((response) => response.json())
+       .then((data) => {
+         console.log(data);
+         id=data.user_id;
+         emailpost = JSON.stringify(data.email);
+         Accountype=data.user_type;
+         console.log(id)
+       })
+       .catch((error) => console.log("Error fetching data: ", error));
+   }
+     get_USERprofile(localStorage.getItem("curremail"));
 
   return (
     <main style={{ height: `${getMainHeight()}px`, transition: "height 0.5s" }}>
@@ -162,7 +162,7 @@ function UserProfile1() {
           {/* <h3>Information Comapny and Origin</h3> */}
           <h1 id="about_text">Account Info</h1>
           <p id="about_text">
-            <b>Account ID:{id}</b>
+            <b>Account ID:{id}</b><p id="accountid_p"></p>
             <br />
             <b>Account Email ID:{(emailpost)}</b>
             <br />
