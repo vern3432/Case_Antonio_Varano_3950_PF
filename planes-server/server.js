@@ -170,6 +170,7 @@ app.get("/get-reservations", (req, res) => {
       i.Name AS instructor_name,
       p.make AS plane_make,
       p.model AS plane_model,
+      p.img_src AS img_src,
       c.comment
     FROM reservations r
     LEFT JOIN user u1 ON r.user_id_1 = u1.user_id
