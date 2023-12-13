@@ -98,10 +98,12 @@ app.post("/get-employee2", async (req, res) => {
   }
 });
 
-app.post("/get-user", async (req, res) => {
-  const email = req.body.email;
-  console.log(email);
-  console.log("getting employees");
+
+app.get("/get-users", async (req, res) => {
+  const ID = req.query.ID;
+  console.log(ID);
+  console.log("getting users");
+
   let result;
   let checkEmailQuery;
   if (email !== undefined) {
@@ -265,6 +267,32 @@ app.post('/saveReservation', async (req, res) => {
 
     if (existingReservation) {
       return res.status(400).json({ error: 'Reservation for the given plane with the same date and time already exists.' });
+    }
+
+    const checkUserOverlapQuery = db.prepare(`
+  SELECT reservation_id FROM reservations
+  WHERE user_id_1 = ? 
+  AND (
+    (fromDate = ? AND fromTime < ? AND toTime > ?)
+    OR (toDate = ? AND fromTime < ? AND toTime > ?)
+    OR (fromDate < ? AND toDate > ?)
+  )
+`);
+
+    const existingUserReservation = checkUserOverlapQuery.get(
+      userId,
+      fromDate,
+      toTime,
+      fromTime,
+      fromDate,
+      toTime,
+      fromTime,
+      fromDate,
+      toDate
+    );
+
+    if (existingUserReservation) {
+      return res.status(400).json({ error: 'User has another reservation during the specified date and time frame.' });
     }
 
     // TODO Check if the comment exists in the comments table, if it does grab its pk id else add the new comment and returns its pk id
