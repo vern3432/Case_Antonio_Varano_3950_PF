@@ -18,17 +18,22 @@ function Reservations() {
   }, []);
 
   return (
-    <div className="reservation-container container-fluid">
-      {planeData.map((plane) => (
-        <PlaneReservation
-          key={plane.plane_id}
-          id={plane.plane_id}
-          plane={plane.img_src}
-          year={plane.Year}
-          model={plane.model}
-          tail_number={plane.tail_number}
-        ></PlaneReservation>
-      ))}
+    <div>
+      <div className="title">
+        <p> Our Fleet </p></div>
+      <div className="reservation-container container-fluid">
+
+        {planeData.map((plane) => (
+          <PlaneReservation
+            key={plane.plane_id}
+            id={plane.plane_id}
+            plane={plane.img_src}
+            year={plane.Year}
+            model={plane.model}
+            tail_number={plane.tail_number}
+          ></PlaneReservation>
+        ))}
+      </div>
     </div>
   );
 }
