@@ -101,7 +101,7 @@ const Contact = () => {
     }
   };
   return (
-    <body>
+    
       <div id="pagecontent" className="container">
         <form id="post" action="" method="post">
           <h3>Send us an Email</h3>
@@ -188,7 +188,7 @@ const Contact = () => {
           </fieldset>
         </form>
       </div>
-    </body>
+  
   );
 };
 

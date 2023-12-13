@@ -46,10 +46,8 @@ img {
   content: "";
   position: absolute;
   left: 6rem;
-  /* Adjust the value to control the distance from the left side */
   right: 6rem;
-  /* Adjust the value to control the distance from the right side */
   bottom: 0;
   border-bottom: 2px solid #000;
-  /* You can change the color and thickness of the border */
+
 }

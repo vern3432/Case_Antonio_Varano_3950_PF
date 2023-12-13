@@ -103,28 +103,30 @@ function UserProfile1() {
   let id
   let emailpost
   let Accountype
-function get_USERprofile(email) {
-  console.log(email);
-  fetch("http://localhost:3001/get-user", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: email,
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      id=data.user_id;
-      emailpost = JSON.stringify(data.email);
-      Accountype=data.user_type;
-      console.log(id)
-    })
-    .catch((error) => console.log("Error fetching data: ", error));
-}
-  get_USERprofile(localStorage.getItem("curremail"));
+  // Not the correct endpoint to use...to retrieve email, please grab from the stored cookie 
+
+  // function get_USERprofile(email) {
+  //   console.log(email);
+  //   fetch("http://localhost:3001/get-user", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       email: email,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       id=data.user_id;
+  //       emailpost = JSON.stringify(data.email);
+  //       Accountype=data.user_type;
+  //       console.log(id)
+  //     })
+  //     .catch((error) => console.log("Error fetching data: ", error));
+  // }
+  //   get_USERprofile(localStorage.getItem("curremail"));
 
   return (
     <main style={{ height: `${getMainHeight()}px`, transition: "height 0.5s" }}>
