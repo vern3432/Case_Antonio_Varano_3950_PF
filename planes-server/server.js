@@ -14,6 +14,7 @@ app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 const bodyParser = require("body-parser");
+
 // To check functionality, login in like this. There is no auth or anything on the account. Its just gmail
 // planeservice7@gmail.com
 // 123Planes!
@@ -75,6 +76,24 @@ app.get("/get-employee", async (req, res) => {
   }
 });
 
+app.get("/get-users", async (req, res) => {
+  const ID = req.query.ID;
+  console.log(ID);
+  console.log("getting users");
+  let result;
+  let checkEmailQuery;
+
+  checkEmailQuery = db.prepare("SELECT * FROM User");
+  result = checkEmailQuery.all();
+
+  if (result) {
+    console.log(result);
+    res.send(result);
+  } else {
+    res.status(500).send("error");
+  }
+});
+
 // Handle google oauth and login form
 app.post("/existingUser", (req, res) => {
   const email = req.body.email; // Get the user's email from the request query
@@ -90,8 +109,12 @@ app.post("/existingUser", (req, res) => {
   );
   const result = checkEmailQuery.get(email);
 
+  // Get all the values given the email and append to response
+  const viewUserData = db.prepare("SELECT * FROM user WHERE email = ?");
+  const userData = viewUserData.get(email);
+
   if (result.count > 0) {
-    res.json({ success: true });
+    res.json({ success: true, user: userData });
   } else {
     // If the email exists, return false
     res.status(404).json({ error: "Email not registered" });
@@ -101,13 +124,7 @@ app.post("/existingUser", (req, res) => {
 // Handle new signup
 app.post("/newUser", (req, res) => {
   const email = req.body.email; // Get the user's email from the request query
-  console.log(email);
   const user_type = req.body.user_type; // Get the user's user_type from the request query
-  console.log(user_type);
-
-  const viewPlaneData = db.prepare("SELECT * FROM user");
-  console.log("\nPlane Table:");
-  console.log(viewPlaneData.all());
 
   // Check if the email exists in the user table
   const checkEmailQuery = db.prepare(
@@ -125,7 +142,11 @@ app.post("/newUser", (req, res) => {
     );
     insertUserQuery.run(email, user_type);
 
-    res.json({ success: true });
+    // Get all the values given the email and append to response
+    const viewUserData = db.prepare("SELECT * FROM user WHERE email = ?");
+    const userData = viewUserData.get(email);
+
+    res.json({ success: true, user: userData });
   }
 });
 
@@ -135,27 +156,117 @@ app.get("/get-planes", (req, res) => {
   res.send(getPlanesQuery.all());
 });
 
-app.post("/saveReservation", (req, res) => {
-  const email = req.body.email; // Get the user's email from the request query
-  console.log(email);
+app.post('/saveReservation', async (req, res) => {
+  try {
+    const {
+      activity,
+      comment,
+      fromDate,
+      fromTime,
+      optionalUser,
+      plane_id,
+      toDate,
+      toTime,
+      userId,
+      instructor,
+    } = req.body;
 
-  const viewPlaneData = db.prepare("SELECT * FROM user");
-  console.log("\nPlane Table:");
-  console.log(viewPlaneData.all());
+    // Print the extracted values
+    console.log('Activity:', activity);
+    console.log('Comment:', comment);
+    console.log('From Date:', fromDate);
+    console.log('From Time:', fromTime);
+    console.log('Instructor:', instructor);
+    console.log('Optional User:', optionalUser);
+    console.log('Plane ID:', plane_id);
+    console.log('To Date:', toDate);
+    console.log('To Time:', toTime);
+    console.log('User ID:', userId);
 
-  // Check if the email exists in the user table
-  const checkEmailQuery = db.prepare(
-    "SELECT COUNT(*) as count FROM user WHERE email = ?"
-  );
-  const result = checkEmailQuery.get(email);
+    // Check if the date and time values already exist for a given reservation
+    // Check if there's any overlapping reservation for the given time range
+    const checkOverlapQuery = db.prepare(`
+    SELECT reservation_id FROM reservations
+    WHERE plane_id = ? AND fromDate = ? AND toDate = ?
+    AND (
+      (fromTime >= ? AND fromTime < ?)
+      OR (toTime > ? AND toTime <= ?)
+      OR (fromTime <= ? AND toTime >= ?)
+    )
+  `);
 
-  if (result.count > 0) {
-    res.json({ success: true });
-  } else {
-    // If the email exists, return false
-    res.status(404).json({ error: "Email not registered" });
+
+    const existingReservation = checkOverlapQuery.get(
+      plane_id,
+      fromDate,
+      toDate,
+      fromTime,
+      toTime,
+      fromTime,
+      toTime,
+      fromTime,
+      toTime
+    );
+
+
+
+
+    if (existingReservation) {
+      return res.status(400).json({ error: 'Reservation for the given plane with the same date and time already exists.' });
+    }
+
+    // TODO Check if the comment exists in the comments table, if it does grab its pk id else add the new comment and returns its pk id
+    let commentId;
+    const checkCommentQuery = db.prepare("SELECT comment_id FROM comments WHERE comment = ?");
+    const existingComment = checkCommentQuery.get(comment);
+
+    if (existingComment) {
+      commentId = existingComment.comment_id;
+    } else {
+      const insertCommentQuery = db.prepare("INSERT INTO comments (comment) VALUES (?)");
+      const result = insertCommentQuery.run(comment);
+      commentId = result.lastInsertRowid;
+    }
+
+    // Save reservation data into the reservations table
+    const sql = `
+      INSERT INTO reservations (
+        fromDate,
+        toDate,
+        fromTime,
+        toTime,
+        flighttype,
+        user_id_1,
+        user_id_2,
+        plane_id,
+        instructor_id,
+        comment_id
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+    `;
+
+    const statement = db.prepare(sql);
+    statement.run(
+      fromDate,
+      toDate,
+      fromTime,
+      toTime,
+      activity,
+      userId,
+      optionalUser,
+      plane_id,
+      instructor,
+      commentId
+    );
+
+    console.log(`Reservation saved with ID: ${statement.lastInsertRowid}`);
+    res.status(200).json({ message: 'Reservation saved successfully.' });
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: 'Internal server error.' });
   }
 });
+
 
 app.get("/", (req, res) => {
   res.send("Server is running");

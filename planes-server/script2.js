@@ -3,6 +3,7 @@ const sql3 = require("better-sqlite3");
 const db = new sql3("memory.db");
 
 
+
 db.exec("DROP TABLE IF EXISTS Employees");
 console.log("table dropped");
 db.exec(
@@ -14,14 +15,14 @@ const insrow = db.prepare(
   "insert into Employees (ID,Name , Position ,Job_Description ,Bio) VALUES (?,?, ?,?,?)"
 );
 insrow.run(
-  "00001",
+  "1",
   "Angela ",
   "Human Resources",
   "In her current role as a Human Resources Specialist at XYZ Solutions, Angela Smith oversees talent acquisition strategies and employee engagement initiatives. Leveraging her expertise, she contributes to creating a positive work environment and fosters a culture that aligns with the company's values, ensuring the acquisition and retention of top-tier talent.",
   "Angela Smith is a results-driven HR professional with a Bachelor's in Human Resource Management and an MBA in Organizational Development. Starting her career at DEF Corporation, she excelled in talent acquisition and employee relations, leading to her current role as a Human Resources Specialist at XYZ Solutions. Angela is known for her commitment to diversity and inclusion, actively contributing to a positive work culture and staying abreast of industry trends through continuous learning. She aspires to take on leadership roles, leveraging her skills to drive organizational success."
 );
 insrow.run(
-  "00002",
+  "2",
 
   "Clarence ",
   "Avation Mechanic",
@@ -30,7 +31,7 @@ insrow.run(
 );
 
 insrow.run(
-  "00003",
+  "3",
 
   "Thomas",
   "Hiring Manager",
@@ -38,7 +39,7 @@ insrow.run(
   "Thomas is a seasoned aviation professional with a passion for fostering talent in the skies. As the hiring manager at a prestigious flight school, he brings a wealth of experience and knowledge to the recruitment process, ensuring that aspiring pilots not only meet stringent standards but also embody a deep commitment to safety and excellence. With a background in aviation operations and a keen eye for potential, Thomas plays a pivotal role in shaping the next generation of aviators, guiding them towards successful and fulfilling careers in the aviation industry."
 );
 insrow.run(
-  "00004",
+  "4",
 
   "Johnathan",
   "Instructor",
@@ -47,7 +48,7 @@ insrow.run(
 );
 
 insrow.run(
-  "00005",
+  "5",
 
   "Samantha",
   "Instructor",
@@ -55,7 +56,7 @@ insrow.run(
   "Samantha is a seasoned aviation professional with a passion for both teaching and flying. As an instructor at our local flight school, she brings a wealth of knowledge and experience to the classroom and cockpit. With a strong commitment to safety and a knack for explaining complex aviation concepts in an accessible manner, Samantha inspires and guides aspiring pilots on their journey to mastering the skies. Her dedication to excellence and infectious enthusiasm make her an invaluable asset to our aviation community."
 );
 insrow.run(
-  "00006",
+  "6",
   "Eamonn",
   "Instructor Supervisor",
   "As the instructor supervisor at a leading flight school, Eamonn oversees the training and development of aspiring pilots, ensuring compliance with industry regulations and safety standards. He plays a pivotal role in maintaining the school's reputation for delivering top-notch aviation education by managing instructor performance and curriculum quality.",

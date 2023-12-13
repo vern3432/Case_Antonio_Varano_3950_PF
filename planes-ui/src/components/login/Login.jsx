@@ -21,17 +21,17 @@ function Login() {
 
   }
 
-  const saveCookie = (name) => {
-    console.log("inside save cookie");
-    console.log("the name is: ", name);
+  const saveCookie = (name, userType, userId) => {
     const expirationTime = 3600; // 1 hour
     const expirationDate = new Date(
       Date.now() + expirationTime * 1000
     ).toUTCString();
-    document.cookie = `userName=${name}; expires=${expirationDate}; path=/`;
-    console.log("new user cookie saved");
+    const userInfoString = `userName=${name}&userType=${userType}&userId=${userId}`;
+    document.cookie = `${userInfoString}; expires=${expirationDate}; path=/`;
+
   }
 
+  // google oauth id
   const client_id =
     "951325617358-20v7s22jr35ahu01qdoeg0onh7hagu37.apps.googleusercontent.com";
 
@@ -41,9 +41,6 @@ function Login() {
   };
 
   const onSuccess = async (res) => {
-    // Extract name from the response
-    const name = res.profileObj.name;
-    console.log("User's Name:", name);
     // Extract email from the response
     const email = res.profileObj.email;
     try {
@@ -59,13 +56,13 @@ function Login() {
 
       const data = await response.json();
 
-      console.log(data);
+      console.log("the data! ", data);
 
       // Handle the response here, depending on the server's response
       if (response.ok) {
 
-        saveCookie(email);
-
+        saveCookie(email, data.user.user_type, data.user.user_id);
+        
         console.log("new user cookie saved");
         navigate("/reservations");
       } else {
@@ -127,7 +124,8 @@ function Login() {
       console.log(data);
       // Handle the response here, depending on the server's response
       if (response.ok) {
-        saveCookie(emailAddress);
+        saveCookie(emailAddress, data.user.user_type, data.user.user_id);
+        
         navigate("/reservations");
       } else {
         alert("Email not registered");
@@ -157,11 +155,12 @@ function Login() {
 
       const data = await response.json();
 
-      console.log(data);
+      console.log("THE NEW data", data);
 
       // Handle the response here, depending on the server's response
       if (response.ok) {
-        saveCookie(signupEmail);
+        saveCookie(signupEmail, data.user.user_type, data.user.user_id);
+        
         navigate("/reservations");
       } else {
         console.error("Error creating user:", data.error);
