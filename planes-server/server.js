@@ -246,9 +246,6 @@ app.post('/saveReservation', async (req, res) => {
       toTime
     );
 
-
-
-
     if (existingReservation) {
       return res.status(400).json({ error: 'Reservation for the given plane with the same date and time already exists.' });
     }
@@ -284,12 +281,17 @@ app.post('/saveReservation', async (req, res) => {
     const checkCommentQuery = db.prepare("SELECT comment_id FROM comments WHERE comment = ?");
     const existingComment = checkCommentQuery.get(comment);
 
+    console.log("Existing comment", existingComment);
+
     if (existingComment) {
       commentId = existingComment.comment_id;
+      console.log("id of existing comment", commentId);
     } else {
       const insertCommentQuery = db.prepare("INSERT INTO comments (comment) VALUES (?)");
       const result = insertCommentQuery.run(comment);
+      console.log("result of insertion", result);
       commentId = result.lastInsertRowid;
+      console.log("if of result", commentId);
     }
 
     // Save reservation data into the reservations table
