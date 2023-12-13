@@ -74,11 +74,13 @@ function About() {
   return (
     <main style={{ height: `${mainHeight}px` }}>
       <h1>About Us</h1>
+      
       <input
         id="radio1"
         type="radio"
         name="css-tabs"
         value="1"
+        defaultChecked  // Set the first option as default
         oncheck={onselection(100)}
       ></input>
       <input
