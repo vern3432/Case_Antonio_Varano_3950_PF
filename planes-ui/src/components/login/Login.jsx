@@ -160,7 +160,7 @@ function Login() {
 
         navigate("/reservations");
       } else {
-        console.error("Error creating user:", data.error);
+        alert("Error creating user, user may already be registered:", data.error);
       }
     } catch (error) {
       console.error("Error:", error.message);
