@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 
 // Get the cookie given the name. In our example, just look for the start 'userName='
 const getCookie = (name) => {
-  const cookies = document.cookie.split(';');
+  const cookies = document.cookie.split(";");
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
@@ -19,7 +19,7 @@ const getCookie = (name) => {
 };
 
 // Get the cookie using getCookie, 'userName=' is always the start of the cookie
-const userCookie = getCookie('userName=');
+const userCookie = getCookie("userName=");
 
 // Extract the information from the userCookie into their own constants
 const extractUserInfo = (userCookie) => {
@@ -45,7 +45,7 @@ function ReservationModal({ model, id }) {
   const plane_id = id;
   const [show, setShow] = useState(false);
   const [employees, setEmployees] = useState(); // Value of employee dropdown selection
-  const [fromDate, setFromDate] = useState()
+  const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
   const [fromTime, setFromTime] = useState();
   const [toTime, setToTime] = useState();
@@ -69,16 +69,25 @@ function ReservationModal({ model, id }) {
     //Send post request to create reservation
     // If the userCookie exists
     if (userCookie) {
-
       // Extract the cookie info
       const userInfo = extractUserInfo(userCookie);
 
       // Save the id from the extracted cookie
       const userId = userInfo.userId;
 
-
       // Data to be sent to save reservation
-      const request = { userId, fromDate, toDate, fromTime, toTime, instructor, activity, plane_id, optionalUser, comment };
+      const request = {
+        userId,
+        fromDate,
+        toDate,
+        fromTime,
+        toTime,
+        instructor,
+        activity,
+        plane_id,
+        optionalUser,
+        comment,
+      };
 
       // Calculate total time
       const fromDateTime = new Date(`${fromDate}T${fromTime}`);
@@ -93,16 +102,12 @@ function ReservationModal({ model, id }) {
         saveReservation(request);
       }
     } else {
-      console.log('Failed to find a user cookie');
+      console.log("Failed to find a user cookie");
     }
-
-
-
   };
 
   const saveReservation = async (res) => {
-
-    console.log("recieved res: ", res)
+    console.log("recieved res: ", res);
     try {
       const response = await fetch("http://localhost:3001/saveReservation", {
         method: "POST",
@@ -110,22 +115,19 @@ function ReservationModal({ model, id }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(res),
-      })
+      });
 
       const data = await response.json();
 
       // Handle the response here, depending on the server's response
       if (response.ok) {
-
         console.log("Good response from saveReservation endpoint");
-
       } else {
         console.log("Failed to fetch endpoint 'saveReservation'");
       }
     } catch (error) {
       console.error("Error:", error.message);
     }
-
   };
 
   async function fetchEmployees() {
@@ -197,10 +199,12 @@ function ReservationModal({ model, id }) {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Instructor:</Form.Label>
-              <Form.Select onChange={(e) => {
-                setInstructor(e.target.value);
-
-              }} disabled={optionalUser !== null && optionalUser !== "None"}>
+              <Form.Select
+                onChange={(e) => {
+                  setInstructor(e.target.value);
+                }}
+                disabled={optionalUser !== null && optionalUser !== "None"}
+              >
                 <option hidden>Please Select</option>
                 {employees &&
                   employees.map((employee) => (
@@ -213,10 +217,12 @@ function ReservationModal({ model, id }) {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Co-pilot:</Form.Label>
-              <Form.Select onChange={(e) => {
-                setUsers(e.target.value);
-
-              }} disabled={instructor !== null && instructor !== "None"}>
+              <Form.Select
+                onChange={(e) => {
+                  setUsers(e.target.value);
+                }}
+                disabled={instructor !== null && instructor !== "None"}
+              >
                 <option hidden>Please Select</option>
                 {member &&
                   member.map((member) => (
@@ -253,9 +259,7 @@ function ReservationModal({ model, id }) {
           <Button
             variant="success"
             onClick={handleReserve}
-
             disabled={!fromDate || !toDate || !toTime || !fromTime || !activity} // Make Reservation button is disabled until all fields are filled
-
           >
             Make Reservation
           </Button>
