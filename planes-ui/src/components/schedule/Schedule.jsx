@@ -44,6 +44,13 @@ function Schedule() {
     }
 
     fetchReservationData();
+
+    // Set up interval to fetch data every 5 seconds
+    const intervalId = setInterval(() => {
+      fetchReservationData();
+    }, 5000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   // Show the modal for the event in the schedule page if the URL changes with the id number
