@@ -4,6 +4,7 @@ import navigationStyle from "./navigation.module.css";
 
 // Get the cookie given the name. In our example, just look for the start 'userName='
 const getCookie = (name) => {
+
   const cookies = document.cookie.split(';');
 
   for (let i = 0; i < cookies.length; i++) {
@@ -17,11 +18,12 @@ const getCookie = (name) => {
   return null; // Cookie not found
 };
 
-// Get the cookie using getCookie, 'userName=' is always the start of the cookie
-const userCookie = getCookie('userName=');
 
 // Extract the information from the userCookie into their own constants
-const extractUserInfo = (userCookie) => {
+const extractUserInfo = () => {
+  const userCookie = getCookie('userName=');
+
+  console.log("the cookie", userCookie);
   const userInfo = {};
 
   // Extract email address
@@ -44,11 +46,11 @@ const extractUserInfo = (userCookie) => {
 function Navigation() {
 
 
-    // Extract the cookie info
-    const userInfo = extractUserInfo(userCookie);
+  // Extract the cookie info
+  const userInfo = extractUserInfo();
 
-    // Save the id from the extracted cookie
-    const userName = userInfo.email;
+  // Save the id from the extracted cookie
+  const userName = userInfo.email;
 
 
   return (

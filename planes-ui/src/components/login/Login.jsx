@@ -28,6 +28,7 @@ function Login() {
     ).toUTCString();
     const userInfoString = `userName=${name}&userType=${userType}&userId=${userId}`;
     document.cookie = `${userInfoString}; expires=${expirationDate}; path=/`;
+
   }
 
   // google oauth id
@@ -61,7 +62,7 @@ function Login() {
       if (response.ok) {
 
         saveCookie(email, data.user.user_type, data.user.user_id);
-
+        
         console.log("new user cookie saved");
         navigate("/reservations");
       } else {
@@ -124,6 +125,7 @@ function Login() {
       // Handle the response here, depending on the server's response
       if (response.ok) {
         saveCookie(emailAddress, data.user.user_type, data.user.user_id);
+        
         navigate("/reservations");
       } else {
         alert("Email not registered");
@@ -158,6 +160,7 @@ function Login() {
       // Handle the response here, depending on the server's response
       if (response.ok) {
         saveCookie(signupEmail, data.user.user_type, data.user.user_id);
+        
         navigate("/reservations");
       } else {
         console.error("Error creating user:", data.error);
