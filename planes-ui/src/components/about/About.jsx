@@ -5,10 +5,12 @@ import Samantha from './lightskinlady.jpg'
 import Ea from "./manthinking.jpg";
 import Angela from "./istockphoto-1394347360-612x612.jpg";
 import Clarence from "./balddude.jpg";
+import marker from "./marker1.png";
+
 import Thomas from "./oldwhitedude.jpg";
 import InstructorModal from "./instructorabout";
 import React, { useState, useRef } from 'react';
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const AnyReactComponent = ({ text }) => <div style={{position:'absolute'}}><img src={marker} alt="" /></div>;
 
 //Lot
 const renderMarkers = (map, maps) => {
@@ -230,7 +232,11 @@ function About() {
 
 
             >
-
+        <AnyReactComponent
+          lat={defaultProps.center.lat}
+          lng={defaultProps.center.lng}
+          text="My Marker"
+        />
 
 
             </GoogleMapReact>
