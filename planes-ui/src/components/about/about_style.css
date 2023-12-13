@@ -19,6 +19,12 @@ GoogleMapReact {
   float: right;
 }
 
+
+#contactpageimage{
+width: 100%;
+
+}
+
 #about_text {
   color: black;
 }

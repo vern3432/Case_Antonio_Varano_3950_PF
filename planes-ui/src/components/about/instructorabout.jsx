@@ -67,8 +67,7 @@ function InstructorModal({ model,pfp,ID }) {
           <p>{Job_Description}</p>
           <h1>Staff Bio</h1>
           <p>{current_bio}</p>
-          <img src="" alt="" />
-          <img src={pfp} alt="" />
+          <img src={pfp} alt="" id="contactpageimage"/>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
