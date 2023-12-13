@@ -156,6 +156,33 @@ app.get("/get-planes", (req, res) => {
   res.send(getPlanesQuery.all());
 });
 
+app.get("/get-reservations", (req, res) => {
+  const getReservationsQuery = db.prepare(`
+    SELECT 
+      r.reservation_id,
+      r.fromDate,
+      r.toDate,
+      r.fromTime,
+      r.toTime,
+      r.flighttype,
+      u1.email AS user_id_1_email,
+      u2.email AS user_id_2_email,
+      i.Name AS instructor_name,
+      p.make AS plane_make,
+      p.model AS plane_model,
+      c.comment
+    FROM reservations r
+    LEFT JOIN user u1 ON r.user_id_1 = u1.user_id
+    LEFT JOIN user u2 ON r.user_id_2 = u2.user_id
+    LEFT JOIN Employees i ON r.instructor_id = i.ID
+    LEFT JOIN plane p ON r.plane_id = p.plane_id
+    LEFT JOIN comments c ON r.comment_id = c.comment_id
+  `);
+
+  res.send(getReservationsQuery.all());
+});
+
+
 app.post('/saveReservation', async (req, res) => {
   try {
     const {
