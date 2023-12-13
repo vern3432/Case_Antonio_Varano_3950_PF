@@ -69,7 +69,7 @@ input[name="css-tabs"] {
   border-radius: 10px;
   width: 100%;
   font-size: 1rem;
-  color: #fff;
+  color: black;
   background: #0971f1;
 }
 #dircontainer {
@@ -82,7 +82,7 @@ input[name="css-tabs"] {
   transition: background-color 0.3s ease-in-out;
 }
 #textbutt {
-  color: white;
+  color: black;
   inline-size: 150px;
 }
 #tabs {
