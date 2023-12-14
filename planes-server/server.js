@@ -84,8 +84,8 @@ app.post('/fetch-user-reserver', (req, res) => {
    let result;
    let checkEmailQuery;
    if (id !== undefined) {
-     checkEmailQuery = db.prepare("SELECT * FROM reservations WHERE user_id_1 = ?");
-     result = checkEmailQuery.get(id);
+     checkEmailQuery = db.prepare("SELECT * FROM reservations WHERE user_id_1 = ? OR user_id_2 = ?");
+     result = checkEmailQuery.get(id,id);
    } else {
  
    }
