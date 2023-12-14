@@ -1,6 +1,7 @@
 //test
 import "../about/about_style.css";
 import GoogleMapReact, { Marker } from "google-map-react";
+import modalfor from "./modalfor";
 
 import React, { useState, useRef } from "react";
 const renderMarkers = (map, maps) => {
@@ -92,6 +93,64 @@ function UserProfile1() {
     }
   };
 
+  function fetchData(id) {
+    console.log(id);
+     fetch('http://localhost:3001/fetch-user-reserver', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+      },
+         body: JSON.stringify({
+          id: id,
+         }),
+       })
+         .then((response) => response.json())
+         .then((data) => {
+           console.log(data);
+          //  setId(data.user_id);
+          //  setEmailpost(data.email);
+          //  setAccountype(data.user_type); 
+               })
+         .catch((error) => console.log("Error fetching data: ", error));
+     }
+
+  // const fetchData = async () => {
+  //   const id = 29; // Replace with the ID you want to search for
+
+  //   try {
+  //     const response = await fetch('http://localhost:3001/fetch-user-reserver', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ id }),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not ok');
+  //     }
+
+  //     const data = await response.json();
+
+  //     // Print the fetched rows to the console
+  //     console.log('Fetched data:');
+  //     data.data.forEach(row => {
+  //       console.log(row);
+  //     });
+
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   }
+  // };
+
+
+
+
+
+
+
+
+
   const defaultProps = {
     center: {
       lat: 42.680416,
@@ -120,7 +179,10 @@ function UserProfile1() {
          console.log(data);
          setId(data.user_id);
          setEmailpost(data.email);
-         setAccountype(data.user_type);       })
+         setAccountype(data.user_type);   
+         fetchData(data.user_id);
+ 
+           })
        .catch((error) => console.log("Error fetching data: ", error));
    }
      get_USERprofile(localStorage.getItem("curremail"));
