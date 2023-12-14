@@ -4,40 +4,6 @@ import GoogleMapReact, { Marker } from "google-map-react";
 import modalfor from "./modalfor";
 import { useState, useEffect, useRef } from "react";
 
-const renderMarkers = (map, maps) => {
-  let marker = new maps.Marker({
-    position: { lat: 25.0391667, lng: 122.525 },
-    map,
-    title: "Hello World!",
-  });
-  return marker;
-};
-// import React, { useState } from "react";
-
-function getDirections1(string) {
-  console.log("opening direction");
-  window.open(string, "_blank");
-}
-let markers = [
-  {
-    id: 1,
-    latitude: 27.0391667,
-    longitude: 122.525,
-    shelter: "marker 1",
-  },
-  {
-    id: 2,
-    latitude: 24.0391667,
-    longitude: 110.525,
-    shelter: "marker 2",
-  },
-  {
-    id: 3,
-    latitude: 20.0391667,
-    longitude: 100.525,
-    shelter: "marker 3",
-  },
-];
 
 const tabHeights = {
   1: 600,
@@ -52,6 +18,10 @@ function onselection(input) {
 }
 
 function UserProfile1() {
+
+  const [id, setId] = useState("");
+  const [emailpost, setEmailpost] = useState("");
+  const [Accountype, setAccountype] = useState("");
 
   // Get the cookie given the name. In our example, just look for the start 'userName='
   const getCookie = (name) => {
@@ -155,106 +125,10 @@ function UserProfile1() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        //  setId(data.user_id);
-        //  setEmailpost(data.email);
-        //  setAccountype(data.user_type); 
-      })
-      .catch((error) => console.log("Error fetching data: ", error));
-  }
-
-  // const fetchData = async () => {
-  //   const id = 29; // Replace with the ID you want to search for
-
-  //   try {
-  //     const response = await fetch('http://localhost:3001/fetch-user-reserver', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ id }),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok');
-  //     }
-
-  //     const data = await response.json();
-
-  //     // Print the fetched rows to the console
-  //     console.log('Fetched data:');
-  //     data.data.forEach(row => {
-  //       console.log(row);
-  //     });
-
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //   }
-  // };
-
-
-  const defaultProps = {
-    center: {
-      lat: 42.680416,
-      lng: -71.127548,
-    },
-    zoom: 11,
-  };
-  const [id, setId] = useState("");
-  const [emailpost, setEmailpost] = useState("");
-  const [Accountype, setAccountype] = useState("");
-  // Not the correct endpoint to use...to retrieve email, please grab from the stored cookie 
-
-
-  // function get_USERprofile(email) {
-  //   console.log(email);
-  //   fetch("http://localhost:3001/get-user", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       email: email,
-  //     }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       setId(data.user_id);
-  //       setEmailpost(data.email);
-  //       setAccountype(data.user_type);
-  //       fetchData(data.user_id);
-
-  //     })
-  //     .catch((error) => console.log("Error fetching data: ", error));
-  // }
-
-  //get_USERprofile(localStorage.getItem("curremail"));
-
-  function get_USERprofile(email) {
-    console.log(email);
-    fetch("http://localhost:3001/get-user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setId(data.user_id);
-        setEmailpost(data.email);
-        setAccountype(data.user_type);
-        //  fetchData(data.user_id);
-        fetchData('29')
 
       })
       .catch((error) => console.log("Error fetching data: ", error));
   }
-  get_USERprofile(localStorage.getItem("curremail"));
-
 
   return (
     <main style={{ height: `${getMainHeight()}px`, transition: "height 0.5s" }}>

@@ -122,7 +122,8 @@ const viewResData = db.prepare("SELECT * FROM reservations");
 console.log("\nRes Table:");
 console.log(viewResData.all());
 
-const viewEmpData = db.prepare("SELECT * FROM Employees");
-console.log("\nEmployee Table:");
+const viewEmpData = db.prepare("SELECT * FROM reservations where user_id_1 = 32");
+console.log("\r user id info:");
 console.log(viewEmpData.all());
+
 
