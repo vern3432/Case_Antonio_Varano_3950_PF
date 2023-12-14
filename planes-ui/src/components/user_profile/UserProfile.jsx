@@ -113,7 +113,7 @@ function UserProfile1() {
   const [reservers, setreservers] = useState("");
 
   function fetchData(id) {
-    setreservers('Please make a Reservation to Populate this Space')
+    setreservers('Please make a Reservation to Populate this Space');
 
     console.log(id);
 
@@ -128,16 +128,15 @@ function UserProfile1() {
     })
       .then((response) => response.json())
       .then((data) => {
-        data.forEach(row => {
-          console.log('<div>' + row.flighttype + '</div>')
-          setreservers(reservers + '<div>' + row.flighttype + '</div>')
-
+        data.forEach((row) => {
+          console.log('<div>' + row.flighttype + '</div>');
+          setreservers((prevReservers) => prevReservers + '<div>' + row.flighttype + '</div>');
         });
-
-
-
       })
-      .catch((error) => console.log("Error fetching data: ", error));
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        // Handle the error as needed
+      });
   }
 
   // const fetchData = async () => {
