@@ -39,10 +39,11 @@ function InstructorModal({ model, pfp, ID }) {
 
   return (
     <>
-      <Button className="m-2" variant="primary" onClick={handleShow}>
-        More Info
-      </Button>
-
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <Button className="m-2" variant="primary" onClick={handleShow}>
+          More Info
+        </Button>
+      </div>
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>Staff: {model}</Modal.Title>
