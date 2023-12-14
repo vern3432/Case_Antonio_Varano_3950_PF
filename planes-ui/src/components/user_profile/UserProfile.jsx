@@ -180,8 +180,9 @@ function UserProfile1() {
          setId(data.user_id);
          setEmailpost(data.email);
          setAccountype(data.user_type);   
-         fetchData(data.user_id);
- 
+        //  fetchData(data.user_id);
+          fetchData('29')
+
            })
        .catch((error) => console.log("Error fetching data: ", error));
    }

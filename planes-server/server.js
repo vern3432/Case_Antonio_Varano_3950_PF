@@ -79,24 +79,26 @@ app.get("/get-employee", async (req, res) => {
 // FROM user 
 // WHERE user_id_1 = ? OR user_id_2 = ?;
 app.post('/fetch-user-reserver', (req, res) => {
-  const { id } = req.body;
-  console.log(id)
-  let result;
-  let checkEmailQuery;
-  if (id !== undefined) {
-    checkEmailQuery = db.prepare("SELECT * FROM reservations WHERE user_id_1 = ?");
-    result = checkEmailQuery.get(id);
-  } else {
 
-  }
+  const id  = req.body.id;
+   console.log(id)
+   let result;
+   let checkEmailQuery;
+   if (id !== undefined) {
+     checkEmailQuery = db.prepare("SELECT * FROM reservations WHERE user_id_1 = ? OR user_id_2 = ?");
+     result = checkEmailQuery.get(id,id);
+   } else {
+ 
+   }
+ 
+   if (result) {
+     console.log(result);
+     res.send(result);
+   } else {
+     res.status(500).send("error");
+   }
+ });
 
-  if (result) {
-    console.log(result);
-    res.send(result);
-  } else {
-    res.status(500).send("error");
-  }
-});
 
 app.post("/get-employee2", async (req, res) => {
   const ID = req.body.ID;
@@ -120,27 +122,29 @@ app.post("/get-employee2", async (req, res) => {
 });
 
 app.post("/get-user", async (req, res) => {
-  const email = req.body.email;
-  console.log(email);
-  console.log("getting user");
-  let result;
-  let checkEmailQuery;
-  if (email !== undefined) {
-    checkEmailQuery = db.prepare("SELECT * FROM user WHERE email = ?");
-    result = checkEmailQuery.get(email);
-    console.log(result)
-  } else {
-    checkEmailQuery = db.prepare("SELECT * FROM user WHERE email = ?");
-    result = checkEmailQuery.get("mark.case102@gmail.com");
-    console.log(result)
-  }
-  if (result) {
-    console.log(result);
-    res.send(result);
-  } else {
-    res.status(500).send("error");
-  }
-});
+
+ const email = req.body.email;
+   console.log(email);
+   console.log("getting user");
+   let result;
+   let checkEmailQuery;
+   if (email !== undefined) {
+     checkEmailQuery = db.prepare("SELECT * FROM user WHERE email = ?");
+     result = checkEmailQuery.get(email);
+     console.log(result)
+   } else {
+     checkEmailQuery = db.prepare("SELECT * FROM user WHERE email = ?");
+     result = checkEmailQuery.get("mark.case102@gmail.com");
+     console.log(result)
+   }
+   if (result) {
+     console.log(result);
+     res.send(result);
+   } else {
+     res.status(500).send("error");
+   }
+ });
+
 
 
 app.get("/get-users", async (req, res) => {
