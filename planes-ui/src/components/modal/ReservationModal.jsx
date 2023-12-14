@@ -4,10 +4,10 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-
+import "./modal.css";
 
 // Creates the ReservationModal component with the option to choose the start and end date, the type of activity and if you want a instructor or not when doing the reservation of the plane
-function ReservationModal({ model, id }) {
+function ReservationModal({ tail_number, id }) {
   const plane_id = id;
   const [show, setShow] = useState(false);
   const [employees, setEmployees] = useState(); // Value of employee dropdown selection
@@ -39,7 +39,6 @@ function ReservationModal({ model, id }) {
     return null; // Cookie not found
   };
 
-
   // Extract the information from the userCookie into their own constants
   const extractUserInfo = (userCookie) => {
     const userInfo = {};
@@ -64,12 +63,10 @@ function ReservationModal({ model, id }) {
     setShow(true);
     await fetchEmployees();
     await fetchMembers();
-
   };
 
-
   useEffect(() => {
-    const userCookie = getCookie('userName=');
+    const userCookie = getCookie("userName=");
 
     if (userCookie) {
       // Extract the cookie info
@@ -79,10 +76,7 @@ function ReservationModal({ model, id }) {
       console.log("the id: ", userId);
       console.log("the type: ", userType);
     }
-
-
   });
-
 
   const handleReserve = () => {
     setShow(false);
@@ -90,12 +84,9 @@ function ReservationModal({ model, id }) {
     //Send post request to create reservation
     // If the userCookie exists
     if (userId) {
-
       if (userType.toLowerCase() === "student" && instructor === null) {
         alert("Students must fly with an instructor");
       } else {
-
-
         // Data to be sent to save reservation
         const request = {
           userId,
@@ -115,9 +106,8 @@ function ReservationModal({ model, id }) {
         const toDateTime = new Date(`${toDate}T${toTime}`);
         const totalTime = (toDateTime - fromDateTime) / (1000 * 60 * 60);
 
-
         console.log(totalTime);
-        if (totalTime < 2 | totalTime > 336) {
+        if ((totalTime < 2) | (totalTime > 336)) {
           alert("Must reserve for at least 2 hours or less than 2 weeks");
         } else {
           // Save request to the database
@@ -189,12 +179,17 @@ function ReservationModal({ model, id }) {
         variant="primary"
         onClick={handleShow}
       >
-        Reserve {model}
+        Reserve {tail_number}
       </Button>
 
-      <Modal show={show} onHide={handleClose} animation={false}>
+      <Modal
+        className="reservation-modal"
+        show={show}
+        onHide={handleClose}
+        animation={false}
+      >
         <Modal.Header closeButton>
-          <Modal.Title>Reserve {model}</Modal.Title>
+          <Modal.Title>Reserve {tail_number}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -257,10 +252,15 @@ function ReservationModal({ model, id }) {
                 }
               >
                 <Form.Select
+                  className="select"
+                  multiple={true}
                   onChange={(e) => {
                     setUsers(e.target.value);
                   }}
-                  disabled={(userType === "Student" | instructor !== null && instructor !== "None")}
+                  disabled={
+                    (userType === "Student") | (instructor !== null) &&
+                    instructor !== "None"
+                  }
                 >
                   <option hidden>Please Select</option>
                   {member &&

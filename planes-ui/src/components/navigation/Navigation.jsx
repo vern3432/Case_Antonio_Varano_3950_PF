@@ -1,6 +1,7 @@
 // Creates navigation bar
-import { Nav, Navbar, NavbarBrand } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import navigationStyle from "./navigation.module.css";
+import { useLocation } from "react-router-dom";
 
 // Get the cookie given the name. In our example, just look for the start 'userName='
 const getCookie = (name) => {
@@ -21,7 +22,6 @@ const getCookie = (name) => {
 const extractUserInfo = () => {
   const userCookie = getCookie("userName=");
 
-  console.log("the cookie", userCookie);
   const userInfo = {};
 
   // Extract email address
@@ -42,6 +42,10 @@ const extractUserInfo = () => {
 function Navigation() {
   // Extract the cookie info
   const userInfo = extractUserInfo();
+  const location = useLocation();
+
+  // Get current navigation path
+  const path = location.pathname;
 
   // Save the id from the extracted cookie
   const userName = userInfo.email;
@@ -51,12 +55,11 @@ function Navigation() {
       collapseOnSelect
       className="p-2"
       expand="sm"
-      id={navigationStyle.navColor}
+      id={navigationStyle.navBar}
     >
-
       <Navbar.Brand>
         <img
-          src="favicon.ico"  // Replace with the actual path to the image
+          src="favicon.ico" // Replace with the actual path to the image
           alt="User Profile"
           className={navigationStyle.profileImage}
         />
@@ -67,11 +70,36 @@ function Navigation() {
       ></Navbar.Toggle>
       <Navbar.Collapse id="navbarScroll">
         <Nav>
-          <Nav.Link href="/reservations">Reserve a Plane</Nav.Link>
-          <Nav.Link href="/schedule">Schedule</Nav.Link>
-          <Nav.Link href="/about">About</Nav.Link>
-          <Nav.Link href="/contact">Contact</Nav.Link>
-          <Nav.Link href="/user_profile">Profile</Nav.Link>
+          <Nav.Link
+            href="/reservations"
+            className={path === "/reservations" && navigationStyle.active}
+          >
+            Reserve a Plane
+          </Nav.Link>
+          <Nav.Link
+            href="/schedule"
+            className={path === "/schedule" && navigationStyle.active}
+          >
+            Schedule
+          </Nav.Link>
+          <Nav.Link
+            href="/about"
+            className={path === "/about" && navigationStyle.active}
+          >
+            About
+          </Nav.Link>
+          <Nav.Link
+            href="/contact"
+            className={path === "/contact" && navigationStyle.active}
+          >
+            Contact
+          </Nav.Link>
+          <Nav.Link
+            href="/user_profile"
+            className={path === "/user_profile" && navigationStyle.active}
+          >
+            Profile
+          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

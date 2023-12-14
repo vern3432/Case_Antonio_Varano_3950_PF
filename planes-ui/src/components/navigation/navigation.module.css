@@ -1,10 +1,17 @@
-#navColor {
+#navBar {
   background-color: #e3f2fd;
+  font-size: 1.5em;
+  font-weight: 500;
 }
 
 .profileImage {
   width: 40px;
   height: 40px;
   object-fit: cover;
+}
 
+.active {
+  font-weight: bolder;
+  text-underline-offset: 7px;
+  text-decoration: 3px underline;
 }

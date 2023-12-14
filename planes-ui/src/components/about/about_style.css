@@ -19,19 +19,19 @@ GoogleMapReact {
   float: right;
 }
 
-
-#contactpageimage{
-width: 100%;
-
+#contactpageimage {
+  width: 100%;
 }
 
 #about_text {
   color: black;
+  font-size: 1.5em;
 }
 
 #locations_text {
   color: black;
   float: left;
+  font-size: 1.5em;
 }
 /* main::after {
 
@@ -80,6 +80,7 @@ input[name="css-tabs"] {
 }
 #dircontainer {
   float: left;
+  font-size: 1.5em;
 }
 #buttock:hover {
   background: #43a047;
@@ -90,8 +91,7 @@ input[name="css-tabs"] {
 #textbutt {
   color: black;
   inline-size: 150px;
-  display: 'flex';
-
+  display: "flex";
 }
 #tabs {
   /* padding: 0 0 0 50px;
@@ -162,7 +162,6 @@ input[name="css-tabs"] {
   background-image: url(./staff.png);
 }
 
-
 #tab6::before {
   background-image: url(./reserve.png);
 }
@@ -190,6 +189,7 @@ input[name="css-tabs"] {
 #content {
   position: relative;
   height: 500px;
+  margin-top: 10px;
 }
 #content::before {
   content: "";

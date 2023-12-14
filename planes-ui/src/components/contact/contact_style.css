@@ -33,12 +33,10 @@ body {
 }
 
 .container {
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 #post input[type="text"],
@@ -56,7 +54,9 @@ body {
   padding: 25px;
   margin: 20px 0;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  width: 500px;
+  max-width: 500px;
+  min-width: 350px;
+  font-size: 1.5em;
 }
 
 #post h3 {
@@ -159,4 +159,10 @@ fieldset {
 
 :-ms-input-placeholder {
   color: #888;
+}
+
+#thank-you-message {
+  color: white;
+  margin-top: 10px;
+  text-align: center;
 }

@@ -5,11 +5,12 @@
   text-align: center;
   margin: 10px;
   /* Adjust margin for spacing */
-  border: .5rem solid white;
+  border: 0.5rem solid white;
   background-color: white;
   /* Add a border for the card */
   border-radius: 10px;
-
+  font-size: 1.4em;
+  font-weight: 400;
 }
 
 #reserverationsimages {
@@ -17,9 +18,7 @@
   height: 200px;
   object-fit: cover;
   border-radius: 10px;
-
 }
-
 
 .reservation-container {
   padding-top: 1.5rem;
@@ -27,17 +26,16 @@
   flex-wrap: wrap;
   justify-content: center;
   max-width: 2000px;
-
 }
 
 .title {
   text-align: center;
   padding-top: 4rem;
-  padding-bottom: .2rem;
-  font-size: 2rem;
-  font-family: "Raleway";
+  padding-bottom: 0.2rem;
+  font-size: 3.5em;
+  font-weight: 300;
   position: relative;
-  color: white
+  color: white;
 }
 
 .title::after {
@@ -47,5 +45,4 @@
   right: 6rem;
   bottom: 0;
   border-bottom: 2px solid white;
-
 }

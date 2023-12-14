@@ -1,21 +1,20 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useState, useEffect } from "react";
+import "./modal.css";
 
 // Creates the modal for the event in the schedule page
 function BookingModal({ show, handleClose, reservation }) {
   const [user, setUser] = useState(null);
 
-
   useEffect(() => {
-    const userCookie = getCookie('userName=');
+    const userCookie = getCookie("userName=");
     console.log(userCookie);
     if (userCookie) {
       // Extract the cookie info
       const userInfo = extractUserInfo(userCookie);
       setUser(userInfo.email);
     }
-    
   });
 
   // Get the cookie given the name. In our example, just look for the start 'userName='
@@ -52,25 +51,24 @@ function BookingModal({ show, handleClose, reservation }) {
     return userInfo;
   };
 
-
   // Handle login form submission -> Navigate to new page on successful login
   const deleteReservation = async () => {
     try {
-
-
-
       console.log(user);
       console.log(reservation.user_id_1_email);
 
       if (user === reservation.user_id_1_email) {
         // Make a DELETE request to the server
-        const response = await fetch(`http://localhost:3001/deleteReservation/${reservation.reservation_id}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-            // Add any other headers as needed (e.g., authentication headers)
-          },
-        });
+        const response = await fetch(
+          `http://localhost:3001/deleteReservation/${reservation.reservation_id}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              // Add any other headers as needed (e.g., authentication headers)
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -84,12 +82,12 @@ function BookingModal({ show, handleClose, reservation }) {
         alert("You do not have permission to delete this reservation.");
       }
     } catch (error) {
-      console.error('Error:', error.message); // Output any errors that occurred
+      console.error("Error:", error.message); // Output any errors that occurred
     }
   };
 
   return (
-    <Modal show={show} animation={false}>
+    <Modal className="booking-modal" show={show} animation={false}>
       <Modal.Header closeButton onClick={handleClose}>
         <Modal.Title>Reservation Information </Modal.Title>
       </Modal.Header>
@@ -136,7 +134,6 @@ function BookingModal({ show, handleClose, reservation }) {
         </p>
       </Modal.Body>
       <Modal.Footer>
-
         <Button variant="danger" onClick={deleteReservation}>
           Delete
         </Button>
