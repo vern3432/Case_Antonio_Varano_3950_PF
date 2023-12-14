@@ -119,7 +119,7 @@ function About() {
   };
 
   return (
-    <main style={{ height: `${getMainHeight()}px`, transition: "height 0.5s" }}>
+    <main style={{ transition: "height 0.5s" }}>
       {" "}
       <h1>About Us</h1>
       <input
