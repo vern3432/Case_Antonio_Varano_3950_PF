@@ -329,6 +329,7 @@ function Login() {
               onClick={decodeSignUpResponse}
               type="button"
               className="btn btn-primary fw-bolder"
+              disabled={!userType}
             >
               Sign up
             </button>
