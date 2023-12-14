@@ -204,6 +204,7 @@ function UserProfile1() {
   const [Accountype, setAccountype] = useState("");
   // Not the correct endpoint to use...to retrieve email, please grab from the stored cookie 
 
+
   // function get_USERprofile(email) {
   //   console.log(email);
   //   fetch("http://localhost:3001/get-user", {
@@ -228,6 +229,32 @@ function UserProfile1() {
   // }
 
   //get_USERprofile(localStorage.getItem("curremail"));
+
+  function get_USERprofile(email) {
+    console.log(email);
+    fetch("http://localhost:3001/get-user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setId(data.user_id);
+        setEmailpost(data.email);
+        setAccountype(data.user_type);
+        //  fetchData(data.user_id);
+        fetchData('29')
+
+      })
+      .catch((error) => console.log("Error fetching data: ", error));
+  }
+  get_USERprofile(localStorage.getItem("curremail"));
+
 
   return (
     <main style={{ height: `${getMainHeight()}px`, transition: "height 0.5s" }}>
