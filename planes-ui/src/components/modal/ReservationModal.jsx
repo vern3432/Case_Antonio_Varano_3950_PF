@@ -23,6 +23,7 @@ function ReservationModal({ tail_number, id }) {
   const handleClose = () => setShow(false);
   const [userType, setUserType] = useState(null);
   const [userId, setUser] = useState(null);
+  const [email, setEmail] = useState(null);
 
   // Get the cookie given the name. In our example, just look for the start 'userName='
   const getCookie = (name) => {
@@ -73,6 +74,7 @@ function ReservationModal({ tail_number, id }) {
       const userInfo = extractUserInfo(userCookie);
       setUser(userInfo.userId);
       setUserType(userInfo.userType);
+      setEmail(userInfo.email);
       console.log("the id: ", userId);
       console.log("the type: ", userType);
     }
@@ -86,6 +88,7 @@ function ReservationModal({ tail_number, id }) {
     if (userId) {
       if (userType.toLowerCase() === "student" && instructor === null || userType.toLowerCase() === "student" && activity.toLowerCase() !== "training") {
         alert("Students must fly with an instructor in a training slot");
+        return;
       } else {
         // Data to be sent to save reservation
         const request = {
@@ -107,18 +110,20 @@ function ReservationModal({ tail_number, id }) {
         const toDateTime = new Date(`${toDate}T${toTime}`);
         const totalTime = (toDateTime - fromDateTime) / (1000 * 60 * 60);
 
+        const currentDate = new Date();
+        if (fromDateTime < currentDate || toDateTime < currentDate) {
+          alert("Selected date or time is past");
+          return;
+        } 
+
         console.log(totalTime);
         if ((totalTime < 2) | (totalTime > 336)) {
           alert("Must reserve for at least 2 hours or less than 2 weeks");
+          return;
         } else {
           // Save request to the database
           console.log("Data to be saved ", request);
           saveReservation(request);
-        }
-
-        const currentDate = new Date();
-        if (fromDateTime < currentDate || toDateTime < currentDate) {
-          alert("Selected date or time is past");
         }
       }
     } else {
@@ -147,6 +152,7 @@ function ReservationModal({ tail_number, id }) {
         
       } else {
         console.log("Failed to fetch endpoint 'saveReservation'");
+        alert("Possible overlapping reservation, please view the schedule first.");
       }
     } catch (error) {
       console.error("Error:", error.message);
