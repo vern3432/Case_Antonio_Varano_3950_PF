@@ -18,7 +18,9 @@ function onselection(input) {
 }
 
 function UserProfile1() {
-
+  const [id, setId] = useState("");
+  const [emailpost, setEmailpost] = useState("");
+  const [Accountype, setAccountype] = useState("");
 
 
   // Get the cookie given the name. In our example, just look for the start 'userName='
