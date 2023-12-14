@@ -117,28 +117,28 @@ function UserProfile1() {
 
     console.log(id);
 
-     fetch('http://localhost:3001/fetch-user-reserver', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    fetch('http://localhost:3001/fetch-user-reserver', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-         body: JSON.stringify({
-          id: id,
-         }),
-       })
-         .then((response) => response.json())
-         .then((data) => {
-          data.forEach(row => {
-            console.log('<div>'+row.flighttype+'</div>')
-            setreservers(reservers+'<div>'+row.flighttype+'</div>')
-            
-            });
+      body: JSON.stringify({
+        id: id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        data.forEach(row => {
+          console.log('<div>' + row.flighttype + '</div>')
+          setreservers(reservers + '<div>' + row.flighttype + '</div>')
 
-        
-        
-        })
-         .catch((error) => console.log("Error fetching data: ", error));
-     }
+        });
+
+
+
+      })
+      .catch((error) => console.log("Error fetching data: ", error));
+  }
 
   // const fetchData = async () => {
   //   const id = 29; // Replace with the ID you want to search for
@@ -184,14 +184,12 @@ function UserProfile1() {
     },
     zoom: 11,
   };
-  const [id, setId] = useState("");
-  const [emailpost, setEmailpost] = useState("");
-  const [Accountype, setAccountype] = useState("");
+
   // Not the correct endpoint to use...to retrieve email, please grab from the stored cookie 
 
   function get_USERprofile(email) {
-  console.log(email);
-   fetch("http://localhost:3001/get-user", {
+    console.log(email);
+    fetch("http://localhost:3001/get-user", {
 
       method: "POST",
       headers: {
@@ -251,7 +249,7 @@ function UserProfile1() {
           </p>
         </section>
         <section id="content2">
-        { reservers }
+          {reservers}
         </section>
       </div>
     </main>
