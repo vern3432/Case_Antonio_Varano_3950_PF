@@ -92,8 +92,11 @@ function UserProfile1() {
       }
     }
   };
+  const [reservers, setreservers] = useState("");
 
   function fetchData(id) {
+    setreservers('Please make a Reservation to Populate this Space')
+
     console.log(id);
      fetch('http://localhost:3001/fetch-user-reserver', {
         method: "POST",
@@ -106,11 +109,15 @@ function UserProfile1() {
        })
          .then((response) => response.json())
          .then((data) => {
-           console.log(data);
-          //  setId(data.user_id);
-          //  setEmailpost(data.email);
-          //  setAccountype(data.user_type); 
-               })
+          data.forEach(row => {
+            console.log('<div>'+row.flighttype+'</div>')
+            setreservers(reservers+'<div>'+row.flighttype+'</div>')
+            
+            });
+
+        
+        
+        })
          .catch((error) => console.log("Error fetching data: ", error));
      }
 
@@ -230,38 +237,7 @@ function UserProfile1() {
           </p>
         </section>
         <section id="content2">
-          <h2 id="about_text">Rentals</h2>
-          <p id="about_text">
-            Explore the joy of flying with our premier aircraft rental service
-            at [Flight School Name]. Whether you're a seasoned pilot or
-            embarking on your first solo adventure, our diverse fleet of
-            well-maintained aircraft is at your fingertips. Experience the
-            thrill of the open skies with our reliable rentals, backed by our
-            commitment to safety and quality, ensuring every flight is a
-            seamless and exhilarating journey
-          </p>
-          <h2 id="about_text">Lessons</h2>
-          <p id="about_text">
-            At [Flight School Name], our lessons are tailored to transform
-            aspirations into aviator achievements. Led by seasoned instructors,
-            our comprehensive flight lessons blend theory with hands-on
-            experience, providing a dynamic and personalized learning
-            environment. From the basics of takeoff to mastering intricate
-            maneuvers, we guide aspiring pilots through every stage of their
-            aviation journey, fostering confidence and competence in the
-            exhilarating realm of flight.
-          </p>
-          <h2 id="about_text">Designated Pre-Chartered Flights</h2>
-          <p id="about_text">
-            Elevate your travel experience with our Designated Pre-Chartered
-            Flights service at [Flight School Name]. Tailored for those seeking
-            convenience and flexibility, our service allows you to customize
-            your aerial itinerary, choosing destinations and schedules that
-            align with your preferences. With a commitment to luxury, safety,
-            and punctuality, we redefine private air travel, ensuring each
-            journey is a seamless, comfortable, and memorable adventure above
-            the clouds.
-          </p>
+        { reservers }
         </section>
       </div>
     </main>
