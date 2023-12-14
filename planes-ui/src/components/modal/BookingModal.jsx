@@ -112,7 +112,7 @@ function BookingModal({ show, handleClose, reservation }) {
         </p>
         <p>
           {" "}
-          <strong>Plane model: </strong> {reservation?.plane_make}
+          <strong>Plane make: </strong> {reservation?.plane_make}
         </p>
         {reservation?.instructor_name && (
           <p>

@@ -142,13 +142,24 @@ function UserProfile1() {
       .then((response) => response.json())
       .then((data) => {
         if (data.length > 0) {
+          console.log(data);
           setreservers(data.map((row) => (
+
             <div key={row.comment_id} className="personal-reservation-card">
               <p>Flight Type: {row.flighttype}</p>
               <p>From Date: {row.fromDate}</p>
               <p>To Date: {row.toDate}</p>
               <p>From Time: {row.fromTime}</p>
               <p>From Time: {row.toTime}</p>
+              {row.user_id_2_email && (
+                <p>Co-pilot: {row.user_id_2_email}</p>
+              )}
+              {row.instructor_name && (
+                <p>Instructor: {row.instructor_name}</p>
+              )}
+              <p>Plane model: {row.plane_model}</p>
+
+
 
             </div>
           )));
@@ -193,16 +204,16 @@ function UserProfile1() {
       </div>
       <div id="content">
         <section id="content1">
-          {/* <h3>Information Comapny and Origin</h3> */}
           <h1 id="about_text">Account Info</h1>
-          <p id="about_text">
-            <b>Account Email: {emailpost}</b>
+          <p id="about_text b">
+            <b>Email:</b> {emailpost}
             <br />
-            <b>Account ID:  {(id)}</b>
+            <b>ID:</b> {id}
             <br />
-            <b>Account Type:{Accountype}</b>
+            <b>Type:</b> {Accountype}
           </p>
         </section>
+
         <section id="content2">
           {reservers}
         </section>
