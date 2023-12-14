@@ -142,6 +142,7 @@ function ReservationModal({ tail_number, id }) {
       // Handle the response here, depending on the server's response
       if (response.ok) {
         console.log("Good response from saveReservation endpoint");
+        alert("Reservation Made")
       } else {
         console.log("Failed to fetch endpoint 'saveReservation'");
       }
