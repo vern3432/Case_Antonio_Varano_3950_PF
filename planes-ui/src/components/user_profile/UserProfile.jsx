@@ -2,8 +2,8 @@
 import "../about/about_style.css";
 import GoogleMapReact, { Marker } from "google-map-react";
 import modalfor from "./modalfor";
+import { useState, useEffect, useRef } from "react";
 
-import React, { useState, useRef } from "react";
 const renderMarkers = (map, maps) => {
   let marker = new maps.Marker({
     position: { lat: 25.0391667, lng: 122.525 },
@@ -52,6 +52,54 @@ function onselection(input) {
 }
 
 function UserProfile1() {
+
+  // Get the cookie given the name. In our example, just look for the start 'userName='
+  const getCookie = (name) => {
+    const cookies = document.cookie.split(";");
+
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name)) {
+        const value = cookie.substring(name.length);
+        return value;
+      }
+    }
+
+    return null; // Cookie not found
+  };
+
+  // Extract the information from the userCookie into their own constants
+  const extractUserInfo = (userCookie) => {
+    const userInfo = {};
+
+    // Extract email address
+    const emailMatch = userCookie.match(/([^&]+)/);
+    userInfo.email = emailMatch ? emailMatch[1] : null;
+
+    // Extract userType
+    const userTypeMatch = userCookie.match(/&userType=([^&]+)/);
+    userInfo.userType = userTypeMatch ? userTypeMatch[1] : null;
+
+    // Extract userId
+    const userIdMatch = userCookie.match(/&userId=([^&]+)/);
+    userInfo.userId = userIdMatch ? parseInt(userIdMatch[1], 10) : null;
+
+    return userInfo;
+  };
+
+  useEffect(() => {
+    const userCookie = getCookie("userName=");
+
+    if (userCookie) {
+      // Extract the cookie info
+      const userInfo = extractUserInfo(userCookie);
+      setId(userInfo.userId);
+      setEmailpost(userInfo.email);
+      setAccountype(userInfo.userType);
+      fetchData(userInfo.userId);
+    }
+  });
+
   const [rerender, setRerender] = useState(false);
   const selectedTabRef = useRef(1);
 
@@ -95,24 +143,24 @@ function UserProfile1() {
 
   function fetchData(id) {
     console.log(id);
-     fetch('http://localhost:3001/fetch-user-reserver', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    fetch('http://localhost:3001/fetch-user-reserver', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-         body: JSON.stringify({
-          id: id,
-         }),
-       })
-         .then((response) => response.json())
-         .then((data) => {
-           console.log(data);
-          //  setId(data.user_id);
-          //  setEmailpost(data.email);
-          //  setAccountype(data.user_type); 
-               })
-         .catch((error) => console.log("Error fetching data: ", error));
-     }
+      body: JSON.stringify({
+        id: id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        //  setId(data.user_id);
+        //  setEmailpost(data.email);
+        //  setAccountype(data.user_type); 
+      })
+      .catch((error) => console.log("Error fetching data: ", error));
+  }
 
   // const fetchData = async () => {
   //   const id = 29; // Replace with the ID you want to search for
@@ -144,13 +192,6 @@ function UserProfile1() {
   // };
 
 
-
-
-
-
-
-
-
   const defaultProps = {
     center: {
       lat: 42.680416,
@@ -163,29 +204,30 @@ function UserProfile1() {
   const [Accountype, setAccountype] = useState("");
   // Not the correct endpoint to use...to retrieve email, please grab from the stored cookie 
 
-  function get_USERprofile(email) {
-  console.log(email);
-   fetch("http://localhost:3001/get-user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-    },
-       body: JSON.stringify({
-         email: email,
-       }),
-     })
-       .then((response) => response.json())
-       .then((data) => {
-         console.log(data);
-         setId(data.user_id);
-         setEmailpost(data.email);
-         setAccountype(data.user_type);   
-         fetchData(data.user_id);
- 
-           })
-       .catch((error) => console.log("Error fetching data: ", error));
-   }
-     get_USERprofile(localStorage.getItem("curremail"));
+  // function get_USERprofile(email) {
+  //   console.log(email);
+  //   fetch("http://localhost:3001/get-user", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       email: email,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setId(data.user_id);
+  //       setEmailpost(data.email);
+  //       setAccountype(data.user_type);
+  //       fetchData(data.user_id);
+
+  //     })
+  //     .catch((error) => console.log("Error fetching data: ", error));
+  // }
+
+  //get_USERprofile(localStorage.getItem("curremail"));
 
   return (
     <main style={{ height: `${getMainHeight()}px`, transition: "height 0.5s" }}>
@@ -221,11 +263,11 @@ function UserProfile1() {
           {/* <h3>Information Comapny and Origin</h3> */}
           <h1 id="about_text">Account Info</h1>
           <p id="about_text">
-            <b>Account Email ID: {emailpost}</b>
-            <br/>
+            <b>Account Email: {emailpost}</b>
+            <br />
             <b>Account ID:  {(id)}</b>
             <br />
-            <b>Account Email ID:{Accountype}</b>
+            <b>Account Type:{Accountype}</b>
           </p>
         </section>
         <section id="content2">
