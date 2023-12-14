@@ -84,8 +84,8 @@ function ReservationModal({ tail_number, id }) {
     //Send post request to create reservation
     // If the userCookie exists
     if (userId) {
-      if (userType.toLowerCase() === "student" && instructor === null) {
-        alert("Students must fly with an instructor");
+      if (userType.toLowerCase() === "student" && instructor === null || userType.toLowerCase() === "student" && activity.toLowerCase() !== "training") {
+        alert("Students must fly with an instructor in a training slot");
       } else {
         // Data to be sent to save reservation
         const request = {
@@ -100,6 +100,7 @@ function ReservationModal({ tail_number, id }) {
           optionalUser,
           comment,
         };
+
 
         // Calculate total time
         const fromDateTime = new Date(`${fromDate}T${fromTime}`);
