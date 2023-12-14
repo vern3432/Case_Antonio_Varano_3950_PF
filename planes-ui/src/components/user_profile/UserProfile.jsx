@@ -3,7 +3,7 @@ import "../about/about_style.css";
 import GoogleMapReact, { Marker } from "google-map-react";
 import modalfor from "./modalfor";
 import { useState, useEffect, useRef } from "react";
-
+import "./profile.css";
 
 const tabHeights = {
   1: 600,
@@ -14,7 +14,6 @@ const tabHeights = {
 var [mainHeight, setMainHeight] = [10, 10];
 function onselection(input) {
   mainHeight = input;
-  console.log("ran:" + input);
 }
 
 function UserProfile1() {
@@ -66,9 +65,22 @@ function UserProfile1() {
       setId(userInfo.userId);
       setEmailpost(userInfo.email);
       setAccountype(userInfo.userType);
-      fetchData(userInfo.userId);
+
     }
-  });
+
+    fetchData(id); // Initial fetch
+
+    // Set up interval for polling every 5 seconds
+    const intervalId = setInterval(() => {
+      fetchData(id);
+    }, 5000);
+
+    // Cleanup function to clear the interval when the component is unmounted
+    return () => clearInterval(intervalId);
+
+    // Dependency array ensures that the effect runs only when 'id' changes
+  }, [id]);
+
 
   const [rerender, setRerender] = useState(false);
   const selectedTabRef = useRef(1);
@@ -88,6 +100,7 @@ function UserProfile1() {
   let selectedTab = 1;
 
   const handleTabChange = (tabNumber) => {
+    fetchData(id);
     selectedTabRef.current = tabNumber;
     selectedTab = tabNumber;
     onselection(tabNumber * 100);
@@ -128,82 +141,25 @@ function UserProfile1() {
     })
       .then((response) => response.json())
       .then((data) => {
-        data.forEach((row) => {
-          console.log('<div>' + row.flighttype + '</div>');
-          setreservers((prevReservers) => prevReservers + '<div>' + row.flighttype + '</div>');
-        });
+        if (data.length > 0) {
+          setreservers(data.map((row) => (
+            <div key={row.comment_id} className="personal-reservation-card">
+              <p>Flight Type: {row.flighttype}</p>
+              <p>From Date: {row.fromDate}</p>
+              <p>To Date: {row.toDate}</p>
+              <p>From Time: {row.fromTime}</p>
+              <p>From Time: {row.toTime}</p>
+
+            </div>
+          )));
+        } else {
+          setreservers('No reservations found.');
+        }
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
         // Handle the error as needed
       });
-  }
-
-  // const fetchData = async () => {
-  //   const id = 29; // Replace with the ID you want to search for
-
-  //   try {
-  //     const response = await fetch('http://localhost:3001/fetch-user-reserver', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ id }),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok');
-  //     }
-
-  //     const data = await response.json();
-
-  //     // Print the fetched rows to the console
-  //     console.log('Fetched data:');
-  //     data.data.forEach(row => {
-  //       console.log(row);
-  //     });
-
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //   }
-  // };
-
-
-
-
-
-
-
-
-
-  const defaultProps = {
-    center: {
-      lat: 42.680416,
-      lng: -71.127548,
-    },
-    zoom: 11,
-  };
-
-  // Not the correct endpoint to use...to retrieve email, please grab from the stored cookie 
-
-  function get_USERprofile(email) {
-    console.log(email);
-    fetch("http://localhost:3001/get-user", {
-
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: id,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-
-      })
-      .catch((error) => console.log("Error fetching data: ", error));
   }
 
   return (
