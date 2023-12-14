@@ -1,9 +1,13 @@
+import Button from "react-bootstrap/esm/Button";
 import "./contact_style.css";
-import myimage from "./kisspng-check-mark-icon-design-icon-black-checkmark-5a774ec74604e8.5772449315177683912868(3).png"; // wherever is it.
 import { useState } from "react";
 
 const Contact = () => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [subject, setSubject] = useState();
+  const [content, setContent] = useState();
 
   function validateForm() {
     console.log("actually running");
@@ -96,8 +100,8 @@ const Contact = () => {
     <div id="pagecontent" className="container">
       {isFormSubmitted && (
         <div id="thank-you-message">
-          <h1>Thank You for Contact Us!</h1>
-          <span>We will get Back to You as soon as We can!</span>
+          <h1>Thank you for contacting us!</h1>
+          <span>We will get back to you as soon as we can!</span>
         </div>
       )}
       <form id="post" action="" method="post">
@@ -114,6 +118,7 @@ const Contact = () => {
             id="name"
             name="name"
             placeholder="Name Here"
+            onChange={(x) => setName(x)}
           />
           <br />
         </fieldset>
@@ -129,6 +134,7 @@ const Contact = () => {
             id="email"
             name="email"
             placeholder="Your Email Here"
+            onChange={(x) => setEmail(x)}
           />
           <br />
         </fieldset>
@@ -144,6 +150,7 @@ const Contact = () => {
             id="subject"
             name="subject"
             placeholder="Subject Line Here"
+            onChange={(x) => setSubject(x)}
           />
           <br />
         </fieldset>
@@ -160,28 +167,23 @@ const Contact = () => {
               id="content"
               name="content"
               placeholder="Body Here"
+              onChange={(x) => setContent(x)}
             />
             <br />
           </fieldset>
         </fieldset>
 
         <fieldset id="submit-btn">
-          <button
+          <Button
             name="submit"
             type="button"
             onClick={() => submitpost()}
             id="post-submit"
             data-submit="...Sending"
+            disabled={!name || !email || !subject || !content}
           >
             Submit
-            <img
-              src={myimage}
-              id="submiticon"
-              height="10"
-              width="10"
-              alt="Check Icon"
-            />
-          </button>
+          </Button>
         </fieldset>
       </form>
     </div>
