@@ -100,6 +100,8 @@ input[name="css-tabs"] {
   height: 80px;
   border-bottom: 5px solid #0971f1;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: flex-start;
 }
 #tabs::before {
   content: "";
@@ -118,8 +120,10 @@ input[name="css-tabs"] {
   z-index: 0;
   height: 80px;
   width: 102px;
-  background: #0971f1;
   transition: transform 400ms;
+}
+.active {
+  background: #0971f1;
 }
 #tabs label {
   position: relative;
@@ -190,6 +194,7 @@ input[name="css-tabs"] {
   position: relative;
   height: 500px;
   margin-top: 10px;
+  overflow: scroll;
 }
 #content::before {
   content: "";

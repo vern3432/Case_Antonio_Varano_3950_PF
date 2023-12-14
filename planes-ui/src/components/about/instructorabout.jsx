@@ -2,39 +2,40 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-
-var current_bio = "NA";
-var Job_Description = "NA";
-var Position = "NA";
-
-function get_profile(ID) {
-  console.log(ID);
-  fetch("http://localhost:3001/get-employee2", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      ID: ID,
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      current_bio = data.Bio;
-      Job_Description = data.Job_Description;
-      Position = data.Position;
-    })
-    .catch((error) => console.log("Error fetching data: ", error));
-}
+import { useEffect } from "react";
 
 // Creates the ReservationModal component with the option to choose the start and end date, the type of activity and if you want a instructor or not when doing the reservation of the plane
 function InstructorModal({ model, pfp, ID }) {
-  get_profile(ID);
-  console.log(Job_Description);
-
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [currentBio, setCurrentBio] = useState("NA");
+  const [jobDescription, setJobDescription] = useState("NA");
+  const [position, setPosition] = useState("NA");
+
+  function get_profile(ID) {
+    console.log(ID);
+    fetch("http://localhost:3001/get-employee2", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ID: ID,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCurrentBio(data.Bio);
+        setJobDescription(data.Job_Description);
+        setPosition(data.Position);
+      })
+      .catch((error) => console.log("Error fetching data: ", error));
+  }
+
+  useEffect(() => {
+    get_profile(ID);
+  }, [ID]);
 
   return (
     <>
@@ -48,11 +49,11 @@ function InstructorModal({ model, pfp, ID }) {
         </Modal.Header>
         <Modal.Body>
           <h5>Job Title</h5>
-          <p>{Position}</p>
+          <p>{position}</p>
           <h5>Job Description</h5>
-          <p>{Job_Description}</p>
+          <p>{jobDescription}</p>
           <h5>Staff Bio</h5>
-          <p>{current_bio}</p>
+          <p>{currentBio}</p>
           <img src={pfp} alt="" id="contactpageimage" />
         </Modal.Body>
         <Modal.Footer>

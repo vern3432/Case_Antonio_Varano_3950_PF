@@ -2,6 +2,7 @@
 import { Nav, Navbar } from "react-bootstrap";
 import navigationStyle from "./navigation.module.css";
 import { useLocation } from "react-router-dom";
+import { useState } from "react";
 
 // Get the cookie given the name. In our example, just look for the start 'userName='
 const getCookie = (name) => {
@@ -43,6 +44,7 @@ function Navigation() {
   // Extract the cookie info
   const userInfo = extractUserInfo();
   const location = useLocation();
+  const [brandTextVisible, setBrandTextVisible] = useState(false);
 
   // Get current navigation path
   const path = location.pathname;
@@ -62,7 +64,10 @@ function Navigation() {
           src="favicon.ico" // Replace with the actual path to the image
           alt="User Profile"
           className={navigationStyle.profileImage}
+          onMouseOver={() => setBrandTextVisible(true)}
+          onMouseOut={() => setBrandTextVisible(false)}
         />
+        {brandTextVisible && " Bay State Aero Club"}
       </Navbar.Brand>
       <Navbar.Toggle
         aria-controls="navbarScroll"
@@ -70,6 +75,12 @@ function Navigation() {
       ></Navbar.Toggle>
       <Navbar.Collapse id="navbarScroll">
         <Nav>
+          <Nav.Link
+            href="/user_profile"
+            className={path === "/user_profile" && navigationStyle.active}
+          >
+            Profile
+          </Nav.Link>
           <Nav.Link
             href="/reservations"
             className={path === "/reservations" && navigationStyle.active}
@@ -93,12 +104,6 @@ function Navigation() {
             className={path === "/contact" && navigationStyle.active}
           >
             Contact
-          </Nav.Link>
-          <Nav.Link
-            href="/user_profile"
-            className={path === "/user_profile" && navigationStyle.active}
-          >
-            Profile
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

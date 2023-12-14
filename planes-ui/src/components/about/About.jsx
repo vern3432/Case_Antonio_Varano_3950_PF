@@ -10,6 +10,7 @@ import marker from "./marker1.png";
 import Thomas from "./oldwhitedude.jpg";
 import InstructorModal from "./instructorabout";
 import React, { useState, useRef } from "react";
+import Button from "react-bootstrap/esm/Button";
 const AnyReactComponent = ({ text }) => (
   <div>
     {" "}
@@ -67,6 +68,7 @@ function onselection(input) {
 
 function About() {
   const [rerender, setRerender] = useState(false);
+  const [activeTab, setActiveTab] = useState(1);
   const selectedTabRef = useRef(1);
 
   const latitude = 42.6685;
@@ -89,6 +91,7 @@ function About() {
     onselection(tabNumber * 100);
     updateTabVisibility();
     triggerRerender();
+    setActiveTab(tabNumber);
   };
   const triggerRerender = () => {
     setRerender((prev) => !prev);
@@ -153,16 +156,32 @@ function About() {
         onChange={() => handleTabChange(4)}
       ></input>
       <div id="tabs">
-        <label id="tab1" htmlFor="radio1">
+        <label
+          id="tab1"
+          htmlFor="radio1"
+          className={activeTab === 1 && "active"}
+        >
           Our Company{" "}
         </label>
-        <label id="tab2" htmlFor="radio2">
+        <label
+          id="tab2"
+          htmlFor="radio2"
+          className={activeTab === 2 && "active"}
+        >
           Services
         </label>
-        <label id="tab3" htmlFor="radio3">
+        <label
+          id="tab3"
+          htmlFor="radio3"
+          className={activeTab === 3 && "active"}
+        >
           Location
         </label>
-        <label id="tab4" htmlFor="radio4">
+        <label
+          id="tab4"
+          htmlFor="radio4"
+          className={activeTab === 4 && "active"}
+        >
           Our Staff
         </label>
       </div>
@@ -245,7 +264,7 @@ function About() {
           <div id="dircontainer">
             <p id="textbutt">
               315 Turnpike St, North Andover, MA 01845 <br />
-              <button
+              <Button
                 type="button"
                 id="buttock"
                 onClick={() =>
@@ -255,7 +274,7 @@ function About() {
                 }
               >
                 Get Direction
-              </button>
+              </Button>
             </p>
           </div>
           <br />
@@ -287,7 +306,7 @@ function About() {
             <div className="Column">
               <div id="staff-Container">
                 <img
-                  className="staffimage"
+                  className="staffimage img-fluid"
                   src={Johnathan}
                   alt="pfp not found"
                 />
@@ -307,7 +326,7 @@ function About() {
             <div className="Column">
               <div id="staff-Container">
                 <img
-                  className="staffimage"
+                  className="staffimage img-fluid"
                   src={Samantha}
                   alt="pfp not found"
                 />
@@ -326,7 +345,11 @@ function About() {
             </div>
             <div className="Column">
               <div id="staff-Container">
-                <img className="staffimage" src={Ea} alt="pfp not found" />
+                <img
+                  className="staffimage img-fluid"
+                  src={Ea}
+                  alt="pfp not found"
+                />
                 <p id="staffname">
                   Eamonn :{" "}
                   <b>
@@ -344,7 +367,11 @@ function About() {
           <div className="Row">
             <div className="Column">
               <div id="staff-Container">
-                <img className="staffimage" src={Angela} alt="pfp not found" />
+                <img
+                  className="staffimage img-fluid"
+                  src={Angela}
+                  alt="pfp not found"
+                />
                 <p id="staffname">
                   Angela:{" "}
                   <b>
@@ -361,7 +388,7 @@ function About() {
             <div className="Column">
               <div id="staff-Container">
                 <img
-                  className="staffimage"
+                  className="staffimage img-fluid"
                   src={Clarence}
                   alt="pfp not found"
                 />
@@ -376,7 +403,11 @@ function About() {
             </div>
             <div className="Column">
               <div id="staff-Container">
-                <img className="staffimage" src={Thomas} alt="pfp not found" />
+                <img
+                  className="staffimage img-fluid"
+                  src={Thomas}
+                  alt="pfp not found"
+                />
                 <p id="staffname">
                   Thomas:{" "}
                   <b>
