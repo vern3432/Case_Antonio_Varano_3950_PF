@@ -126,7 +126,7 @@ function UserProfile1() {
   const [reservers, setreservers] = useState("");
 
   function fetchData(id) {
-    setreservers('Please make a Reservation to Populate this Space');
+
 
     console.log(id);
 

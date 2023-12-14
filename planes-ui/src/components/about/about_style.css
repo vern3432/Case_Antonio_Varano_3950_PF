@@ -15,6 +15,7 @@ main {
 
   /* height: auto; */
 }
+
 GoogleMapReact {
   float: right;
 }
@@ -33,6 +34,7 @@ GoogleMapReact {
   float: left;
   font-size: 1.5em;
 }
+
 /* main::after {
 
 	height: 1000px; 
@@ -44,12 +46,13 @@ GoogleMapReact {
 input[name="css-tabs"] {
   display: none;
 }
+
 /* a {
 	color: #F29A77;
 } */
 
 .staffimage {
-  width: 220px;
+  width: 100%;
   height: 337px;
   object-fit: cover;
   border-radius: 20px;
@@ -61,15 +64,22 @@ input[name="css-tabs"] {
 
 .Row {
   display: table;
-  width: 100%; /*Optional*/
-  table-layout: fixed; /*Optional*/
-  border-spacing: 10px; /*Optional*/
+  width: 100%;
+  /*Optional*/
+  table-layout: fixed;
+  /*Optional*/
+  border-spacing: 10px;
+  /*Optional*/
 }
+
 .Column {
   display: table-cell;
-  background-color: gray; /*Optional*/
+  background: linear-gradient(to bottom, gray, #fff);
+  /*Optional*/
   border-radius: 20px;
+
 }
+
 #buttock {
   cursor: pointer;
   border-radius: 10px;
@@ -78,21 +88,25 @@ input[name="css-tabs"] {
   color: black;
   background: #0971f1;
 }
+
 #dircontainer {
   float: left;
   font-size: 1.5em;
 }
+
 #buttock:hover {
   background: #43a047;
   -webkit-transition: background 0.3s ease-in-out;
   -moz-transition: background 0.3s ease-in-out;
   transition: background-color 0.3s ease-in-out;
 }
+
 #textbutt {
   color: black;
   inline-size: 150px;
   display: "flex";
 }
+
 #tabs {
   /* padding: 0 0 0 50px;
   width: calc(100% + 50px); */
@@ -103,6 +117,7 @@ input[name="css-tabs"] {
   display: flex;
   justify-content: flex-start;
 }
+
 #tabs::before {
   content: "";
   display: block;
@@ -113,6 +128,7 @@ input[name="css-tabs"] {
   margin-top: 16px;
   height: 80px;
 }
+
 #tabs::after {
   content: "";
   display: block;
@@ -122,9 +138,11 @@ input[name="css-tabs"] {
   width: 102px;
   transition: transform 400ms;
 }
+
 .active {
   background: #0971f1;
 }
+
 #tabs label {
   position: relative;
   z-index: 100;
@@ -138,9 +156,11 @@ input[name="css-tabs"] {
   border-right: 1px dotted #575654;
   cursor: pointer;
 }
+
 #tabs label:first-child {
   border-left: 1px dotted #575654;
 }
+
 #tabs label::before {
   content: "";
   display: block;
@@ -156,12 +176,15 @@ input[name="css-tabs"] {
 #tab1::before {
   background-image: url(./plane.png);
 }
+
 #tab2::before {
   background-image: url(./airplane-icon-260nw-252657079\(1\).png);
 }
+
 #tab3::before {
   background-image: url(./maps.png);
 }
+
 #tab4::before {
   background-image: url(./staff.png);
 }
@@ -169,33 +192,41 @@ input[name="css-tabs"] {
 #tab6::before {
   background-image: url(./reserve.png);
 }
+
 #tab5::before {
   background-image: url(./profile.png);
 }
-#radio1:checked ~ #tabs #tab1::before,
-#radio2:checked ~ #tabs #tab2::before,
-#radio3:checked ~ #tabs #tab3::before,
-#radio4:checked ~ #tabs #tab4::before {
+
+#radio1:checked~#tabs #tab1::before,
+#radio2:checked~#tabs #tab2::before,
+#radio3:checked~#tabs #tab3::before,
+#radio4:checked~#tabs #tab4::before {
   filter: invert(100%);
 }
-#radio1:checked ~ #tabs::after {
+
+#radio1:checked~#tabs::after {
   transform: translateX(0);
 }
-#radio2:checked ~ #tabs::after {
+
+#radio2:checked~#tabs::after {
   transform: translateX(101px);
 }
-#radio3:checked ~ #tabs::after {
+
+#radio3:checked~#tabs::after {
   transform: translateX(202px);
 }
-#radio4:checked ~ #tabs::after {
+
+#radio4:checked~#tabs::after {
   transform: translateX(303px);
 }
+
 #content {
   position: relative;
   height: 500px;
   margin-top: 10px;
   overflow: scroll;
 }
+
 #content::before {
   content: "";
   display: block;
@@ -208,6 +239,7 @@ input[name="css-tabs"] {
   border-left: 10px solid transparent;
   border-bottom: 8px solid transparent;
 }
+
 #content::after {
   content: "";
   display: block;
@@ -220,20 +252,23 @@ input[name="css-tabs"] {
   border-right: 10px solid transparent;
   border-bottom: 8px solid transparent;
 }
+
 .column11 {
   float: left;
   width: 50%;
 }
+
 #content section {
   position: absolute;
   transform: translateY(50px);
   opacity: 0;
   transition: transform 500ms, opacity 500ms;
 }
-#radio1:checked ~ #content #content1,
-#radio2:checked ~ #content #content2,
-#radio3:checked ~ #content #content3,
-#radio4:checked ~ #content #content4 {
+
+#radio1:checked~#content #content1,
+#radio2:checked~#content #content2,
+#radio3:checked~#content #content3,
+#radio4:checked~#content #content4 {
   transform: translateY(0);
   opacity: 1;
 }

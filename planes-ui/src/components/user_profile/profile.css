@@ -4,3 +4,11 @@
     margin-bottom: 10px;
     padding: 10px;
 }
+
+/* Add a container for the reservation cards */
+.reservation-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* Adjust as needed */
+}
