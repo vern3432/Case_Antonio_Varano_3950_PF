@@ -128,11 +128,15 @@ function UserProfile1() {
        })
          .then((response) => response.json())
          .then((data) => {
-          data.forEach(row => {
-            console.log('<div>'+row.flighttype+'</div>')
-            setreservers(reservers+'<div>'+row.flighttype+'</div>')
+          console.log(data)
+          console.log(typeof(data))
+          console.log(Array.isArray(data))
+          setreservers(reservers+ data.map(row => `<div>${row.reservation_id}</div>`).join(''))
+          // data.forEach(row => {
+          //   console.log('<div>'+row.flighttype+'</div>')
+          //   setreservers(reservers+'<div>'+row.flighttype+'</div>')
             
-            });
+          //   });
 
         
         
