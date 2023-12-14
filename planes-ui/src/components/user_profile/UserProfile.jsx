@@ -99,10 +99,9 @@ function UserProfile1() {
     },
     zoom: 11,
   };
-
-  let id=useState("");
-  let emailpost=useState("");
-  let Accountype=useState("");
+  const [id, setId] = useState("");
+  const [emailpost, setEmailpost] = useState("");
+  const [Accountype, setAccountype] = useState("");
   // Not the correct endpoint to use...to retrieve email, please grab from the stored cookie 
 
   function get_USERprofile(email) {
@@ -119,11 +118,9 @@ function UserProfile1() {
        .then((response) => response.json())
        .then((data) => {
          console.log(data);
-         id=data.user_id;
-         emailpost = JSON.stringify(data.email);
-         Accountype=data.user_type;
-         console.log(id)
-       })
+         setId(data.user_id);
+         setEmailpost(data.email);
+         setAccountype(data.user_type);       })
        .catch((error) => console.log("Error fetching data: ", error));
    }
      get_USERprofile(localStorage.getItem("curremail"));
@@ -162,9 +159,9 @@ function UserProfile1() {
           {/* <h3>Information Comapny and Origin</h3> */}
           <h1 id="about_text">Account Info</h1>
           <p id="about_text">
-            <b>Account ID:{id}</b><p id="accountid_p"></p>
-            <br />
-            <b>Account Email ID:{(emailpost)}</b>
+            <b>Account Email ID: {emailpost}</b>
+            <br/>
+            <b>Account ID:  {(id)}</b>
             <br />
             <b>Account Email ID:{Accountype}</b>
           </p>
